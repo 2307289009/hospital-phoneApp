@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "就诊人",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "uv-icon": "../../uni_modules/uv-icon/components/uv-icon/uv-icon",
+    "uv-list-item": "../../uni_modules/uv-list/components/uv-list-item/uv-list-item",
+    "uv-list": "../../uni_modules/uv-list/components/uv-list/uv-list",
+    "uv-modal": "../../uni_modules/uv-modal/components/uv-modal/uv-modal"
+  }
+}
