@@ -1,0 +1,35 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/category/category",
+    "pages/confirm/confirm"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "BJTU智慧医院挂号系统",
+    "navigationBarBackgroundColor": "#6AB5B4",
+    "backgroundColor": "#F5F5F0"
+  },
+  "tabBar": {
+    "color": "#333333",
+    "selectedColor": "#1695F1",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/111.png",
+        "selectedIconPath": "static/111.png",
+        "text": "简介"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "iconPath": "static/222.png",
+        "selectedIconPath": "static/222.png",
+        "text": "挂号"
+      }
+    ]
+  },
+  "usingComponents": {}
+}
