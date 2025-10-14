@@ -25,7 +25,6 @@
 /* 文章场景相关 */
 .item.data-v-93207a4f {
   margin: 10px 20px;
-  /* 修改：新增了全局字体颜色 */
   color: #2c3e50;
 }
 .item .header.data-v-93207a4f {
@@ -36,9 +35,6 @@
 .item .header .name.data-v-93207a4f {
   font-size: 16px;
   font-weight: bold;
-}
-.item .header .status.data-v-93207a4f {
-  /* 修改：移除了固定的颜色，由组件内部控制 */
 }
 .item .info .info-item.data-v-93207a4f {
   display: flex;

@@ -15,7 +15,7 @@ if (!Math) {
   (_easycom_uv_gap + _easycom_uv_vtabs_item + _easycom_uv_vtabs)();
 }
 const _sfc_main = {
-  __name: "category",
+  __name: "appointment",
   setup(__props) {
     const list = common_vendor.ref([]);
     const chain = common_vendor.ref(true);
@@ -67,13 +67,13 @@ const _sfc_main = {
             }),
             b: index < list.value.length - 1
           }, index < list.value.length - 1 ? {
-            c: "8145b772-2-" + i0 + "," + ("8145b772-1-" + i0),
+            c: "ef2dfbea-2-" + i0 + "," + ("ef2dfbea-1-" + i0),
             d: common_vendor.p({
               ["bg-color"]: "#f1f1f1",
               height: "4"
             })
           } : {}, {
-            e: "8145b772-1-" + i0 + ",8145b772-0",
+            e: "ef2dfbea-1-" + i0 + ",ef2dfbea-0",
             f: common_vendor.p({
               index
             }),
@@ -94,5 +94,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-8145b772"], ["__file", "E:/System/phone/pages/category/category.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-ef2dfbea"], ["__file", "E:/System/phone/pages/appointment/appointment.vue"]]);
 wx.createPage(MiniProgramPage);

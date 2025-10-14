@@ -58,10 +58,8 @@ const _sfc_main = {
       confirm: [{
         required: true,
         message: "请输入确定密码",
-        // blur和change事件触发检验
         trigger: ["blur", "change"]
       }, {
-        // 自定义验证函数，见上说明，注意这里面的逻辑不能出现语法报错，否则可能导致不验证
         validator: (rule, value, callback) => {
           console.log(value);
           if (value != userInfo.password) {

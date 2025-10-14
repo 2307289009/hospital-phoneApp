@@ -23,11 +23,45 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-page {
-  background-color: #FFF;
+.item.data-v-ef2dfbea {
+  padding: 10rpx 20rpx;
 }
-.container {
-  padding: 0rpx 30rpx;
-  /* 修改：新增了全局字体颜色 */
-  color: #2c3e50;
+.item-title .text.data-v-ef2dfbea {
+  font-weight: 700;
+  font-size: 32rpx;
+  color: #111;
+}
+.item-content .text.data-v-ef2dfbea {
+  line-height: 48rpx;
+  font-size: 30rpx;
+  color: #111;
+  word-break: break-all;
+}
+.gap.data-v-ef2dfbea {
+  padding: 0 30rpx;
+}
+.boxList-con.data-v-ef2dfbea {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 15px 0px;
+}
+.boxList-item.data-v-ef2dfbea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 33.3%;
+  padding: 5px 0px;
+}
+.itemimgs.data-v-ef2dfbea {
+  width: 70px !important;
+  height: 90px !important;
+}
+.title.data-v-ef2dfbea {
+  color: #000000;
+  font-size: 16px;
+}
+.other.data-v-ef2dfbea {
+  color: #333;
+  font-size: 14px;
 }

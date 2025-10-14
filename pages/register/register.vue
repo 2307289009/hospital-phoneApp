@@ -45,10 +45,10 @@
 		registerApi
 	} from '../../api/index.js'
 	const addRef = ref();
-	//表单ref属性
+	
 	const formRef = ref()
 
-	//表单绑定的对象
+	
 	const userInfo = reactive({
 		userName: '',
 		password: '',
@@ -56,7 +56,7 @@
 		phone: '',
 		name: ''
 	})
-	//表单验证规则
+	
 	const rules = reactive({
 		'name': {
 			type: 'string',
@@ -85,24 +85,23 @@
 		confirm: [{
 			required: true,
 			message: '请输入确定密码',
-			// blur和change事件触发检验
+			
 			trigger: ['blur', 'change']
 		}, {
-			// 自定义验证函数，见上说明，注意这里面的逻辑不能出现语法报错，否则可能导致不验证
+			
 			validator: (rule, value, callback) => {
 				console.log(value)
 				if (value != userInfo.password) {
 					return false;
 				}
-				// 此处业务逻辑省略
-				// 返回true表校验通过，返回false表示不通过
+				
 				return true;
 			},
 			message: '密码和确定密码不一致',
 			trigger: ['blur']
 		}]
 	})
-	//登录
+	
 	const toLogin = () => {
 		uni.navigateTo({
 			url: '/pages/login/login'
@@ -123,7 +122,7 @@
 </script>
 
 <style scoped lang="scss">
-	/* 新增了字体颜色修改 */
+	
 	:deep(.uv-form-item__body__left__content__label) {
 		color: #4A4A4A !important;
 	}

@@ -17,7 +17,7 @@ if (!Math) {
   (_easycom_uv_text + _easycom_uv_list_item + _easycom_uv_load_more + _easycom_uv_list)();
 }
 const _sfc_main = {
-  __name: "doctor_list",
+  __name: "dectorDepartment",
   setup(__props) {
     const indexList = common_vendor.ref([]);
     const deptId = common_vendor.ref("");
@@ -81,14 +81,14 @@ const _sfc_main = {
             b: common_vendor.t(item.nickName),
             c: common_vendor.t(item.deptName),
             d: common_vendor.t(item.jobTitle),
-            e: "dc259ac6-2-" + i0 + "," + ("dc259ac6-1-" + i0),
+            e: "f9661482-2-" + i0 + "," + ("f9661482-1-" + i0),
             f: common_vendor.p({
               lines: 1,
               text: item.goodAt,
               color: "#828c9a"
             }),
             g: common_vendor.o(($event) => toDoctor(item)),
-            h: "dc259ac6-1-" + i0 + ",dc259ac6-0"
+            h: "f9661482-1-" + i0 + ",f9661482-0"
           };
         }),
         b: common_vendor.p({
@@ -103,5 +103,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "E:/System/phone/pages/doctor_list/doctor_list.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "E:/System/phone/pages/dectorDepartment/dectorDepartment.vue"]]);
 wx.createPage(MiniProgramPage);

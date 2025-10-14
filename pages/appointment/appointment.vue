@@ -63,13 +63,13 @@
 	const change = (index) => {
 		console.log('选项改变：', index)
 	}
-	//跳转医生详情页
+	
 	const toDoctor = (item) => {
 		uni.navigateTo({
 			url: "../doctor/doctor?item=" + encodeURIComponent(JSON.stringify(item))
 		})
 	}
-	//获取数据
+	
 	const getCategoryList = async()=>{
 		let res = await getCategoryListApi()
 		if(res && res.code == 200){
@@ -78,7 +78,7 @@
 		}
 	}
 	onReady(() => {
-		// 模拟接口请求数据
+		
 		uni.showLoading({
 			title: '加载中'
 		})
@@ -103,7 +103,7 @@
 		}
 
 		&-content {
-			// padding: 20rpx 0;
+			
 
 			.text {
 				line-height: 48rpx;
@@ -122,11 +122,11 @@
 
 	.boxList-con {
 		display: flex;
-		/* flex布局 */
+		
 		// justify-content: center;
-		/* 左对齐 */
+		
 		flex-wrap: wrap;
-		/* 换行 */
+		
 		padding: 15px 0px;
 	}
 

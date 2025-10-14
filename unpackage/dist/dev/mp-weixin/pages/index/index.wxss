@@ -35,11 +35,8 @@
 }
 .boxList-con {
   display: flex;
-  /* flex布局 */
   justify-content: center;
-  /* 左对齐 */
   flex-wrap: wrap;
-  /* 换行 */
   padding: 15px 0px;
 }
 .boxList-item {
@@ -58,12 +55,10 @@
   padding: 0px 10px;
 }
 .items .info .title {
-  /* 修改：标题字体颜色 */
   color: #00796B;
   font-size: 16px;
 }
 .items .info .other {
-  /* 修改：次要信息字体颜色 */
   color: #546E7A;
   font-size: 14px;
 }

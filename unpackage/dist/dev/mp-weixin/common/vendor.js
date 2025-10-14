@@ -6855,6 +6855,7 @@ const createHook = (lifecycle) => (hook, target = getCurrentInstance()) => {
 };
 const onLoad = /* @__PURE__ */ createHook(ON_LOAD);
 const onReady = /* @__PURE__ */ createHook(ON_READY);
+const onReachBottom = /* @__PURE__ */ createHook(ON_REACH_BOTTOM);
 exports._export_sfc = _export_sfc;
 exports.computed = computed;
 exports.createSSRApp = createSSRApp;
@@ -6864,6 +6865,7 @@ exports.index = index;
 exports.n = n;
 exports.o = o;
 exports.onLoad = onLoad;
+exports.onReachBottom = onReachBottom;
 exports.onReady = onReady;
 exports.p = p;
 exports.reactive = reactive;

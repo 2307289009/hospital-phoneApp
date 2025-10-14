@@ -65,7 +65,7 @@ const _sfc_main = {
     };
     const toDoctorList = (item) => {
       common_vendor.index.navigateTo({
-        url: "../doctor_list/doctor_list?item=" + encodeURIComponent(JSON.stringify(item))
+        url: "../dectorDepartment/dectorDepartment?item=" + encodeURIComponent(JSON.stringify(item))
       });
     };
     common_vendor.onLoad(() => {

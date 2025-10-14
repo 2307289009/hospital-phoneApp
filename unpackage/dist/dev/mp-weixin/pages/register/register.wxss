@@ -23,7 +23,6 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-/* 新增了字体颜色修改 */
 .data-v-bac4a35d .uv-form-item__body__left__content__label {
   color: #4A4A4A !important;
 }

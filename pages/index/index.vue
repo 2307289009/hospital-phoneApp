@@ -55,27 +55,27 @@
 	const indicatorDots = ref(true)
 	const indicatorColor = ref("#FFF")
 	const autoplay = ref(true)
-	//自动切换时间间隔
+	
 	const interval = ref(2000)
-	//滑动动画时长
+	
 	const duration = ref(500)
-	//轮播图数据
+	
 	const swipperList = ref([])
-	//查询轮播图数据
+	
 	const getIndexNews = async () => {
 		let res = await getIndexNewsApi()
 		if (res && res.code == 200) {
 			swipperList.value = res.data;
 		}
 	}
-	//科室列表
+	
 	const baseList = ref([])
-	//查询科室数据
+	
 	const getIndexDept = async () => {
 		let res = await getIndexDeptApi()
 		if (res && res.code == 200) {
 			if (res.data.length > 0) {
-				//组装科室数据类型
+				
 				for (let i = 0; i < res.data.length; i++) {
 					let obj = {
 						img: '',
@@ -90,7 +90,7 @@
 			}
 		}
 	}
-	//查询专家数据
+	
 	const doctorList = ref([])
 	const getIndexDoctor = async () => {
 		let res = await getIndexDoctorApi()
@@ -99,16 +99,16 @@
 			console.log(doctorList.value)
 		}
 	}
-	//跳转医生详情页
+	
 	const toDoctor = (item) => {
 		uni.navigateTo({
 			url: "../doctor/doctor?item=" + encodeURIComponent(JSON.stringify(item))
 		})
 	}
-	//跳转科室医生列表
+	
 	const toDoctorList = (item) => {
 		uni.navigateTo({
-			url: "../doctor_list/doctor_list?item=" + encodeURIComponent(JSON.stringify(item))
+			url: "../dectorDepartment/dectorDepartment?item=" + encodeURIComponent(JSON.stringify(item))
 		})
 	}
 	onLoad(() => {
@@ -134,11 +134,11 @@
 
 	.boxList-con {
 		display: flex;
-		/* flex布局 */
+		
 		justify-content: center;
-		/* 左对齐 */
+		
 		flex-wrap: wrap;
-		/* 换行 */
+		
 		padding: 15px 0px;
 	}
 
@@ -159,13 +159,13 @@
 			padding: 0px 10px;
 
 			.title {
-				/* 修改：标题字体颜色 */
+				
 				color: #00796B;
 				font-size: 16px;
 			}
 
 			.other {
-				/* 修改：次要信息字体颜色 */
+				
 				color: #546E7A;
 				font-size: 14px;
 			}

@@ -2,8 +2,12 @@
   "pages": [
     "pages/login/login",
     "pages/index/index",
-    "pages/category/category",
-    "pages/confirm/confirm"
+    "pages/appointment/appointment",
+    "pages/order/order",
+    "pages/register/register",
+    "pages/doctor/doctor",
+    "pages/confirm/confirm",
+    "pages/dectorDepartment/dectorDepartment"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -24,7 +28,7 @@
         "text": "简介"
       },
       {
-        "pagePath": "pages/category/category",
+        "pagePath": "pages/appointment/appointment",
         "iconPath": "static/222.png",
         "selectedIconPath": "static/222.png",
         "text": "挂号"

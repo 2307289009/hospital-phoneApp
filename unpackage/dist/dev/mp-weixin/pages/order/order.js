@@ -37,7 +37,6 @@ const _sfc_main = {
         currentPage: currentPage.value,
         pageSize: pageSize.value,
         userId: common_vendor.index.getStorageSync("userId")
-        //挂号人的id
       });
       if (res && res.code == 200) {
         pages.value = res.data.pages;
