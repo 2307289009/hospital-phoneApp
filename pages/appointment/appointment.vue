@@ -1,44 +1,29 @@
 <template>
 	<view class="content">
 		<uv-vtabs :chain="chain" :list="list" :height="height" @change="change">
-			<!-- #ifdef VUE2 -->
-			<template v-for="(item,index) in list">
-				<uv-vtabs-item :index="index" :key="index">
-				<!-- #endif -->
-					<!-- #ifdef VUE3 -->
-					<template v-for="(item,index) in list" :key="index">
-						<uv-vtabs-item :index="index">
-						<!-- #endif -->
-							<view class="item" v-for="(item2,index2) in item.childrens" :key="index2">
-								<view class="item-title">
-									<text class="text">{{item2.name}}</text>
-								</view>
-								<view class="item-content">
-									<!-- //医生列表 -->
-									<view class="boxList-con">
-										<view v-for="(item3,index3) in item2.desc" class="boxList-item" @click="toDoctor(item3)" :key="index3">
-											<view class="">
-												<image class="itemimgs" :src='http.baseUrl+item3.image'></image>
-											</view>
-											<view class="title">
-												{{item3.nickName}}
-											</view>
-											<!-- <view class="other">
-												{{item3.sex}}
-											</view> -->
-											<view class="other">
-												{{item3.jobTitle}}
-											</view>
-										</view>
+			<template v-for="(item, index) in list" :key="index">
+				<uv-vtabs-item :index="index">
+					<view class="scroll-content-container">
+						<view class="sub-category" v-for="(item2, index2) in item.childrens" :key="index2">
+							<view class="sub-category-title">
+								<text class="text">{{item2.name}}</text>
+							</view>
+							
+							<view class="doctor-grid">
+								<view v-for="(item3, index3) in item2.desc" class="doctor-card" @click="toDoctor(item3)" :key="index3">
+									<image class="doctor-avatar" :src='http.baseUrl+item3.image'></image>
+									<view class="doctor-name">
+										{{item3.nickName}}
+									</view>
+									<view class="doctor-title">
+										{{item3.jobTitle}}
 									</view>
 								</view>
 							</view>
-							<view class="gap" v-if="index<list.length-1">
-								<uv-gap bg-color="#f1f1f1" height="4"></uv-gap>
-							</view>
-						</uv-vtabs-item>
-					</template>
-					<uv-gap bg-color="#fff" height="600"></uv-gap>
+						</view>
+					</view>
+				</uv-vtabs-item>
+			</template>
 		</uv-vtabs>
 	</view>
 </template>
@@ -52,36 +37,41 @@
 	import {
 		onReady
 	} from '@dcloudio/uni-app';
-	import {getCategoryListApi} from '../../api/index.js'
+	import {
+		getCategoryListApi
+	} from '../../api/index.js'
+	
 	const list = ref([])
 	const chain = ref(true)
-	
 
 	const height = computed(() => {
-		return uni.getSystemInfoSync().windowHeight- uni.upx2px(1);
+		// 减去1px是为了避免某些设备上可能出现的滚动条问题
+		return uni.getSystemInfoSync().windowHeight - uni.upx2px(1);
 	})
-	const change = (index) => {
-		console.log('选项改变：', index)
-	}
 	
+	const change = (index) => {
+		console.log('当前激活的索引：', index)
+	}
+
 	const toDoctor = (item) => {
 		uni.navigateTo({
-			url: "../doctor/doctor?item=" + encodeURIComponent(JSON.stringify(item))
+			url: "../doctorIdentity/doctorIdentity?item=" + encodeURIComponent(JSON.stringify(item))
 		})
 	}
-	
-	const getCategoryList = async()=>{
+
+	const getCategoryList = async () => {
 		let res = await getCategoryListApi()
-		if(res && res.code == 200){
-			console.log(res)
+		if (res && res.code == 200) {
 			list.value = res.data
 		}
 	}
+	
 	onReady(() => {
-		
 		uni.showLoading({
-			title: '加载中'
+			title: '加载中...'
 		})
+		
+		// 模拟加载延迟，优化用户体验
 		setTimeout(() => {
 			getCategoryList()
 			uni.hideLoading();
@@ -90,67 +80,89 @@
 </script>
 
 <style scoped lang="scss">
+	// 确保内容区域铺满
+	.content {
+		height: 100vh;
+		background-color: #f5f5f5;
+	}
 
-	.item {
-		padding: 10rpx 20rpx;
+	// 右侧可滚动内容区域的整体样式
+	.scroll-content-container {
+		background-color: #f7f8fa; // 浅灰色背景，突出卡片
+		padding: 12px;
+		min-height: 100%;
+		box-sizing: border-box;
+	}
+	
+	// 二级科室分组
+	.sub-category {
+		margin-bottom: 16px;
+	}
 
-		&-title {
-			.text {
-				font-weight: 700;
-				font-size: 32rpx;
-				color: #111;
-			}
+	// 二级科室标题美化
+	.sub-category-title {
+		margin-bottom: 12px;
+		.text {
+			font-size: 16px;
+			font-weight: bold;
+			color: #303133;
+			padding-left: 10px;
+			border-left: 4px solid #409EFF; // 使用蓝色作为强调色
 		}
-
-		&-content {
-			
-
-			.text {
-				line-height: 48rpx;
-				font-size: 30rpx;
-				color: #111;
-				/* #ifndef APP-NVUE */
-				word-break: break-all;
-				/* #endif */
-			}
-		}
 	}
 
-	.gap {
-		padding: 0 30rpx;
+	// 医生网格布局
+	.doctor-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr); // 优雅的响应式三列布局
+		gap: 10px; // 网格间距
 	}
 
-	.boxList-con {
+	// 医生卡片样式
+	.doctor-card {
 		display: flex;
-		
-		// justify-content: center;
-		
-		flex-wrap: wrap;
-		
-		padding: 15px 0px;
-	}
-
-	.boxList-item {
-		display: flex;
-		align-items: center;
-		justify-content: center;
 		flex-direction: column;
-		width: 33.3%;
-		padding: 5px 0px;
+		align-items: center;
+		padding: 15px 5px;
+		background-color: #fff;
+		border-radius: 8px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+		text-align: center;
+		transition: all 0.2s ease-in-out;
+
+		// 点击时的交互效果
+		&:active {
+			transform: scale(0.96);
+			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+		}
 	}
 
-	.itemimgs {
-		width: 70px !important;
-		height: 90px !important;
+	// 医生头像
+	.doctor-avatar {
+		width: 60px;
+		height: 60px;
+		border-radius: 50%; // 圆形头像
+		margin-bottom: 10px;
+		background-color: #f0f0f0; // 图片加载前的占位背景色
 	}
 
-	.title {
-		color: #000000;
-		font-size: 16px;
+	// 医生姓名
+	.doctor-name {
+		color: #303133;
+		font-size: 15px;
+		font-weight: 500;
+		margin-bottom: 4px;
+		
+		// 防止姓名过长换行
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		width: 100%;
 	}
 
-	.other {
-		color: #333;
-		font-size: 14px;
+	// 医生职称
+	.doctor-title {
+		color: #909399; // 使用灰色系区分
+		font-size: 13px;
 	}
 </style>

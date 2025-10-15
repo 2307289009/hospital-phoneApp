@@ -23,25 +23,98 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.item.data-v-93207a4f {
-  margin: 10px 20px;
-  color: #2c3e50;
+.page-container.data-v-93207a4f {
+  background-color: #f7f8fa;
+  padding: 10px 0;
+  min-height: 100vh;
 }
-.item .header.data-v-93207a4f {
+.card-item.data-v-93207a4f {
+  background-color: #ffffff;
+  border-radius: 12px;
+  margin: 0 15px 15px 15px;
+  padding: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  color: #2c3e50;
+  transition: all 0.2s ease-in-out;
+}
+.card-item.data-v-93207a4f:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+.card-header.data-v-93207a4f {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 10px;
+  align-items: center;
+  padding-bottom: 12px;
 }
-.item .header .name.data-v-93207a4f {
+.card-header .header-date.data-v-93207a4f {
+  display: flex;
+  align-items: center;
   font-size: 16px;
   font-weight: bold;
 }
-.item .info .info-item.data-v-93207a4f {
-  display: flex;
-  padding-top: 5px;
-  font-size: 14px;
+.card-header .header-date .date-text.data-v-93207a4f {
+  margin-left: 8px;
 }
-.item .btns.data-v-93207a4f {
+.card-header .status-tag.data-v-93207a4f {
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.card-header .status-success.data-v-93207a4f {
+  background-color: #e8f0fe;
+  color: #3F51B5;
+}
+.card-header .status-cancelled.data-v-93207a4f {
+  background-color: #fff8e1;
+  color: #FFA000;
+}
+.card-body.data-v-93207a4f {
+  padding: 12px 0;
+}
+.card-body .info-row.data-v-93207a4f {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #606266;
+}
+.card-body .info-row.data-v-93207a4f:last-child {
+  margin-bottom: 0;
+}
+.card-body .info-row.data-v-93207a4f .uv-icon {
+  margin-right: 10px;
+}
+.card-body .doctor-info.data-v-93207a4f {
+  font-size: 16px;
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+.card-body .doctor-info .info-content.data-v-93207a4f {
+  display: flex;
+  flex-direction: column;
+}
+.card-body .doctor-info .dept-name.data-v-93207a4f {
+  font-weight: bold;
+}
+.card-body .doctor-info .doctor-name.data-v-93207a4f {
+  font-size: 14px;
+  color: #909399;
+  margin-top: 2px;
+}
+.card-footer.data-v-93207a4f {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+}
+.card-footer .order-time.data-v-93207a4f {
+  font-size: 12px;
+  color: #909399;
+}
+.card-footer .btns.data-v-93207a4f {
+  display: flex;
+  gap: 10px;
 }

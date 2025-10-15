@@ -1,42 +1,41 @@
 <template>
-	<view>
-		<swiper class="swipper-container" circular :indicator-dots="indicatorDots" :autoplay="autoplay"
+	<view class="page-container">
+		<swiper class="swiper-container" circular :indicator-dots="indicatorDots" :autoplay="autoplay"
 			:interval="interval" :duration="duration">
-			<swiper-item class="item" v-for="(item,index) in swipperList">
+			<swiper-item class="item" v-for="(item, index) in swipperList" :key="index">
 				<image class="imgs" :src='http.baseUrl+item.image'></image>
 			</swiper-item>
 		</swiper>
-	</view>
-	<view class="boxList-con">
-		<view v-for='(item,index) in baseList' @click="toDoctorList(item)" class="boxList-item">
-			<image :src="item.img" style="width: 50rpx;height: 50rpx;"></image>
-			<view class="" style="color: #546E7A;font-size: 14px;">
-				{{item.title}}
+
+		<view class="quick-nav-container">
+			<view v-for='(item, index) in baseList' :key="index" @click="toDoctorList(item)" class="nav-item">
+				<image :src="item.img" class="nav-icon"></image>
+				<text class="nav-title">{{item.title}}</text>
+			</view>
+		</view>
+
+		<view class="section-title-container">
+			<text class="section-title">专家</text>
+		</view>
+
+		<view class="doctor-list-container">
+			<view v-for="item in doctorList" :key="item.id" @click="toDoctor(item)" class="doctor-card">
+				<image class="doctor-avatar" :src="http.baseUrl + item.image"></image>
+				<view class="doctor-info">
+					<view class="info-line-one">
+						<text class="doctor-name">{{item.nickName}}</text>
+						<text class="doctor-job-title">{{item.jobTitle}}</text>
+					</view>
+					<view class="doctor-department">
+						{{item.deptName}}
+					</view>
+					<view class="doctor-good-at">
+						<uv-text :lines="1" :text="'擅长：' + item.goodAt" color="#888" size="13"></uv-text>
+					</view>
+				</view>
 			</view>
 		</view>
 	</view>
-	<uv-divider text="专家" textColor="#546E7A"></uv-divider>
-	<uv-list>
-		<uv-list-item v-for="item in doctorList" border="true">
-			<view @click="toDoctor(item)" class="items">
-				<view>
-					<image class="itemimgs" :src="http.baseUrl+item.image"></image>
-				</view>
-				<view class="info">
-					<view class="title">
-						{{item.nickName}}
-					</view>
-					<view class="other">
-						{{item.deptName}}
-					</view>
-					<view class="other">
-						{{item.jobTitle}}
-					</view>
-					<uv-text :lines="1" :text="item.goodAt" color="#546E7A"></uv-text>
-				</view>
-			</view>
-		</uv-list-item>
-	</uv-list>
 </template>
 
 <script setup>
@@ -52,16 +51,15 @@
 		getIndexDeptApi,
 		getIndexDoctorApi
 	} from '../../api/index.js'
+	
+	// Swiper 配置
 	const indicatorDots = ref(true)
-	const indicatorColor = ref("#FFF")
 	const autoplay = ref(true)
-	
-	const interval = ref(2000)
-	
+	const interval = ref(3000)
 	const duration = ref(500)
 	
+	// 轮播图数据
 	const swipperList = ref([])
-	
 	const getIndexNews = async () => {
 		let res = await getIndexNewsApi()
 		if (res && res.code == 200) {
@@ -69,48 +67,45 @@
 		}
 	}
 	
+	// 科室分类数据
 	const baseList = ref([])
-	
 	const getIndexDept = async () => {
 		let res = await getIndexDeptApi()
 		if (res && res.code == 200) {
 			if (res.data.length > 0) {
-				
-				for (let i = 0; i < res.data.length; i++) {
-					let obj = {
-						img: '',
-						title: '',
-						deptId: ''
-					}
-					obj.title = res.data[i].deptName
-					obj.deptId = res.data[i].deptId
-					obj.img = `/static/d${i+1}.png`
-					baseList.value.push(obj)
-				}
+				const processedData = res.data.map((dept, index) => ({
+					title: dept.deptName,
+					deptId: dept.deptId,
+					img: `/static/d${index + 1}.png`
+				}));
+				baseList.value = processedData;
 			}
 		}
 	}
 	
+	// 医生列表数据
 	const doctorList = ref([])
 	const getIndexDoctor = async () => {
 		let res = await getIndexDoctorApi()
 		if (res && res.code == 200) {
 			doctorList.value = res.data;
-			console.log(doctorList.value)
 		}
 	}
 	
+	// 跳转到医生详情
 	const toDoctor = (item) => {
 		uni.navigateTo({
-			url: "../doctor/doctor?item=" + encodeURIComponent(JSON.stringify(item))
+			url: "../doctorIdentity/doctorIdentity?item=" + encodeURIComponent(JSON.stringify(item))
 		})
 	}
 	
+	// 跳转到科室医生列表
 	const toDoctorList = (item) => {
 		uni.navigateTo({
-			url: "../dectorDepartment/dectorDepartment?item=" + encodeURIComponent(JSON.stringify(item))
+			url: "../doctorDepartment/doctorDepartment?item=" + encodeURIComponent(JSON.stringify(item))
 		})
 	}
+	
 	onLoad(() => {
 		getIndexNews()
 		getIndexDept()
@@ -118,64 +113,134 @@
 	})
 </script>
 
-<style lang="scss">
-	.swipper-container {
+<style lang="scss" scoped>
+	/* 页面整体背景 */
+	.page-container {
+		background-color: #f7f8fa;
+		min-height: 100vh;
+	}
+
+	/* 轮播图 */
+	.swiper-container {
 		height: 180px;
 
 		.item {
-			height: 180px !important;
+			height: 180px;
+		}
 
-			.imgs {
-				height: 180px;
-				width: 100%;
-			}
+		.imgs {
+			width: 100%;
+			height: 100%;
 		}
 	}
 
-	.boxList-con {
+	/* 功能分类入口 */
+	.quick-nav-container {
 		display: flex;
-		
-		justify-content: center;
-		
 		flex-wrap: wrap;
-		
-		padding: 15px 0px;
+		padding: 15px 10px;
+		background-color: #fff;
+		margin: -10px 10px 10px 10px;
+		border-radius: 8px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+		position: relative;
+		z-index: 10;
 	}
 
-	.boxList-item {
+	.nav-item {
 		display: flex;
+		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		flex-direction: column;
 		width: 25%;
-		padding: 5px 0px;
+		padding: 10px 0;
 	}
 
-	.items {
+	.nav-icon {
+		width: 45px;
+		height: 45px;
+		margin-bottom: 8px;
+	}
+
+	.nav-title {
+		color: #333;
+		font-size: 14px;
+	}
+
+	/* 板块标题 */
+	.section-title-container {
+		padding: 15px;
+	}
+
+	.section-title {
+		font-size: 18px;
+		font-weight: bold;
+		color: #333;
+		padding-left: 8px;
+		border-left: 4px solid #00796B; // 主题色强调
+	}
+
+	/* 专家列表 */
+	.doctor-list-container {
+		padding: 0 15px 15px;
+	}
+	
+	.doctor-card {
 		display: flex;
-		padding: 20px;
+		align-items: flex-start; // 垂直方向顶部对齐
+		padding: 15px;
+		margin-bottom: 12px;
+		background-color: #ffffff;
+		border-radius: 8px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+		transition: all 0.2s ease-in-out;
 
-		.info {
-			padding: 0px 10px;
-
-			.title {
-				
-				color: #00796B;
-				font-size: 16px;
-			}
-
-			.other {
-				
-				color: #546E7A;
-				font-size: 14px;
-			}
-
+		&:active {
+			transform: scale(0.98);
+			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 		}
+	}
 
-		.itemimgs {
-			width: 70px !important;
-			height: 90px !important;
-			// border-radius: 50%;
-		}
+	.doctor-avatar {
+		width: 75px;
+		height: 75px;
+		border-radius: 50%; // 圆形头像
+		margin-right: 15px;
+		flex-shrink: 0; // 防止头像被压缩
+	}
+
+	.doctor-info {
+		display: flex;
+		flex-direction: column;
+		flex: 1; // 占据剩余空间
+		min-width: 0; // 防止 flex 布局溢出
+	}
+
+	.info-line-one {
+		display: flex;
+		align-items: baseline; // 名字和职称基线对齐
+		margin-bottom: 8px;
+	}
+
+	.doctor-name {
+		color: #00796B; // 主题色
+		font-size: 17px;
+		font-weight: bold;
+		margin-right: 8px;
+	}
+
+	.doctor-job-title {
+		color: #546E7A;
+		font-size: 14px;
+	}
+
+	.doctor-department {
+		color: #546E7A;
+		font-size: 14px;
+		margin-bottom: 8px;
+	}
+
+	.doctor-good-at {
+		// uv-text 会处理文本溢出，无需额外样式
 	}
 </style>

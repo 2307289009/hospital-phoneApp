@@ -23,24 +23,58 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.items {
+.page-container {
+  background-color: #f5f7fa;
+  padding: 12px;
+  min-height: 100vh;
+}
+.doctor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.doctor-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
   display: flex;
-  padding: 20px;
+  flex-direction: column;
+  transition: transform 0.2s ease-in-out;
 }
-.items .info {
-  padding: 0px 10px;
+.doctor-card:active {
+  transform: scale(0.98);
 }
-.items .info .title {
-  /* 修改：标题颜色 */
-  color: #2c3e50;
+.doctor-card .avatar {
+  width: 100%;
+  height: 120px;
+}
+.doctor-card .info {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.doctor-card .info .name {
   font-size: 16px;
+  font-weight: bold;
+  color: #303133;
 }
-.items .info .other {
-  /* 修改：次要信息颜色 */
-  color: #828c9a;
-  font-size: 14px;
+.doctor-card .info .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
-.items .itemimgs {
-  width: 70px !important;
-  height: 90px !important;
+.doctor-card .info .tags .tag {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.doctor-card .info .tags .dept-tag {
+  background-color: #ecf5ff;
+  color: #409eff;
+}
+.doctor-card .info .tags .title-tag {
+  background-color: #f0f9eb;
+  color: #67c23a;
 }

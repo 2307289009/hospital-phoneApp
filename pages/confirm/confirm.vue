@@ -1,43 +1,61 @@
 <template>
-	<view class="container">
+	<view class="page-container">
 		<uv-form :model="userInfo" :rules="rules" ref="upRef">
-			<uv-form-item labelWidth="90" label="挂号科室:" borderBottom>
-				{{userInfo.deptName}}
-			</uv-form-item>
-			<uv-form-item labelWidth="90" label="挂号医生:" borderBottom>
-				{{userInfo.doctorName}}
-			</uv-form-item>
-			<uv-form-item labelWidth="90" label="医生职称:" borderBottom>
-				{{userInfo.jobTitle}}
-			</uv-form-item>
-			<uv-form-item @click="open" labelWidth="90" label="挂号日期:" borderBottom>
-				{{userInfo.times}}({{userInfo.week}})
-			</uv-form-item>
-			<uv-form-item labelWidth="90" label="挂号时段:" prop="timesArea" borderBottom>
-				<uv-radio-group v-model="userInfo.timesArea" placement="row">
-					<uv-radio :customStyle="{marginLeft: '16px',marginRight: '25px'}" name="0" label="上午"></uv-radio>
-					<uv-radio :customStyle="{marginRight: '16px'}" name="1" label="下午"></uv-radio>
-				</uv-radio-group>
-			</uv-form-item>
-			<uv-form-item @click="open" labelWidth="90" label="就诊地址:" borderBottom>
-				{{userInfo.address}}
-			</uv-form-item>
-			<uv-form-item labelWidth="90" label="就诊人:" prop="visitorName" borderBottom @click="showSexSelect">
-				<uv-input v-model="userInfo.visitorName" disabled disabledColor="#ffffff" placeholder="请选择就诊人"
-					border="none">
-				</uv-input>
-				<template v-slot:right>
-					<uv-icon name="arrow-right"></uv-icon>
-				</template>
-			</uv-form-item>
-			<uv-form-item @click="open" labelWidth="90" label="挂号费用:" prop="price" borderBottom>
-				￥{{userInfo.price}}
-			</uv-form-item>
+			
+			<view class="info-card">
+				<view class="card-title">预约详情</view>
+				<view class="info-row">
+					<uv-icon name="map-fill" color="#2979ff" size="20"></uv-icon>
+					<text class="label">挂号科室</text>
+					<text class="value">{{ userInfo.deptName }}</text>
+				</view>
+				<view class="info-row">
+					<uv-icon name="account-fill" color="#2979ff" size="20"></uv-icon>
+					<text class="label">挂号医生</text>
+					<text class="value">{{ userInfo.doctorName }} ({{ userInfo.jobTitle }})</text>
+				</view>
+				<view class="info-row">
+					<uv-icon name="account-fill" color="#2979ff" size="20"></uv-icon>
+					<text class="label">挂号日期</text>
+					<text class="value">{{ userInfo.times }} ({{ userInfo.week }})</text>
+				</view>
+				<view class="info-row">
+					<uv-icon name="home-fill" color="#2979ff" size="20"></uv-icon>
+					<text class="label">就诊地址</text>
+					<text class="value address">{{ userInfo.address }}</text>
+				</view>
+			</view>
+
+			<view class="info-card">
+				<view class="card-title">挂号信息</view>
+				<uv-form-item label="就诊时段" prop="timesArea" :borderBottom="true" labelWidth="90">
+					<uv-radio-group v-model="userInfo.timesArea" placement="row">
+						<uv-radio :customStyle="{marginLeft: '16px', marginRight: '25px'}" name="0" label="上午"></uv-radio>
+						<uv-radio :customStyle="{marginRight: '16px'}" name="1" label="下午"></uv-radio>
+					</uv-radio-group>
+				</uv-form-item>
+				
+				<uv-form-item label="就诊人" prop="visitorName" :borderBottom="false" labelWidth="90" @click="showSexSelect">
+					<view class="visitor-selector" :class="{'selected': userInfo.visitorName}">
+						{{ userInfo.visitorName || '请选择就诊人' }}
+					</view>
+					<template v-slot:right>
+						<uv-icon name="arrow-right"></uv-icon>
+					</template>
+				</uv-form-item>
+			</view>
+
+			<view class="cost-summary">
+				<text class="cost-label">挂号费用</text>
+				<text class="cost-value">￥{{ userInfo.price }}</text>
+			</view>
+			
 			<uv-action-sheet ref="sexSelect" :actions="actions" title="请选择就诊人" @select="selectBtn">
 			</uv-action-sheet>
-			<uv-button type="primary" text="确定挂号" customStyle="margin-top: 50px;background:#1695F1;border:none;"
-				@click="commit"></uv-button>
 
+			<view class="footer-actions">
+				<uv-button type="primary" text="确定挂号" @click="commit" size="large" shape="circle"></uv-button>
+			</view>
 		</uv-form>
 	</view>
 </template>
@@ -73,7 +91,7 @@
 		jobTitle: '',
 		price: ''
 	})
-	//表单验证规则
+	
 	const rules = reactive({
 		'timesArea': {
 			type: 'string',
@@ -129,11 +147,93 @@
 </script>
 
 <style lang="scss">
+	// Global page style
 	page {
-		background-color: #FFF;
+		background-color: #f5f7fa;
 	}
 
-	.container {
-		padding: 0rpx 30rpx;
+	.page-container {
+		padding: 15px;
+	}
+
+	// Card style
+	.info-card {
+		background-color: #ffffff;
+		border-radius: 12px;
+		padding: 15px;
+		margin-bottom: 15px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+		.card-title {
+			font-size: 18px;
+			font-weight: bold;
+			color: #303133;
+			margin-bottom: 15px;
+			padding-bottom: 10px;
+			border-bottom: 1px solid #f0f0f0;
+		}
+	}
+
+	// Style for rows within the details card
+	.info-row {
+		display: flex;
+		align-items: center;
+		padding: 10px 0;
+		font-size: 15px;
+
+		.label {
+			color: #606266;
+			margin-left: 10px;
+			width: 80px; // Fixed width for alignment
+		}
+
+		.value {
+			color: #303133;
+			font-weight: 500;
+			flex: 1;
+			text-align: right;
+		}
+		.address {
+			white-space: normal; // Allow address to wrap
+		}
+	}
+	
+	// Style for the patient selector text
+	.visitor-selector {
+		color: #c0c4cc; // Placeholder color
+		text-align: right;
+		width: 100%;
+		&.selected {
+			color: #303133; // Selected text color
+		}
+	}
+	
+	// Override default form item padding for better look
+	.uv-form-item {
+		padding: 5px 0 !important;
+	}
+	
+	// Cost summary section
+	.cost-summary {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 20px 10px;
+		font-size: 16px;
+		
+		.cost-label {
+			color: #606266;
+		}
+		
+		.cost-value {
+			color: #fa3534;
+			font-size: 20px;
+			font-weight: bold;
+		}
+	}
+
+	// Footer button container
+	.footer-actions {
+		padding-top: 20px;
 	}
 </style>

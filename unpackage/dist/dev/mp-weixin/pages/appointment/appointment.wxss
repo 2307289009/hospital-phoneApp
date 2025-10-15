@@ -23,45 +23,67 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.item.data-v-ef2dfbea {
-  padding: 10rpx 20rpx;
+.content.data-v-ef2dfbea {
+  height: 100vh;
+  background-color: #f5f5f5;
 }
-.item-title .text.data-v-ef2dfbea {
-  font-weight: 700;
-  font-size: 32rpx;
-  color: #111;
+.scroll-content-container.data-v-ef2dfbea {
+  background-color: #f7f8fa;
+  padding: 12px;
+  min-height: 100%;
+  box-sizing: border-box;
 }
-.item-content .text.data-v-ef2dfbea {
-  line-height: 48rpx;
-  font-size: 30rpx;
-  color: #111;
-  word-break: break-all;
+.sub-category.data-v-ef2dfbea {
+  margin-bottom: 16px;
 }
-.gap.data-v-ef2dfbea {
-  padding: 0 30rpx;
+.sub-category-title.data-v-ef2dfbea {
+  margin-bottom: 12px;
 }
-.boxList-con.data-v-ef2dfbea {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 15px 0px;
-}
-.boxList-item.data-v-ef2dfbea {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 33.3%;
-  padding: 5px 0px;
-}
-.itemimgs.data-v-ef2dfbea {
-  width: 70px !important;
-  height: 90px !important;
-}
-.title.data-v-ef2dfbea {
-  color: #000000;
+.sub-category-title .text.data-v-ef2dfbea {
   font-size: 16px;
+  font-weight: bold;
+  color: #303133;
+  padding-left: 10px;
+  border-left: 4px solid #409EFF;
 }
-.other.data-v-ef2dfbea {
-  color: #333;
-  font-size: 14px;
+.doctor-grid.data-v-ef2dfbea {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.doctor-card.data-v-ef2dfbea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 5px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}
+.doctor-card.data-v-ef2dfbea:active {
+  transform: scale(0.96);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+.doctor-avatar.data-v-ef2dfbea {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  background-color: #f0f0f0;
+}
+.doctor-name.data-v-ef2dfbea {
+  color: #303133;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+.doctor-title.data-v-ef2dfbea {
+  color: #909399;
+  font-size: 13px;
 }

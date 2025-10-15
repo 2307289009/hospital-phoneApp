@@ -5,9 +5,9 @@
     "pages/appointment/appointment",
     "pages/order/order",
     "pages/register/register",
-    "pages/doctor/doctor",
+    "pages/doctorIdentity/doctorIdentity",
     "pages/confirm/confirm",
-    "pages/dectorDepartment/dectorDepartment"
+    "pages/doctorDepartment/doctorDepartment"
   ],
   "window": {
     "navigationBarTextStyle": "black",

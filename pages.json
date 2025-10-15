@@ -23,7 +23,7 @@
 		{
 			"path": "pages/order/order",
 			"style": {
-				"navigationBarTitleText": "挂号记录",
+				"navigationBarTitleText": "挂号信息",
 				"enablePullDownRefresh": false
 			}
 		},
@@ -35,7 +35,7 @@
 			}
 		},
 		{
-			"path": "pages/doctor/doctor",
+			"path": "pages/doctorIdentity/doctorIdentity",
 			"style": {
 				"navigationBarTitleText": "医生信息",
 				"enablePullDownRefresh": false
@@ -49,7 +49,7 @@
 			}
 		},
 		{
-			"path": "pages/dectorDepartment/dectorDepartment",
+			"path": "pages/doctorDepartment/doctorDepartment",
 			"style": {
 				"navigationBarTitleText": "医生团队",
 				"enablePullDownRefresh": false

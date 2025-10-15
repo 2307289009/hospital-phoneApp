@@ -23,46 +23,114 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.swipper-container {
+/* 页面整体背景 */
+.page-container.data-v-1cf27b2a {
+  background-color: #f7f8fa;
+  min-height: 100vh;
+}
+
+/* 轮播图 */
+.swiper-container.data-v-1cf27b2a {
   height: 180px;
 }
-.swipper-container .item {
-  height: 180px !important;
-}
-.swipper-container .item .imgs {
+.swiper-container .item.data-v-1cf27b2a {
   height: 180px;
+}
+.swiper-container .imgs.data-v-1cf27b2a {
   width: 100%;
+  height: 100%;
 }
-.boxList-con {
+
+/* 功能分类入口 */
+.quick-nav-container.data-v-1cf27b2a {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  padding: 15px 0px;
+  padding: 15px 10px;
+  background-color: #fff;
+  margin: -10px 10px 10px 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 10;
 }
-.boxList-item {
+.nav-item.data-v-1cf27b2a {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
   width: 25%;
-  padding: 5px 0px;
+  padding: 10px 0;
 }
-.items {
+.nav-icon.data-v-1cf27b2a {
+  width: 45px;
+  height: 45px;
+  margin-bottom: 8px;
+}
+.nav-title.data-v-1cf27b2a {
+  color: #333;
+  font-size: 14px;
+}
+
+/* 板块标题 */
+.section-title-container.data-v-1cf27b2a {
+  padding: 15px;
+}
+.section-title.data-v-1cf27b2a {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  padding-left: 8px;
+  border-left: 4px solid #00796B;
+}
+
+/* 专家列表 */
+.doctor-list-container.data-v-1cf27b2a {
+  padding: 0 15px 15px;
+}
+.doctor-card.data-v-1cf27b2a {
   display: flex;
-  padding: 20px;
+  align-items: flex-start;
+  padding: 15px;
+  margin-bottom: 12px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease-in-out;
 }
-.items .info {
-  padding: 0px 10px;
+.doctor-card.data-v-1cf27b2a:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
-.items .info .title {
+.doctor-avatar.data-v-1cf27b2a {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+.doctor-info.data-v-1cf27b2a {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+.info-line-one.data-v-1cf27b2a {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+.doctor-name.data-v-1cf27b2a {
   color: #00796B;
-  font-size: 16px;
+  font-size: 17px;
+  font-weight: bold;
+  margin-right: 8px;
 }
-.items .info .other {
+.doctor-job-title.data-v-1cf27b2a {
   color: #546E7A;
   font-size: 14px;
 }
-.items .itemimgs {
-  width: 70px !important;
-  height: 90px !important;
+.doctor-department.data-v-1cf27b2a {
+  color: #546E7A;
+  font-size: 14px;
+  margin-bottom: 8px;
 }

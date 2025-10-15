@@ -4,20 +4,16 @@ const common_http = require("../../common/http.js");
 const api_index = require("../../api/index.js");
 if (!Array) {
   const _easycom_uv_text2 = common_vendor.resolveComponent("uv-text");
-  const _easycom_uv_list_item2 = common_vendor.resolveComponent("uv-list-item");
   const _easycom_uv_load_more2 = common_vendor.resolveComponent("uv-load-more");
-  const _easycom_uv_list2 = common_vendor.resolveComponent("uv-list");
-  (_easycom_uv_text2 + _easycom_uv_list_item2 + _easycom_uv_load_more2 + _easycom_uv_list2)();
+  (_easycom_uv_text2 + _easycom_uv_load_more2)();
 }
 const _easycom_uv_text = () => "../../uni_modules/uv-text/components/uv-text/uv-text.js";
-const _easycom_uv_list_item = () => "../../uni_modules/uv-list/components/uv-list-item/uv-list-item.js";
 const _easycom_uv_load_more = () => "../../uni_modules/uv-load-more/components/uv-load-more/uv-load-more.js";
-const _easycom_uv_list = () => "../../uni_modules/uv-list/components/uv-list/uv-list.js";
 if (!Math) {
-  (_easycom_uv_text + _easycom_uv_list_item + _easycom_uv_load_more + _easycom_uv_list)();
+  (_easycom_uv_text + _easycom_uv_load_more)();
 }
 const _sfc_main = {
-  __name: "dectorDepartment",
+  __name: "doctorDepartment",
   setup(__props) {
     const indexList = common_vendor.ref([]);
     const deptId = common_vendor.ref("");
@@ -64,7 +60,7 @@ const _sfc_main = {
     });
     const toDoctor = (item) => {
       common_vendor.index.navigateTo({
-        url: "../doctor/doctor?item=" + encodeURIComponent(JSON.stringify(item))
+        url: "../doctorIdentity/doctorIdentity?item=" + encodeURIComponent(JSON.stringify(item))
       });
     };
     common_vendor.onLoad((options) => {
@@ -81,21 +77,19 @@ const _sfc_main = {
             b: common_vendor.t(item.nickName),
             c: common_vendor.t(item.deptName),
             d: common_vendor.t(item.jobTitle),
-            e: "f9661482-2-" + i0 + "," + ("f9661482-1-" + i0),
+            e: "166cfaff-0-" + i0,
             f: common_vendor.p({
-              lines: 1,
-              text: item.goodAt,
-              color: "#828c9a"
+              lines: 2,
+              text: "擅长：" + item.goodAt,
+              color: "#828c9a",
+              size: "13"
             }),
-            g: common_vendor.o(($event) => toDoctor(item)),
-            h: "f9661482-1-" + i0 + ",f9661482-0"
+            g: item.userId,
+            h: common_vendor.o(($event) => toDoctor(item), item.userId)
           };
         }),
-        b: common_vendor.p({
-          border: "true"
-        }),
-        c: common_vendor.o(loadmore),
-        d: common_vendor.p({
+        b: common_vendor.o(loadmore),
+        c: common_vendor.p({
           status: loadStatus.value,
           color: "#828c9a"
         })
@@ -103,5 +97,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "E:/System/phone/pages/dectorDepartment/dectorDepartment.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "E:/System/phone/pages/doctorDepartment/doctorDepartment.vue"]]);
 wx.createPage(MiniProgramPage);

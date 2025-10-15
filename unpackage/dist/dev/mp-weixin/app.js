@@ -7,9 +7,9 @@ if (!Math) {
   "./pages/appointment/appointment.js";
   "./pages/order/order.js";
   "./pages/register/register.js";
-  "./pages/doctor/doctor.js";
+  "./pages/doctorIdentity/doctorIdentity.js";
   "./pages/confirm/confirm.js";
-  "./pages/dectorDepartment/dectorDepartment.js";
+  "./pages/doctorDepartment/doctorDepartment.js";
 }
 const _sfc_main = {
   onLaunch: function() {

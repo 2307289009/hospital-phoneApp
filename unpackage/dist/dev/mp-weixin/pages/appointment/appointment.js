@@ -3,16 +3,14 @@ const common_vendor = require("../../common/vendor.js");
 const common_http = require("../../common/http.js");
 const api_index = require("../../api/index.js");
 if (!Array) {
-  const _easycom_uv_gap2 = common_vendor.resolveComponent("uv-gap");
   const _easycom_uv_vtabs_item2 = common_vendor.resolveComponent("uv-vtabs-item");
   const _easycom_uv_vtabs2 = common_vendor.resolveComponent("uv-vtabs");
-  (_easycom_uv_gap2 + _easycom_uv_vtabs_item2 + _easycom_uv_vtabs2)();
+  (_easycom_uv_vtabs_item2 + _easycom_uv_vtabs2)();
 }
-const _easycom_uv_gap = () => "../../uni_modules/uv-gap/components/uv-gap/uv-gap.js";
 const _easycom_uv_vtabs_item = () => "../../uni_modules/uv-vtabs/components/uv-vtabs-item/uv-vtabs-item.js";
 const _easycom_uv_vtabs = () => "../../uni_modules/uv-vtabs/components/uv-vtabs/uv-vtabs.js";
 if (!Math) {
-  (_easycom_uv_gap + _easycom_uv_vtabs_item + _easycom_uv_vtabs)();
+  (_easycom_uv_vtabs_item + _easycom_uv_vtabs)();
 }
 const _sfc_main = {
   __name: "appointment",
@@ -23,23 +21,22 @@ const _sfc_main = {
       return common_vendor.index.getSystemInfoSync().windowHeight - common_vendor.index.upx2px(1);
     });
     const change = (index) => {
-      console.log("选项改变：", index);
+      console.log("当前激活的索引：", index);
     };
     const toDoctor = (item) => {
       common_vendor.index.navigateTo({
-        url: "../doctor/doctor?item=" + encodeURIComponent(JSON.stringify(item))
+        url: "../doctorIdentity/doctorIdentity?item=" + encodeURIComponent(JSON.stringify(item))
       });
     };
     const getCategoryList = async () => {
       let res = await api_index.getCategoryListApi();
       if (res && res.code == 200) {
-        console.log(res);
         list.value = res.data;
       }
     };
     common_vendor.onReady(() => {
       common_vendor.index.showLoading({
-        title: "加载中"
+        title: "加载中..."
       });
       setTimeout(() => {
         getCategoryList();
@@ -49,7 +46,7 @@ const _sfc_main = {
     return (_ctx, _cache) => {
       return {
         a: common_vendor.f(list.value, (item, index, i0) => {
-          return common_vendor.e({
+          return {
             a: common_vendor.f(item.childrens, (item2, index2, i1) => {
               return {
                 a: common_vendor.t(item2.name),
@@ -65,27 +62,15 @@ const _sfc_main = {
                 c: index2
               };
             }),
-            b: index < list.value.length - 1
-          }, index < list.value.length - 1 ? {
-            c: "ef2dfbea-2-" + i0 + "," + ("ef2dfbea-1-" + i0),
-            d: common_vendor.p({
-              ["bg-color"]: "#f1f1f1",
-              height: "4"
-            })
-          } : {}, {
-            e: "ef2dfbea-1-" + i0 + ",ef2dfbea-0",
-            f: common_vendor.p({
+            b: "ef2dfbea-1-" + i0 + ",ef2dfbea-0",
+            c: common_vendor.p({
               index
             }),
-            g: index
-          });
+            d: index
+          };
         }),
-        b: common_vendor.p({
-          ["bg-color"]: "#fff",
-          height: "600"
-        }),
-        c: common_vendor.o(change),
-        d: common_vendor.p({
+        b: common_vendor.o(change),
+        c: common_vendor.p({
           chain: chain.value,
           list: list.value,
           height: common_vendor.unref(height)
