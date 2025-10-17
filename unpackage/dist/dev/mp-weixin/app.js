@@ -5,7 +5,7 @@ if (!Math) {
   "./pages/login/login.js";
   "./pages/index/index.js";
   "./pages/appointment/appointment.js";
-  "./pages/order/order.js";
+  "./pages/record/record.js";
   "./pages/register/register.js";
   "./pages/doctorIdentity/doctorIdentity.js";
   "./pages/confirm/confirm.js";

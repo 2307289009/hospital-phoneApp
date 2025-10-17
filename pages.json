@@ -21,7 +21,7 @@
 			}
 		},
 		{
-			"path": "pages/order/order",
+			"path": "pages/record/record",
 			"style": {
 				"navigationBarTitleText": "挂号信息",
 				"enablePullDownRefresh": false

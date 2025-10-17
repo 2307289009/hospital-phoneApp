@@ -3,7 +3,7 @@
     "pages/login/login",
     "pages/index/index",
     "pages/appointment/appointment",
-    "pages/order/order",
+    "pages/record/record",
     "pages/register/register",
     "pages/doctorIdentity/doctorIdentity",
     "pages/confirm/confirm",

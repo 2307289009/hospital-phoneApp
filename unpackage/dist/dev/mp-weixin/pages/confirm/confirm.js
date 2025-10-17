@@ -72,7 +72,7 @@ const _sfc_main = {
           let result = await api_index.makeOrderAddApi(userInfo);
           if (result && result.code == 200) {
             common_vendor.index.redirectTo({
-              url: "/pages/order/order"
+              url: "/pages/record/record"
             });
           }
         }

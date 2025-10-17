@@ -23,7 +23,7 @@ if (!Math) {
   (_easycom_uv_icon + _easycom_uv_text + _easycom_uv_line + _easycom_uv_button + _easycom_uv_load_more + _easycom_uv_notify + _easycom_uv_modal)();
 }
 const _sfc_main = {
-  __name: "order",
+  __name: "record",
   setup(__props) {
     const loadStatus = common_vendor.ref("loadmore");
     const indexList = common_vendor.ref([]);
@@ -100,12 +100,12 @@ const _sfc_main = {
       return {
         a: common_vendor.f(indexList.value, (item, index, i0) => {
           return common_vendor.e({
-            a: "93207a4f-0-" + i0,
+            a: "ef6850c5-0-" + i0,
             b: common_vendor.t(item.times),
             c: common_vendor.t(item.week),
             d: item.status == "1"
           }, item.status == "1" ? {
-            e: "93207a4f-1-" + i0,
+            e: "ef6850c5-1-" + i0,
             f: common_vendor.p({
               size: "12",
               color: "#3F51B5",
@@ -114,7 +114,7 @@ const _sfc_main = {
           } : {}, {
             g: item.status == "2"
           }, item.status == "2" ? {
-            h: "93207a4f-2-" + i0,
+            h: "ef6850c5-2-" + i0,
             i: common_vendor.p({
               size: "12",
               color: "#FFA000",
@@ -122,26 +122,26 @@ const _sfc_main = {
             })
           } : {}, {
             j: common_vendor.n(getStatusClass(item.status)),
-            k: "93207a4f-3-" + i0,
-            l: "93207a4f-4-" + i0,
+            k: "ef6850c5-3-" + i0,
+            l: "ef6850c5-4-" + i0,
             m: common_vendor.t(item.deptName),
             n: common_vendor.t(item.nickName),
-            o: "93207a4f-5-" + i0,
+            o: "ef6850c5-5-" + i0,
             p: common_vendor.t(item.visitname),
-            q: "93207a4f-6-" + i0,
+            q: "ef6850c5-6-" + i0,
             r: common_vendor.t(item.timesArea == "0" ? "上午" : "下午"),
-            s: "93207a4f-7-" + i0,
+            s: "ef6850c5-7-" + i0,
             t: common_vendor.t(item.address),
-            v: "93207a4f-8-" + i0,
+            v: "ef6850c5-8-" + i0,
             w: common_vendor.t(item.price),
-            x: "93207a4f-9-" + i0,
+            x: "ef6850c5-9-" + i0,
             y: common_vendor.t(item.createTime),
             z: item.status == "1"
           }, item.status == "1" ? common_vendor.e({
             A: item.hasVisit == "0"
           }, item.hasVisit == "0" ? {
             B: common_vendor.o(($event) => cancelBtn(item), index),
-            C: "93207a4f-10-" + i0,
+            C: "ef6850c5-10-" + i0,
             D: common_vendor.p({
               size: "small",
               plain: true,
@@ -155,7 +155,7 @@ const _sfc_main = {
           } : {}, {
             E: item.hasVisit == "1"
           }, item.hasVisit == "1" ? {
-            F: "93207a4f-11-" + i0,
+            F: "ef6850c5-11-" + i0,
             G: common_vendor.p({
               size: "small",
               plain: true,
@@ -212,10 +212,10 @@ const _sfc_main = {
           status: loadStatus.value,
           color: "#7f8c8d"
         }),
-        l: common_vendor.sr(uvToast, "93207a4f-13", {
+        l: common_vendor.sr(uvToast, "ef6850c5-13", {
           "k": "uvToast"
         }),
-        m: common_vendor.sr(cancelModal, "93207a4f-14", {
+        m: common_vendor.sr(cancelModal, "ef6850c5-14", {
           "k": "cancelModal"
         }),
         n: common_vendor.o(cancelCancel),
@@ -232,5 +232,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-93207a4f"], ["__file", "E:/System/phone/pages/order/order.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-ef6850c5"], ["__file", "E:/System/phone/pages/record/record.vue"]]);
 wx.createPage(MiniProgramPage);

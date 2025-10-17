@@ -121,7 +121,7 @@
 				let result = await makeOrderAddApi(userInfo)
 				if (result && result.code == 200) {
 					uni.redirectTo({
-						url: "/pages/order/order"
+						url: "/pages/record/record"
 					})
 				}
 			}
