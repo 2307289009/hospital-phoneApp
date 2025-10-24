@@ -1,7 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const api_index = require("../../api/index.js");
-require("../../common/http.js");
 if (!Array) {
   const _easycom_uv_icon2 = common_vendor.resolveComponent("uv-icon");
   const _easycom_uv_text2 = common_vendor.resolveComponent("uv-text");
@@ -232,5 +231,6 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-ef6850c5"], ["__file", "E:/System/phone/pages/record/record.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-ef6850c5"]]);
 wx.createPage(MiniProgramPage);
+//# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/record/record.js.map
