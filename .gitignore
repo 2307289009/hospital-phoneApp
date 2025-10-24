@@ -16,3 +16,4 @@ pages/add_patient
 pages/primary
 pages/patient
 /unpackage/
+manifest.json
