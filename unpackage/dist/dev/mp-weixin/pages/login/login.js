@@ -1,7 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const api_index = require("../../api/index.js");
-require("../../common/http.js");
 if (!Array) {
   const _easycom_uv_image2 = common_vendor.resolveComponent("uv-image");
   const _easycom_uv_icon2 = common_vendor.resolveComponent("uv-icon");
@@ -52,7 +51,7 @@ const _sfc_main = {
         if (vali) {
           let res = await api_index.loginApi(addModel);
           if (res && res.code == 200) {
-            console.log(res.data);
+            common_vendor.index.__f__("log", "at pages/login/login.vue:83", res.data);
             common_vendor.index.setStorageSync("userId", res.data.userId);
             common_vendor.index.switchTab({
               url: "../index/index"
@@ -102,7 +101,7 @@ const _sfc_main = {
           prop: "password",
           borderBottom: true
         }),
-        j: common_vendor.sr(addRef, "bd7b541a-1", {
+        j: common_vendor.sr(addRef, "49ea5f14-1", {
           "k": "addRef"
         }),
         k: common_vendor.p({
@@ -120,5 +119,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "E:/System/phone/pages/login/login.vue"]]);
-wx.createPage(MiniProgramPage);
+wx.createPage(_sfc_main);
+//# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/login/login.js.map

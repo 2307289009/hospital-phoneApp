@@ -21,7 +21,7 @@ const _sfc_main = {
       return common_vendor.index.getSystemInfoSync().windowHeight - common_vendor.index.upx2px(1);
     });
     const change = (index) => {
-      console.log("当前激活的索引：", index);
+      common_vendor.index.__f__("log", "at pages/appointment/appointment.vue:53", "当前激活的索引：", index);
     };
     const toDoctor = (item) => {
       common_vendor.index.navigateTo({
@@ -73,11 +73,12 @@ const _sfc_main = {
         c: common_vendor.p({
           chain: chain.value,
           list: list.value,
-          height: common_vendor.unref(height)
+          height: height.value
         })
       };
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-ef2dfbea"], ["__file", "E:/System/phone/pages/appointment/appointment.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-ef2dfbea"]]);
 wx.createPage(MiniProgramPage);
+//# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/appointment/appointment.js.map

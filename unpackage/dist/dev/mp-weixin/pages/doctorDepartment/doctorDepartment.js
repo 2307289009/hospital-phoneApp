@@ -30,13 +30,13 @@ const _sfc_main = {
       if (res && res.code == 200) {
         pages.value = res.data.pages;
         indexList.value = indexList.value.concat(res.data.records);
-        console.log(indexList.value);
+        common_vendor.index.__f__("log", "at pages/doctorDepartment/doctorDepartment.vue:50", indexList.value);
         if (currentPage.value >= pages.value) {
           loadStatus.value = "nomore";
         } else {
           loadStatus.value = "loadmore";
         }
-        console.log(indexList.value);
+        common_vendor.index.__f__("log", "at pages/doctorDepartment/doctorDepartment.vue:56", indexList.value);
       }
     };
     const loadmore = () => {
@@ -49,7 +49,7 @@ const _sfc_main = {
       getDoctorByDeptId();
     };
     common_vendor.onReachBottom(() => {
-      console.log("触底加载");
+      common_vendor.index.__f__("log", "at pages/doctorDepartment/doctorDepartment.vue:71", "触底加载");
       if (currentPage.value >= pages.value) {
         loadStatus.value = "nomore";
         return;
@@ -66,7 +66,7 @@ const _sfc_main = {
     common_vendor.onLoad((options) => {
       const item = JSON.parse(decodeURIComponent(options.item));
       deptId.value = item.deptId;
-      console.log(item);
+      common_vendor.index.__f__("log", "at pages/doctorDepartment/doctorDepartment.vue:90", item);
       getDoctorByDeptId();
     });
     return (_ctx, _cache) => {
@@ -77,7 +77,7 @@ const _sfc_main = {
             b: common_vendor.t(item.nickName),
             c: common_vendor.t(item.deptName),
             d: common_vendor.t(item.jobTitle),
-            e: "166cfaff-0-" + i0,
+            e: "36c13d7c-0-" + i0,
             f: common_vendor.p({
               lines: 2,
               text: "擅长：" + item.goodAt,
@@ -97,5 +97,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "E:/System/phone/pages/doctorDepartment/doctorDepartment.vue"]]);
-wx.createPage(MiniProgramPage);
+wx.createPage(_sfc_main);
+//# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/doctorDepartment/doctorDepartment.js.map

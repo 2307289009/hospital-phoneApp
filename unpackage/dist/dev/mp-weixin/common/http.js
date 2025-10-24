@@ -70,3 +70,4 @@ const http$1 = {
   baseUrl
 };
 exports.http = http$1;
+//# sourceMappingURL=../../.sourcemap/mp-weixin/common/http.js.map

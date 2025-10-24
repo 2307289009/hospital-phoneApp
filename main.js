@@ -1,5 +1,8 @@
 import App from './App'
 
+import uviewPlus from '@/uni_modules/uview-plus'
+import 'uview-plus/theme.scss'
+
 // #ifndef VUE3
 import Vue from 'vue'
 import './uni.promisify.adaptor'

@@ -1,7 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const api_index = require("../../api/index.js");
-require("../../common/http.js");
 if (!Array) {
   const _easycom_uv_icon2 = common_vendor.resolveComponent("uv-icon");
   const _easycom_uv_radio2 = common_vendor.resolveComponent("uv-radio");
@@ -61,12 +60,12 @@ const _sfc_main = {
       sexSelect.value.open();
     };
     const selectBtn = (e) => {
-      console.log(e);
+      common_vendor.index.__f__("log", "at pages/confirm/confirm.vue:113", e);
       userInfo.visitUserId = e.visitId;
       userInfo.visitorName = e.name;
     };
     const commit = async () => {
-      console.log("进来了");
+      common_vendor.index.__f__("log", "at pages/confirm/confirm.vue:118", "进来了");
       upRef.value.validate().then(async (res) => {
         if (res) {
           let result = await api_index.makeOrderAddApi(userInfo);
@@ -88,7 +87,7 @@ const _sfc_main = {
     };
     common_vendor.onLoad((option) => {
       const item = JSON.parse(decodeURIComponent(option.item));
-      console.log(item);
+      common_vendor.index.__f__("log", "at pages/confirm/confirm.vue:140", item);
       Object.assign(userInfo, item);
     });
     common_vendor.onReady(() => {
@@ -162,7 +161,7 @@ const _sfc_main = {
           labelWidth: "90"
         }),
         v: common_vendor.t(userInfo.price),
-        w: common_vendor.sr(sexSelect, "095e1c21-11,095e1c21-0", {
+        w: common_vendor.sr(sexSelect, "44e0c5b8-11,44e0c5b8-0", {
           "k": "sexSelect"
         }),
         x: common_vendor.o(selectBtn),
@@ -177,7 +176,7 @@ const _sfc_main = {
           size: "large",
           shape: "circle"
         }),
-        B: common_vendor.sr(upRef, "095e1c21-0", {
+        B: common_vendor.sr(upRef, "44e0c5b8-0", {
           "k": "upRef"
         }),
         C: common_vendor.p({
@@ -188,5 +187,5 @@ const _sfc_main = {
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__file", "E:/System/phone/pages/confirm/confirm.vue"]]);
-wx.createPage(MiniProgramPage);
+wx.createPage(_sfc_main);
+//# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/confirm/confirm.js.map
