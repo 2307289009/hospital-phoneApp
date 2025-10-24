@@ -161,7 +161,7 @@ const _sfc_main = {
           labelWidth: "90"
         }),
         v: common_vendor.t(userInfo.price),
-        w: common_vendor.sr(sexSelect, "51136b00-11,51136b00-0", {
+        w: common_vendor.sr(sexSelect, "44e0c5b8-11,44e0c5b8-0", {
           "k": "sexSelect"
         }),
         x: common_vendor.o(selectBtn),
@@ -176,7 +176,7 @@ const _sfc_main = {
           size: "large",
           shape: "circle"
         }),
-        B: common_vendor.sr(upRef, "51136b00-0", {
+        B: common_vendor.sr(upRef, "44e0c5b8-0", {
           "k": "upRef"
         }),
         C: common_vendor.p({

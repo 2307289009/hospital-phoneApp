@@ -1,6 +1,12 @@
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const common_vendor = require("./common/vendor.js");
+require("./uni_modules/uview-plus/libs/function/index.js");
+require("./uni_modules/uview-plus/libs/util/route.js");
+require("./uni_modules/uview-plus/libs/config/config.js");
+require("./uni_modules/uview-plus/libs/config/props.js");
+require("./uni_modules/uview-plus/libs/function/http.js");
+require("./uni_modules/uview-plus/libs/i18n/index.js");
 if (!Math) {
   "./pages/login/login.js";
   "./pages/index/index.js";

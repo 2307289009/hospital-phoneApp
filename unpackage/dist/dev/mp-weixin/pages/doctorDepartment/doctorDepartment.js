@@ -77,7 +77,7 @@ const _sfc_main = {
             b: common_vendor.t(item.nickName),
             c: common_vendor.t(item.deptName),
             d: common_vendor.t(item.jobTitle),
-            e: "67d41fc4-0-" + i0,
+            e: "36c13d7c-0-" + i0,
             f: common_vendor.p({
               lines: 2,
               text: "擅长：" + item.goodAt,
