@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "BJTU智慧医院挂号系统",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "uv-vtabs-item": "../../uni_modules/uv-vtabs/components/uv-vtabs-item/uv-vtabs-item",
-    "uv-vtabs": "../../uni_modules/uv-vtabs/components/uv-vtabs/uv-vtabs"
-  }
-}
