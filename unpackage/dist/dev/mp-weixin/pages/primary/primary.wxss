@@ -1,22 +1,3 @@
-
-page {
-		background-color: #FAFAFA; /* 稍微改变背景色以突出列表 */
-}
- .uv-list-item__content-title {
-		font-size: 32rpx !important;
-		padding: 10rpx 0rpx !important;
-		color: #555555; /* 修改了列表项标题颜色 */
-}
- .uv-icon__icon {
-		font-size: 20px !important;
-}
- .uv-icon {
-		padding-right: 10px !important;
-}
- .uv-list-item__icon {
-		margin-right: 0px !important;
-}
-
 /**
  * 这里是uni-app内置的常用样式变量
  *
@@ -42,13 +23,135 @@ page {
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.userinfo.data-v-fa34f965 {
+/* 设置页面背景色 */
+page.data-v-fa34f965 {
+  background-color: #F5F6FA;
+}
+.profile-container.data-v-fa34f965 {
+  padding-bottom: 40rpx;
+}
+
+/* 头部区域 */
+.profile-header.data-v-fa34f965 {
   display: flex;
   align-items: center;
-  justify-content: center;
+  padding: 60rpx 40rpx;
+  background: linear-gradient(135deg, #5EB9FF 0%, #409EFF 100%);
+  color: white;
+  height: 200rpx;
+  /* 新增过渡效果，让状态切换更平滑 */
+  transition: background-color 0.3s;
+}
+.user-avatar.data-v-fa34f965 {
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 50%;
+  border: 4rpx solid #fff;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+  margin-right: 30rpx;
+  flex-shrink: 0;
+}
+.user-info.data-v-fa34f965 {
+  display: flex;
   flex-direction: column;
-  padding: 40rpx;
-  color: #333333;
-  /* 修改了用户名字体颜色 */
+}
+.user-info .nickname.data-v-fa34f965 {
+  font-size: 40rpx;
   font-weight: bold;
+  margin-bottom: 10rpx;
+}
+.user-info .motto.data-v-fa34f965 {
+  font-size: 26rpx;
+  opacity: 0.8;
+}
+.user-info .error-text.data-v-fa34f965 {
+  font-size: 32rpx;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+/* --- 新增骨架屏样式 --- */
+@keyframes skeleton-blink-fa34f965 {
+0% {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+50% {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+100% {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+}
+.skeleton-avatar.data-v-fa34f965 {
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 50%;
+  margin-right: 30rpx;
+  background-color: rgba(255, 255, 255, 0.2);
+  animation: skeleton-blink-fa34f965 1.5s infinite ease-in-out;
+}
+.skeleton-info.data-v-fa34f965 {
+  flex: 1;
+}
+.skeleton-line.data-v-fa34f965 {
+  height: 36rpx;
+  border-radius: 8rpx;
+  background-color: rgba(255, 255, 255, 0.2);
+  animation: skeleton-blink-fa34f965 1.5s infinite ease-in-out;
+}
+.skeleton-nickname.data-v-fa34f965 {
+  width: 50%;
+  margin-bottom: 20rpx;
+}
+.skeleton-motto.data-v-fa34f965 {
+  width: 70%;
+  height: 28rpx;
+}
+
+/* 菜单卡片 (保持不变) */
+.menu-card.data-v-fa34f965 {
+  background-color: #ffffff;
+  border-radius: 20rpx;
+  margin: -60rpx 30rpx 0;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.08);
+  padding: 10rpx 30rpx;
+}
+.menu-item.data-v-fa34f965 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.menu-item.data-v-fa34f965:last-child {
+  border-bottom: none;
+}
+.item-left.data-v-fa34f965 {
+  display: flex;
+  align-items: center;
+}
+.item-left .item-title.data-v-fa34f965 {
+  font-size: 30rpx;
+  color: #303133;
+  margin-left: 20rpx;
+}
+
+/* 退出登录区域 (保持不变) */
+.logout-section.data-v-fa34f965 {
+  padding: 40rpx 30rpx;
+  margin-top: 20rpx;
+}
+.logout-btn.data-v-fa34f965 {
+  background-color: #ffffff;
+  color: #fa3534;
+  border-radius: 20rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+  box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.05);
+  border: none;
+}
+.logout-btn.data-v-fa34f965::after {
+  border: none;
 }

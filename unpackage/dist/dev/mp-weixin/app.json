@@ -8,9 +8,9 @@
     "pages/doctorIdentity/doctorIdentity",
     "pages/confirm/confirm",
     "pages/doctorDepartment/doctorDepartment",
-    "pages/news/news",
+    "pages/journal/journal",
     "pages/primary/primary",
-    "pages/news_detail/news_detail"
+    "pages/journal_content/journal_content"
   ],
   "window": {
     "navigationBarTextStyle": "black",

@@ -59,7 +59,7 @@
 			}
 		},
 		{
-					"path": "pages/news/news",
+					"path": "pages/journal/journal",
 					"style": {
 						"navigationBarTitleText": "BJTU智慧医院挂号系统",
 						"enablePullDownRefresh": false
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-							"path": "pages/news_detail/news_detail",
+							"path": "pages/journal_content/journal_content",
 							"style": {
 								"navigationBarTitleText": "信息详情",
 								"enablePullDownRefresh": false

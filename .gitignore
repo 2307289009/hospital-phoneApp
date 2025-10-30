@@ -6,8 +6,6 @@ pages/suggestion
 pages/reset_password
 pages/order_patient
 pages/order
-pages/news_detail
-pages/news
 pages/information
 pages/edit_patient
 pages/doctor_list

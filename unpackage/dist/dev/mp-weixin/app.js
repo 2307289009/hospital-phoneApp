@@ -10,9 +10,9 @@ if (!Math) {
   "./pages/doctorIdentity/doctorIdentity.js";
   "./pages/confirm/confirm.js";
   "./pages/doctorDepartment/doctorDepartment.js";
-  "./pages/news/news.js";
+  "./pages/journal/journal.js";
   "./pages/primary/primary.js";
-  "./pages/news_detail/news_detail.js";
+  "./pages/journal_content/journal_content.js";
 }
 const _sfc_main = {
   onLaunch: function() {
