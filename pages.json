@@ -57,7 +57,28 @@
 				"navigationBarTitleText": "医生团队",
 				"enablePullDownRefresh": false
 			}
-		}
+		},
+		{
+					"path": "pages/news/news",
+					"style": {
+						"navigationBarTitleText": "BJTU智慧医院挂号系统",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "pages/primary/primary",
+					"style": {
+						"navigationBarTitleText": "BJTU智慧医院挂号系统",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+							"path": "pages/news_detail/news_detail",
+							"style": {
+								"navigationBarTitleText": "信息详情",
+								"enablePullDownRefresh": false
+							}
+				}
 	],
 	"globalStyle": {
 		// 导航字体颜色，仅支持 black/white
@@ -84,6 +105,11 @@
 			"iconPath": "static/222.png",
 			"selectedIconPath": "static/222.png",
 			"text": "挂号"
+		}, {
+			"pagePath": "pages/primary/primary",
+			"iconPath": "static/444.png",
+			"selectedIconPath": "static/444.png",
+			"text": "主页"
 		}]
 	}
 }

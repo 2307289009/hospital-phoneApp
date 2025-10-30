@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "信息详情",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "uv-image": "../../uni_modules/uv-image/components/uv-image/uv-image",
+    "uv-text": "../../uni_modules/uv-text/components/uv-text/uv-text",
+    "uv-parse": "../../uni_modules/uv-parse/components/uv-parse/uv-parse"
+  }
+}
