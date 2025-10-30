@@ -182,15 +182,17 @@
         isSubmitting.value = true;
         try {
             const params = {
-                ...userInfo,
-                geetest: {
-                    lot_number: "debug-test-account",
-                    pass_token: "debug-test-account",
-                    gen_time: "debug-test-account",
-                    captcha_output: "debug-test-account"
-                }
+                userId: userInfo.userId,
+                scheduleId: userInfo.scheduleId,  
+                visitUserId: userInfo.visitUserId,
+                doctorId: userInfo.doctorId,      
+                times: userInfo.times,            
+                timesArea: userInfo.timesArea,    
+                week: userInfo.week,              
+                address: userInfo.address         
             };
             
+            // makeOrderAddApi 会将 params 作为 application/json 发送
             let res = await makeOrderAddApi(params);
             
             if (res && res.code == 200) {

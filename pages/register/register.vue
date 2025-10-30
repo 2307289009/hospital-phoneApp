@@ -22,9 +22,16 @@
 					</uv-input>
 				</uv-form-item>
 				<uv-form-item prop="phone">
-					<uv-input type='number' placeholder="请输入您的联系方式" v-model="userInfo.phone" border="none">
+					<uv-input type='number' placeholder="请输入您的联系方式 (可选)" v-model="userInfo.phone" border="none">
 						<template #prefix>
 							<uv-icon name="phone-fill" size="22"></uv-icon>
+						</template>
+					</uv-input>
+				</uv-form-item>
+				<uv-form-item prop="email">
+					<uv-input placeholder="请输入您的邮箱 (可选)" v-model="userInfo.email" border="none">
+						<template #prefix>
+							<uv-icon name="email-fill" size="22"></uv-icon>
 						</template>
 					</uv-input>
 				</uv-form-item>
@@ -79,7 +86,8 @@
 		password: '',
 		confirm: '',
 		phone: '',
-		name: ''
+		name: '',
+		email: ''
 	})
 
 	const rules = reactive({
@@ -89,12 +97,32 @@
 			message: '请输入您的姓名',
 			trigger: ['blur', 'change']
 		},
-		'phone': {
-			type: 'string',
-			required: true,
-			message: '请输入您的联系方式',
+		'phone': [
+			{
+				required: false,
+				message: '请输入您的联系方式',
+				trigger: ['blur', 'change']
+			},
+			{
+				validator: (rule, value, callback) => {
+					if (!value) {
+						return true;
+					}
+					if (uni.$u.test.mobile(value)) {
+						return true;
+					}
+					return false;
+				},
+				message: '请输入正确的11位手机号码',
+				trigger: ['change', 'blur']
+			}
+		],
+		'email': [{
+			type: 'email',
+			required: false,
+			message: '请输入正确的邮箱格式',
 			trigger: ['blur', 'change']
-		},
+		}],
 		'userName': {
 			type: 'string',
 			required: true,
@@ -132,11 +160,29 @@
 	const commit = () => {
 		formRef.value.validate().then(async (valid) => {
 			if (valid) {
-				let res = await registerApi(userInfo)
+				
+				const params = {
+					userName: userInfo.userName,
+					password: userInfo.password,
+					phone: userInfo.phone,
+					name: userInfo.name,
+					nickName: userInfo.name,
+					email: userInfo.email
+				};
+				
+				let res = await registerApi(params) 
+				
 				if (res && res.code == 200) {
-					uni.navigateTo({
-						url: '/pages/login/login'
-					})
+					uni.showToast({
+						title: '注册成功！',
+						icon: 'success',
+						duration: 1500
+					});
+					setTimeout(() => {
+						uni.navigateTo({
+							url: '/pages/login/login'
+						})
+					}, 1500);
 				}
 			}
 		})
