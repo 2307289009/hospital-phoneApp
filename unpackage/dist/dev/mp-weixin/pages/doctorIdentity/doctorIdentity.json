@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "医生信息",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "uv-button": "../../uni_modules/uv-button/components/uv-button/uv-button"
-  }
-}

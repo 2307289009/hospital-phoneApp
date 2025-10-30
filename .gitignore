@@ -15,7 +15,7 @@ pages/doctor
 pages/add_patient
 pages/primary
 pages/patient
-/unpackage/
+unpackage
 manifest.json
 package-lock.json
 manifest.json

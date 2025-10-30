@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "医生团队",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "uv-text": "../../uni_modules/uv-text/components/uv-text/uv-text",
-    "uv-load-more": "../../uni_modules/uv-load-more/components/uv-load-more/uv-load-more"
-  }
-}
