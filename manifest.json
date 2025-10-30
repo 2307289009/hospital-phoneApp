@@ -55,6 +55,12 @@
             "urlCheck" : false
         },
         "usingComponents" : true
+		// "plugins": {
+		//       "captcha4": {
+		//         "version": "2.6.1",
+		//         "provider": "wx1629d117cf9be937"
+		//       }
+		//     }
     },
     "mp-alipay" : {
         "usingComponents" : true

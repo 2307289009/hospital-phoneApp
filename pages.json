@@ -45,6 +45,9 @@
 			"path": "pages/confirm/confirm",
 			"style": {
 				"navigationBarTitleText": "确定挂号",
+				// "usingComponents": {
+				//           "captcha4": "plugin://captcha4/captcha4"
+				//         },
 				"enablePullDownRefresh": false
 			}
 		},

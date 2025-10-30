@@ -1,7 +1,7 @@
 <template>
 	<view class="page-container">
 		<uv-form :model="userInfo" :rules="rules" ref="upRef">
-			
+
 			<view class="info-card">
 				<view class="card-title">预约详情</view>
 				<view class="info-row">
@@ -30,12 +30,14 @@
 				<view class="card-title">挂号信息</view>
 				<uv-form-item label="就诊时段" prop="timesArea" :borderBottom="true" labelWidth="90">
 					<uv-radio-group v-model="userInfo.timesArea" placement="row">
-						<uv-radio :customStyle="{marginLeft: '16px', marginRight: '25px'}" name="0" label="上午"></uv-radio>
+						<uv-radio :customStyle="{marginLeft: '16px', marginRight: '25px'}" name="0"
+							label="上午"></uv-radio>
 						<uv-radio :customStyle="{marginRight: '16px'}" name="1" label="下午"></uv-radio>
 					</uv-radio-group>
 				</uv-form-item>
-				
-				<uv-form-item label="就诊人" prop="visitorName" :borderBottom="false" labelWidth="90" @click="showSexSelect">
+
+				<uv-form-item label="就诊人" prop="visitorName" :borderBottom="false" labelWidth="90"
+					@click="showSexSelect">
 					<view class="visitor-selector" :class="{'selected': userInfo.visitorName}">
 						{{ userInfo.visitorName || '请选择就诊人' }}
 					</view>
@@ -49,13 +51,45 @@
 				<text class="cost-label">挂号费用</text>
 				<text class="cost-value">￥{{ userInfo.price }}</text>
 			</view>
-			
+
 			<uv-action-sheet ref="sexSelect" :actions="actions" title="请选择就诊人" @select="selectBtn">
 			</uv-action-sheet>
 
 			<view class="footer-actions">
-				<uv-button type="primary" text="确定挂号" @click="commit" size="large" shape="circle"></uv-button>
+				<uv-button type="primary" text="确定挂号" @click="commit" size="large" shape="circle" :loading="isSubmitting"></uv-button>
 			</view>
+
+			<uv-modal
+				ref="mockVerifyModal"
+				title="请完成安全验证"
+				:show-confirm-button="false"
+				:show-cancel-button="false"
+				:close-on-click-overlay="false"
+			>
+				<view class="mock-verify-content">
+					
+					<view v-if="mockModalState === 'success'" class="mock-state-view">
+						<uv-icon name="checkbox-mark" color="#00c777" size="40"></uv-icon>
+						<text class="success-text">验证成功</text>
+					</view>
+
+					<view v-else-if="mockModalState === 'loading'" class="mock-state-view">
+						<uv-loading-icon mode="circle" text="正在验证..." size="30"></uv-loading-icon>
+					</view>
+					
+					<view v-else-if="mockModalState === 'idle'" class="mock-state-view">
+						<uv-button
+							type="primary"
+							icon="shield"
+							text="点击验证"
+							@click="onMockVerifyClick"
+							size="large"
+							shape="circle"
+						></uv-button>
+					</view>
+
+				</view>
+			</uv-modal>
 		</uv-form>
 	</view>
 </template>
@@ -76,8 +110,12 @@
 	const upRef = ref()
 	const sexSelect = ref()
 	const actions = ref([])
+	const isSubmitting = ref(false)
+	const mockVerifyModal = ref()
+	const mockModalState = ref('idle') // 'idle', 'loading', 'success'
+	
 	const userInfo = reactive({
-		scheduleId:'',
+		scheduleId: '',
 		userId: uni.getStorageSync("userId"),
 		deptName: '',
 		doctorId: "",
@@ -91,7 +129,6 @@
 		jobTitle: '',
 		price: ''
 	})
-	
 	const rules = reactive({
 		'timesArea': {
 			type: 'string',
@@ -115,18 +152,60 @@
 		userInfo.visitorName = e.name
 	}
 	const commit = async () => {
-		console.log('进来了')
-		upRef.value.validate().then(async(res) => {
+        if (isSubmitting.value) return;
+
+		upRef.value.validate().then((res) => {
 			if (res) {
-				let result = await makeOrderAddApi(userInfo)
-				if (result && result.code == 200) {
-					uni.redirectTo({
-						url: "/pages/record/record"
-					})
-				}
+				mockModalState.value = 'idle';
+				mockVerifyModal.value.open();
 			}
+		}).catch(err => {
+			uni.showToast({ title: '请检查表单', icon: 'none' });
 		})
 	}
+
+	const onMockVerifyClick = () => {
+		mockModalState.value = 'loading';
+		
+		setTimeout(() => {
+			mockModalState.value = 'success';
+		
+			setTimeout(() => {
+				mockVerifyModal.value.close();
+				submitToServer();
+			}, 500);
+			
+		}, 1500);
+	}
+
+	const submitToServer = async () => {
+        isSubmitting.value = true;
+        try {
+            const params = {
+                ...userInfo,
+                geetest: {
+                    lot_number: "debug-test-account",
+                    pass_token: "debug-test-account",
+                    gen_time: "debug-test-account",
+                    captcha_output: "debug-test-account"
+                }
+            };
+            
+            let res = await makeOrderAddApi(params);
+            
+            if (res && res.code == 200) {
+                uni.redirectTo({ url: "/pages/record/record" });
+            } else {
+                uni.showToast({ title: res.msg || '挂号失败', icon: 'none' });
+            }
+
+        } catch (error) {
+            console.error('提交异常', error);
+        } finally {
+            isSubmitting.value = false;
+        }
+    }
+
 	const getSelectVisitList = async () => {
 		let res = await getSelectVisitListApi({
 			"userId": uni.getStorageSync("userId")
@@ -193,26 +272,28 @@
 			flex: 1;
 			text-align: right;
 		}
+
 		.address {
 			white-space: normal; // Allow address to wrap
 		}
 	}
-	
+
 	// Style for the patient selector text
 	.visitor-selector {
 		color: #c0c4cc; // Placeholder color
 		text-align: right;
 		width: 100%;
+
 		&.selected {
 			color: #303133; // Selected text color
 		}
 	}
-	
+
 	// Override default form item padding for better look
 	.uv-form-item {
 		padding: 5px 0 !important;
 	}
-	
+
 	// Cost summary section
 	.cost-summary {
 		display: flex;
@@ -220,11 +301,11 @@
 		align-items: center;
 		padding: 20px 10px;
 		font-size: 16px;
-		
+
 		.cost-label {
 			color: #606266;
 		}
-		
+
 		.cost-value {
 			color: #fa3534;
 			font-size: 20px;
@@ -235,5 +316,36 @@
 	// Footer button container
 	.footer-actions {
 		padding-top: 20px;
+	}
+
+	.mock-verify-content {
+		width: 100%;
+		
+		// 统一的容器样式
+		.mock-state-view {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			// 增加高度和内边距，让模态框不那么小
+			padding-top: 20px;
+			padding-bottom: 30px;
+			min-height: 100px;
+		}
+		
+		.success-text {
+			font-size: 16px;
+			color: #303133;
+			margin-top: 15px;
+		}
+		
+		// 覆盖 uv-loading-icon 的默认样式
+		.uv-loading-icon {
+			flex-direction: column;
+			.uv-loading-icon__text {
+				margin-top: 15px;
+				margin-left: 0 !important;
+			}
+		}
 	}
 </style>
