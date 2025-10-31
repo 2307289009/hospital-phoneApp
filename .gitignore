@@ -8,10 +8,7 @@ pages/order_patient
 pages/order
 pages/information
 pages/edit_patient
-pages/doctor_list
-pages/doctor
 pages/add_patient
-pages/primary
 pages/patient
 unpackage
 manifest.json
