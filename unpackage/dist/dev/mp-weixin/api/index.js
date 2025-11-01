@@ -56,3 +56,4 @@ exports.getWxUserByIdApi = getWxUserByIdApi;
 exports.loginApi = loginApi;
 exports.makeOrderAddApi = makeOrderAddApi;
 exports.registerApi = registerApi;
+//# sourceMappingURL=../../.sourcemap/mp-weixin/api/index.js.map
