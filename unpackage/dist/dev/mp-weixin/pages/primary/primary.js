@@ -42,7 +42,7 @@ const _sfc_main = {
           throw new Error("Failed to fetch user info");
         }
       } catch (error) {
-        common_vendor.index.__f__("error", "at pages/primary/primary.vue:107", "获取用户信息失败:", error);
+        common_vendor.index.__f__("error", "at pages/primary/primary.vue:116", "获取用户信息失败:", error);
         isError.value = true;
       } finally {
         isLoading.value = false;
@@ -62,6 +62,11 @@ const _sfc_main = {
       common_vendor.index.navigateTo({
         url: "/pages/journal/journal"
         // 修正了路径，与上个页面一致
+      });
+    };
+    const toAuthIdentity = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/identity/identity"
       });
     };
     const toLogin = () => {
@@ -118,9 +123,20 @@ const _sfc_main = {
           size: "16"
         }),
         k: common_vendor.o(toNews),
-        l: isLoggedIn.value
+        l: common_vendor.p({
+          name: "account",
+          color: "#409EFF",
+          size: "22"
+        }),
+        m: common_vendor.p({
+          name: "arrow-right",
+          color: "#909399",
+          size: "16"
+        }),
+        n: common_vendor.o(toAuthIdentity),
+        o: isLoggedIn.value
       }, isLoggedIn.value ? {
-        m: common_vendor.o(toLogin)
+        p: common_vendor.o(toLogin)
       } : {});
     };
   }

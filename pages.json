@@ -78,6 +78,12 @@
 								"navigationBarTitleText": "信息详情",
 								"enablePullDownRefresh": false
 							}
+				},
+				{
+				      "path": "pages/identity/identity",
+				      "style": {
+				        "navigationBarTitleText": "身份认证"
+				      }
 				}
 	],
 	"globalStyle": {

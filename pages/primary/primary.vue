@@ -40,6 +40,15 @@
 					<uv-icon name="arrow-right" color="#909399" size="16"></uv-icon>
 				</view>
 			</view>
+			<view class="menu-item" @click="toAuthIdentity">
+				<view class="item-left">
+					<uv-icon name="account" color="#409EFF" size="22"></uv-icon>
+					<text class="item-title">身份认证</text>
+				</view>
+				<view class="item-right">
+					<uv-icon name="arrow-right" color="#909399" size="16"></uv-icon>
+				</view>
+			</view>
 		</view>
 
 		<view class="logout-section" v-if="isLoggedIn">
@@ -134,6 +143,12 @@
 			url: "/pages/journal/journal" // 修正了路径，与上个页面一致
 		});
 	};
+	
+	const toAuthIdentity = () => {
+		uni.navigateTo({
+			url: "/pages/identity/identity"
+		})
+	}
 
 	const toLogin = () => {
 		uni.showModal({

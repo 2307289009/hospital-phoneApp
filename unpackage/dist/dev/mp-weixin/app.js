@@ -13,6 +13,7 @@ if (!Math) {
   "./pages/journal/journal.js";
   "./pages/primary/primary.js";
   "./pages/journal_content/journal_content.js";
+  "./pages/identity/identity.js";
 }
 const _sfc_main = {
   onLaunch: function() {

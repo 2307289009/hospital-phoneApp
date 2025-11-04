@@ -42,6 +42,16 @@ const getCategoryListApi = () => {
 const getWxUserByIdApi = (parm) => {
   return common_http.http.get("/wxapi/allApi/getWxUserById", parm);
 };
+const submitAuthApi = (parm) => {
+  return common_http.http.post("/wxapi/allApi/submitAuth", parm);
+};
+const uploadPhoto = (filePath) => {
+  const uploadParams = {
+    url: "/wxapi/allApi/uploadPhoto",
+    filePath
+  };
+  return common_http.http.upload(uploadParams);
+};
 exports.cancelOrderApi = cancelOrderApi;
 exports.getCategoryListApi = getCategoryListApi;
 exports.getDoctorApi = getDoctorApi;
@@ -56,4 +66,6 @@ exports.getWxUserByIdApi = getWxUserByIdApi;
 exports.loginApi = loginApi;
 exports.makeOrderAddApi = makeOrderAddApi;
 exports.registerApi = registerApi;
+exports.submitAuthApi = submitAuthApi;
+exports.uploadPhoto = uploadPhoto;
 //# sourceMappingURL=../../.sourcemap/mp-weixin/api/index.js.map

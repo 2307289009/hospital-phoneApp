@@ -10,7 +10,8 @@
     "pages/doctorDepartment/doctorDepartment",
     "pages/journal/journal",
     "pages/primary/primary",
-    "pages/journal_content/journal_content"
+    "pages/journal_content/journal_content",
+    "pages/identity/identity"
   ],
   "window": {
     "navigationBarTextStyle": "black",

@@ -87,3 +87,15 @@ export const addSuggestApi = (parm)=>{
 export const getVisitOrderListApi = (parm)=>{
 	return http.get("/wxapi/allApi/getVisitOrderList",parm)
 }
+//提交个人信息
+export const submitAuthApi = (parm) => {
+	return http.post("/wxapi/allApi/submitAuth",parm)
+}
+//上传照片
+export const uploadPhoto = (filePath) => {
+	const uploadParams = {
+		url: '/wxapi/allApi/uploadPhoto',
+		filePath: filePath
+	};
+	return http.upload(uploadParams)
+}
