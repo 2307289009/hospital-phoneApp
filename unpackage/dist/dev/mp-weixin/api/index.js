@@ -42,6 +42,10 @@ const getCategoryListApi = () => {
 const getWxUserByIdApi = (parm) => {
   return common_http.http.get("/wxapi/allApi/getWxUserById", parm);
 };
+const addSuggestApi = (parm) => {
+  return common_http.http.post("/wxapi/allApi/addSuggest", parm);
+};
+exports.addSuggestApi = addSuggestApi;
 exports.cancelOrderApi = cancelOrderApi;
 exports.getCategoryListApi = getCategoryListApi;
 exports.getDoctorApi = getDoctorApi;

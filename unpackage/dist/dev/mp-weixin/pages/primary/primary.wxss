@@ -108,7 +108,9 @@ page.data-v-fa34f965 {
   height: 28rpx;
 }
 
-/* 菜单卡片 (保持不变) */
+/* 菜单卡片 (样式保持不变)
+  模板的调整会自动让这里的样式生效，将两个item包裹在同一个卡片中
+*/
 .menu-card.data-v-fa34f965 {
   background-color: #ffffff;
   border-radius: 20rpx;
@@ -123,7 +125,9 @@ page.data-v-fa34f965 {
   justify-content: space-between;
   align-items: center;
   padding: 30rpx 0;
+  /* border-bottom 会自动应用到第一个item上 */
   border-bottom: 1px solid #f0f0f0;
+  /* :last-child 会自动应用到第二个item上，移除边框 */
 }
 .menu-item.data-v-fa34f965:last-child {
   border-bottom: none;
@@ -138,7 +142,9 @@ page.data-v-fa34f965 {
   margin-left: 20rpx;
 }
 
-/* 退出登录区域 (保持不变) */
+/* 退出登录区域 (样式保持不变)
+  模板的调整会自动让这个区域与上方的 *单个* menu-card 保持 20rpx 间距
+*/
 .logout-section.data-v-fa34f965 {
   padding: 40rpx 30rpx;
   margin-top: 20rpx;

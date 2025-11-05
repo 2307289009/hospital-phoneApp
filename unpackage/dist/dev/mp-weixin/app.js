@@ -4,6 +4,7 @@ const common_vendor = require("./common/vendor.js");
 if (!Math) {
   "./pages/login/login.js";
   "./pages/index/index.js";
+  "./pages/evaluate/evaluate.js";
   "./pages/appointment/appointment.js";
   "./pages/record/record.js";
   "./pages/register/register.js";

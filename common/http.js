@@ -18,6 +18,7 @@ const http = (options = {}) => {
 					title: response.data.msg,
 					duration: 2000
 				});
+				reject(response.data)
 			}
 
 		}).catch(error => {
