@@ -25,7 +25,10 @@ const _sfc_main = {
     const getWxUserById = async () => {
       const userId = common_vendor.index.getStorageSync("userId");
       if (!userId) {
-        Object.assign(userInfo, { image: "", nickName: "" });
+        Object.assign(userInfo, {
+          image: "",
+          nickName: ""
+        });
         isLoading.value = false;
         isError.value = false;
         return;
@@ -58,15 +61,15 @@ const _sfc_main = {
     common_vendor.onPullDownRefresh(() => {
       getWxUserById();
     });
+    const evaluate = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/evaluate/evaluate"
+      });
+    };
     const toNews = () => {
       common_vendor.index.navigateTo({
         url: "/pages/journal/journal"
         // 修正了路径，与上个页面一致
-      });
-    };
-    const toAuthIdentity = () => {
-      common_vendor.index.navigateTo({
-        url: "/pages/identity/identity"
       });
     };
     const toLogin = () => {
@@ -113,7 +116,7 @@ const _sfc_main = {
       }), {
         b: isError.value,
         i: common_vendor.p({
-          name: "chat",
+          name: "list-dot",
           color: "#409EFF",
           size: "22"
         }),
@@ -124,8 +127,8 @@ const _sfc_main = {
         }),
         k: common_vendor.o(toNews),
         l: common_vendor.p({
-          name: "account",
-          color: "#409EFF",
+          name: "list-dot",
+          color: "#F9AE3D",
           size: "22"
         }),
         m: common_vendor.p({
@@ -133,7 +136,7 @@ const _sfc_main = {
           color: "#909399",
           size: "16"
         }),
-        n: common_vendor.o(toAuthIdentity),
+        n: common_vendor.o(evaluate),
         o: common_vendor.unref(isLoggedIn)
       }, common_vendor.unref(isLoggedIn) ? {
         p: common_vendor.o(toLogin)

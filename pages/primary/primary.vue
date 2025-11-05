@@ -8,7 +8,7 @@
 					<view class="skeleton-line skeleton-motto"></view>
 				</view>
 			</template>
-			
+
 			<template v-else-if="isError">
 				<view class="user-avatar">
 					<uv-image shape="circle" src="/static/user.jpg" width="150rpx" height="150rpx"></uv-image>
@@ -20,7 +20,8 @@
 
 			<template v-else>
 				<view class="user-avatar">
-					<uv-image v-if="userInfo.image" shape="circle" :src="http.baseUrl + userInfo.image" width="150rpx" height="150rpx"></uv-image>
+					<uv-image v-if="userInfo.image" shape="circle" :src="http.baseUrl + userInfo.image" width="150rpx"
+						height="150rpx"></uv-image>
 					<uv-image v-else shape="circle" src="/static/user.jpg" width="150rpx" height="150rpx"></uv-image>
 				</view>
 				<view class="user-info">
@@ -33,7 +34,7 @@
 		<view class="menu-card">
 			<view class="menu-item" @click="toNews">
 				<view class="item-left">
-					<uv-icon name="chat" color="#409EFF" size="22"></uv-icon>
+					<uv-icon name="list-dot" color="#409EFF" size="22"></uv-icon>
 					<text class="item-title">我的新闻</text>
 				</view>
 				<view class="item-right">
@@ -51,6 +52,17 @@
 			</view>
 		</view>
 
+			<view class="menu-item" @click="evaluate">
+				<view class="item-left">
+					<uv-icon name="list-dot" color="#F9AE3D" size="22"></uv-icon>
+					<text class="item-title">评价</text>
+				</view>
+				<view class="item-right">
+					<uv-icon name="arrow-right" color="#909399" size="16"></uv-icon>
+				</view>
+			</view>
+		</view>
+		
 		<view class="logout-section" v-if="isLoggedIn">
 			<button class="logout-btn" @click="toLogin">退出登录</button>
 		</view>
@@ -91,7 +103,10 @@
 		const userId = uni.getStorageSync("userId");
 		if (!userId) {
 			// 如果未登录，则清除用户信息并停止加载
-			Object.assign(userInfo, { image: '', nickName: '' });
+			Object.assign(userInfo, {
+				image: '',
+				nickName: ''
+			});
 			isLoading.value = false;
 			isError.value = false;
 			return;
@@ -131,11 +146,17 @@
 	onShow(() => {
 		getWxUserById();
 	});
-	
+
 	// --- 新增：下拉刷新 ---
 	onPullDownRefresh(() => {
 		getWxUserById();
 	});
+
+	const evaluate = () => {
+		uni.navigateTo({
+			url: "/pages/evaluate/evaluate"
+		})
+	}
 
 	// --- 页面跳转逻辑 (保持不变) ---
 	const toNews = () => {
@@ -201,15 +222,18 @@
 	.user-info {
 		display: flex;
 		flex-direction: column;
+
 		.nickname {
 			font-size: 40rpx;
 			font-weight: bold;
 			margin-bottom: 10rpx;
 		}
+
 		.motto {
 			font-size: 26rpx;
 			opacity: 0.8;
 		}
+
 		.error-text {
 			font-size: 32rpx;
 			font-weight: normal;
@@ -219,10 +243,19 @@
 
 	/* --- 新增骨架屏样式 --- */
 	@keyframes skeleton-blink {
-		0% { background-color: rgba(255, 255, 255, 0.2); }
-		50% { background-color: rgba(255, 255, 255, 0.4); }
-		100% { background-color: rgba(255, 255, 255, 0.2); }
+		0% {
+			background-color: rgba(255, 255, 255, 0.2);
+		}
+
+		50% {
+			background-color: rgba(255, 255, 255, 0.4);
+		}
+
+		100% {
+			background-color: rgba(255, 255, 255, 0.2);
+		}
 	}
+
 	.skeleton-avatar {
 		width: 150rpx;
 		height: 150rpx;
@@ -231,25 +264,31 @@
 		background-color: rgba(255, 255, 255, 0.2);
 		animation: skeleton-blink 1.5s infinite ease-in-out;
 	}
+
 	.skeleton-info {
 		flex: 1;
 	}
+
 	.skeleton-line {
 		height: 36rpx;
 		border-radius: 8rpx;
 		background-color: rgba(255, 255, 255, 0.2);
 		animation: skeleton-blink 1.5s infinite ease-in-out;
 	}
+
 	.skeleton-nickname {
 		width: 50%;
 		margin-bottom: 20rpx;
 	}
+
 	.skeleton-motto {
 		width: 70%;
 		height: 28rpx;
 	}
 
-	/* 菜单卡片 (保持不变) */
+	/* 菜单卡片 (样式保持不变)
+	  模板的调整会自动让这里的样式生效，将两个item包裹在同一个卡片中
+	*/
 	.menu-card {
 		background-color: #ffffff;
 		border-radius: 20rpx;
@@ -265,7 +304,10 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 30rpx 0;
+		/* border-bottom 会自动应用到第一个item上 */
 		border-bottom: 1px solid #f0f0f0;
+
+		/* :last-child 会自动应用到第二个item上，移除边框 */
 		&:last-child {
 			border-bottom: none;
 		}
@@ -274,6 +316,7 @@
 	.item-left {
 		display: flex;
 		align-items: center;
+
 		.item-title {
 			font-size: 30rpx;
 			color: #303133;
@@ -281,10 +324,12 @@
 		}
 	}
 
-	/* 退出登录区域 (保持不变) */
+	/* 退出登录区域 (样式保持不变)
+	  模板的调整会自动让这个区域与上方的 *单个* menu-card 保持 20rpx 间距
+	*/
 	.logout-section {
 		padding: 40rpx 30rpx;
-		margin-top: 20rpx;
+		margin-top: 20rpx; 
 	}
 
 	.logout-btn {
@@ -295,6 +340,7 @@
 		font-weight: 500;
 		box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.05);
 		border: none;
+
 		&::after {
 			border: none;
 		}

@@ -14,6 +14,13 @@
 			}
 		},
 		{
+					"path": "pages/evaluate/evaluate",
+					"style": {
+						"navigationBarTitleText": "评价问题",
+						"enablePullDownRefresh": false
+					}
+		},
+		{
 			"path": "pages/appointment/appointment",
 			"style": {
 				"navigationBarTitleText": "BJTU智慧医院挂号系统",
