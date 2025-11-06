@@ -52,11 +52,23 @@ const upload = (parm) => {
 			formData: {
 				openid: uni.getStorageSync('openid')
 			},
-			header: {
-				// Authorization: uni.getStorageSync("token")
-			},
 			success: (res) => {
-				resolve(res.data);
+				try {
+					const data = JSON.parse(res.data)
+					if (data.code === 200) {
+						data.data = baseUrl + data.data
+						resolve(data)
+					} else {
+						uni.showToast({
+							icon: 'none',
+							title: data.message || '上传失败'
+						})
+						reject(data)
+					}
+				} catch (e) {
+					console.error('上传返回解析失败:', e, res.data)
+					reject(e)
+				}
 			},
 			fail: (error) => {
 				reject(error)
@@ -64,6 +76,7 @@ const upload = (parm) => {
 		})
 	})
 }
+
 export default {
 	get,
 	post,
