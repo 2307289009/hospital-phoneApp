@@ -35,12 +35,13 @@
 					<view class="schedule-card" v-for="(item, index) in scheduleList" :key="index">
 						<view class="schedule-info">
 							<view class="date-info">
-								<view class="date">{{ item.times }}</view>
-								<view class="week">{{ item.week }}</view>
-							</view>
+								<view class="date">{{ item.times }}</view> <view class="week">{{ item.week }}</view> </view>
 							<view class="meta-info">
-								<text>余号: <text class="highlight">{{ item.lastAmount }}</text></text>
-								<text>挂号费: <text class="highlight">¥{{ doctor.price }}</text></text>
+								
+								<text class="level-name">{{ item.levelName }}</text> 
+								
+								<text>余号: <text class="highlight">{{ item.lastAmount }}</text></text> <text>挂号费: <text class="highlight">¥{{ item.price }}</text></text>
+								
 							</view>
 						</view>
 						<view class="schedule-action">
@@ -50,13 +51,11 @@
 								type="primary"
 								shape="circle"
 								text="立即挂号">
-							</uv-button>
-						</view>
+							</uv-button> </view>
 					</view>
 				</view>
 				<view v-else class="empty-state">
-					<text>近期暂无排班</text>
-				</view>
+					<text>近期暂无排班</text> </view>
 			</view>
 		</view>
 	</view>
@@ -68,12 +67,9 @@
 	import http from '../../common/http.js'
 	import { getDoctorApi } from '../../api/index.js'
 
-	// --- 已删除 activeTab 和 changeTab 相关逻辑 ---
-
 	const deptName = ref('');
 	const visitAddress = ref('')
 	const jobTitle = ref('')
-	const price = ref(0)
 
 	const parm = {
 		userId: '',
@@ -93,9 +89,8 @@
 		item.deptName = deptName.value
 		item.jobTitle = jobTitle.value;
 		item.address = visitAddress.value;
-		item.price = price.value;
 		uni.navigateTo({
-			url: '/pages/confirm/confirm?item=' + encodeURIComponent(JSON.stringify(item))
+			url: '/pages/confirm/confirm?item=' + encodeURIComponent(JSON.stringify(item)) //
 		})
 	}
 
@@ -106,8 +101,6 @@
 		deptName.value = item.deptName
 		visitAddress.value = item.visitAddress
 		jobTitle.value = item.jobTitle
-		price.value = item.price
-
 		parm.userId = uni.getStorageSync("userId")
 		Object.assign(doctor.value, item)
 
@@ -124,7 +117,7 @@
 		box-sizing: border-box;
 	}
 
-	// 医生信息卡片 (无变动)
+	// 医生信息卡片
 	.doctor-card {
 		background: linear-gradient(135deg, #4c83ff 0%, #2a5fe1 100%);
 		display: flex;
@@ -187,7 +180,7 @@
 		}
 	}
 	
-	/* --- 新增 Section 样式 --- */
+	// Section 样式
 	.section {
 		background-color: #ffffff;
 		border-radius: 8px;
@@ -206,7 +199,6 @@
 				position: relative;
 				padding-left: 10px;
 				
-				// 标题前的装饰竖线
 				&::before {
 					content: '';
 					position: absolute;
@@ -239,7 +231,7 @@
 		gap: 12px;
 	}
 
-	// 挂号信息卡片 (无变动)
+	// 挂号信息卡片
 	.schedule-card {
 		display: flex;
 		justify-content: space-between;
@@ -260,6 +252,7 @@
 			
 			.date-info {
 				text-align: center;
+				flex-shrink: 0;
 				.date {
 					font-size: 15px;
 					font-weight: bold;
@@ -278,6 +271,12 @@
 				font-size: 14px;
 				color: #606266;
 
+				.level-name {
+					font-size: 15px;
+					font-weight: bold;
+					color: #303133;
+				}
+				
 				.highlight {
 					color: #ff5722;
 					font-weight: bold;
@@ -286,7 +285,7 @@
 		}
 	}
 	
-	// 空状态 (无变动)
+	// 空状态
 	.empty-state {
 		text-align: center;
 		padding: 40px 0;
