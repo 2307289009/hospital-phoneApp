@@ -68,4 +68,3 @@ exports.makeOrderAddApi = makeOrderAddApi;
 exports.registerApi = registerApi;
 exports.submitAuthApi = submitAuthApi;
 exports.uploadPhoto = uploadPhoto;
-//# sourceMappingURL=../../.sourcemap/mp-weixin/api/index.js.map

@@ -42,7 +42,7 @@ const _sfc_main = {
           throw new Error("Failed to fetch user info");
         }
       } catch (error) {
-        common_vendor.index.__f__("error", "at pages/primary/primary.vue:116", "获取用户信息失败:", error);
+        console.error("获取用户信息失败:", error);
         isError.value = true;
       } finally {
         isLoading.value = false;
@@ -134,13 +134,12 @@ const _sfc_main = {
           size: "16"
         }),
         n: common_vendor.o(toAuthIdentity),
-        o: isLoggedIn.value
-      }, isLoggedIn.value ? {
+        o: common_vendor.unref(isLoggedIn)
+      }, common_vendor.unref(isLoggedIn) ? {
         p: common_vendor.o(toLogin)
       } : {});
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-fa34f965"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-fa34f965"], ["__file", "E:/System/phone/pages/primary/primary.vue"]]);
 wx.createPage(MiniProgramPage);
-//# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/primary/primary.js.map
