@@ -9,7 +9,7 @@ pages/information
 pages/edit_patient
 pages/add_patient
 pages/patient
-unpackage
+unpackage/
 manifest.json
 package-lock.json
 manifest.json
