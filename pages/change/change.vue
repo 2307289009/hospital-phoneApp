@@ -28,20 +28,19 @@
 
 		<view class="section">
 			<view class="section-header">
-				<text class="section-title">在线挂号</text>
+				<text class="section-title">在线改签</text>
 			</view>
 			<view class="section-body">
 				<view v-if="scheduleList.length > 0" class="schedule-list">
 					<view class="schedule-card" v-for="(item, index) in scheduleList" :key="index">
 						<view class="schedule-info">
 							<view class="date-info">
-								<view class="date">{{ item.times }}</view> <view class="week">{{ item.week }}</view> </view>
+								<view class="date">{{ item.times }}</view>
+								<view class="week">{{ item.week }}</view>
+							</view>
 							<view class="meta-info">
-								
-								<text class="level-name">{{ item.levelName }}</text> 
-								
-								<text>余号: <text class="highlight">{{ item.lastAmount }}</text></text> <text>挂号费: <text class="highlight">¥{{ item.price }}</text></text>
-								
+								<text>余号: <text class="highlight">{{ item.lastAmount }}</text></text>
+								<text>挂号费: <text class="highlight">¥{{ doctor.price }}</text></text>
 							</view>
 						</view>
 						<view class="schedule-action">
@@ -50,12 +49,14 @@
 								@click="toConfirm(item)"
 								type="primary"
 								shape="circle"
-								text="立即挂号">
-							</uv-button> </view>
+								text="改签">
+							</uv-button>
+						</view>
 					</view>
 				</view>
 				<view v-else class="empty-state">
-					<text>近期暂无排班</text> </view>
+					<text>近期暂无排班</text>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -65,11 +66,15 @@
 	import { ref } from 'vue'
 	import { onLoad } from '@dcloudio/uni-app'
 	import http from '../../common/http.js'
-	import { getDoctorApi } from '../../api/index.js'
+	import { getDoctorApi, rescheduleOrderApi } from '../../api/index.js'
+	
+	// --- 已删除 activeTab 和 changeTab 相关逻辑 ---
 
 	const deptName = ref('');
 	const visitAddress = ref('')
 	const jobTitle = ref('')
+	const price = ref(0)
+	const makeId = ref(0)
 
 	const parm = {
 		userId: '',
@@ -79,29 +84,49 @@
 	const doctor = ref({});
 
 	const getDoctorSchedule = async () => {
-		console.log(parm)
 		let res = await getDoctorApi(parm)
 		if (res && res.code == 200) {
 			scheduleList.value = res.data;
 		}
 	}
 
-	const toConfirm = (item) => {
-		item.deptName = deptName.value
-		item.jobTitle = jobTitle.value;
-		item.address = visitAddress.value;
-		uni.navigateTo({
-			url: '/pages/confirm/confirm?item=' + encodeURIComponent(JSON.stringify(item)) //
-		})
+	// 改为改签的函数
+	const toConfirm = async (item) => {
+		const scheduleId = item.scheduleId;
+		const currentMakeId = makeId.value;
+		console.log(typeof scheduleId)
+		console.log(typeof currentMakeId)
+		try {
+			const rescheduleRes = await rescheduleOrderApi({
+				makeId: currentMakeId,
+				scheduleId
+			});
+			if(rescheduleRes.code == 200) {
+				uni.showToast({
+					title:"改签完成"
+				})
+			}else {
+				uni.showToast({
+					title: "改签失败"
+				})
+			}			
+		}catch(error) {
+			uni.showToast({
+				title: "未知错误"
+			})
+		}
 	}
 
 	onLoad((option) => {
 		const item = JSON.parse(decodeURIComponent(option.item))
-
-		parm.doctorId = item.userId
+		console.log(item)
+		parm.doctorId = item.doctorId
 		deptName.value = item.deptName
 		visitAddress.value = item.visitAddress
 		jobTitle.value = item.jobTitle
+		price.value = item.price
+		makeId.value = item.makeId
+
 		parm.userId = uni.getStorageSync("userId")
 		Object.assign(doctor.value, item)
 
@@ -118,7 +143,7 @@
 		box-sizing: border-box;
 	}
 
-	// 医生信息卡片
+	// 医生信息卡片 (无变动)
 	.doctor-card {
 		background: linear-gradient(135deg, #4c83ff 0%, #2a5fe1 100%);
 		display: flex;
@@ -181,7 +206,7 @@
 		}
 	}
 	
-	// Section 样式
+	/* --- 新增 Section 样式 --- */
 	.section {
 		background-color: #ffffff;
 		border-radius: 8px;
@@ -200,6 +225,7 @@
 				position: relative;
 				padding-left: 10px;
 				
+				// 标题前的装饰竖线
 				&::before {
 					content: '';
 					position: absolute;
@@ -232,7 +258,7 @@
 		gap: 12px;
 	}
 
-	// 挂号信息卡片
+	// 挂号信息卡片 (无变动)
 	.schedule-card {
 		display: flex;
 		justify-content: space-between;
@@ -253,7 +279,6 @@
 			
 			.date-info {
 				text-align: center;
-				flex-shrink: 0;
 				.date {
 					font-size: 15px;
 					font-weight: bold;
@@ -272,12 +297,6 @@
 				font-size: 14px;
 				color: #606266;
 
-				.level-name {
-					font-size: 15px;
-					font-weight: bold;
-					color: #303133;
-				}
-				
 				.highlight {
 					color: #ff5722;
 					font-weight: bold;
@@ -286,7 +305,7 @@
 		}
 	}
 	
-	// 空状态
+	// 空状态 (无变动)
 	.empty-state {
 		text-align: center;
 		padding: 40px 0;

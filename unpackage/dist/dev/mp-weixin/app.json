@@ -2,6 +2,7 @@
   "pages": [
     "pages/login/login",
     "pages/index/index",
+    "pages/evaluate/evaluate",
     "pages/appointment/appointment",
     "pages/record/record",
     "pages/register/register",
@@ -9,9 +10,11 @@
     "pages/confirm/confirm",
     "pages/doctorDepartment/doctorDepartment",
     "pages/journal/journal",
+    "pages/see/see",
     "pages/primary/primary",
     "pages/journal_content/journal_content",
-    "pages/identity/identity"
+    "pages/identity/identity",
+    "pages/change/change"
   ],
   "window": {
     "navigationBarTextStyle": "black",

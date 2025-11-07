@@ -4,6 +4,7 @@ const common_vendor = require("./common/vendor.js");
 if (!Math) {
   "./pages/login/login.js";
   "./pages/index/index.js";
+  "./pages/evaluate/evaluate.js";
   "./pages/appointment/appointment.js";
   "./pages/record/record.js";
   "./pages/register/register.js";
@@ -11,9 +12,11 @@ if (!Math) {
   "./pages/confirm/confirm.js";
   "./pages/doctorDepartment/doctorDepartment.js";
   "./pages/journal/journal.js";
+  "./pages/see/see.js";
   "./pages/primary/primary.js";
   "./pages/journal_content/journal_content.js";
   "./pages/identity/identity.js";
+  "./pages/change/change.js";
 }
 const _sfc_main = {
   onLaunch: function() {
