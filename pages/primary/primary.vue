@@ -51,6 +51,26 @@
 					<uv-icon name="arrow-right" color="#909399" size="16"></uv-icon>
 				</view>
 			</view>
+			
+			<view class="menu-item" @click="record">
+				<view class="item-left">
+					<uv-icon name="list-dot" color="#F9AE3D" size="22"></uv-icon>
+					<text class="item-title">挂号档案</text>
+				</view>
+				<view class="item-right">
+					<uv-icon name="arrow-right" color="#909399" size="16"></uv-icon>
+				</view>
+			</view>
+			
+			<view class="menu-item" @click="see">
+				<view class="item-left">
+					<uv-icon name="list-dot" color="#F9AE3D" size="22"></uv-icon>
+					<text class="item-title">就诊档案</text>
+				</view>
+				<view class="item-right">
+					<uv-icon name="arrow-right" color="#909399" size="16"></uv-icon>
+				</view>
+			</view>
 		</view>
 		
 		<view class="logout-section" v-if="isLoggedIn">
@@ -142,9 +162,21 @@
 		getWxUserById();
 	});
 
+	const see = ()=>{
+			uni.navigateTo({
+				url: "/pages/see/see"
+			})
+		}
+
 	const evaluate = () => {
 		uni.navigateTo({
 			url: "/pages/evaluate/evaluate"
+		})
+	}
+	
+	const record = () => {
+		uni.navigateTo({
+			url: "/pages/record/record"
 		})
 	}
 

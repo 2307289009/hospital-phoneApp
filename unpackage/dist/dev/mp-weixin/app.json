@@ -10,6 +10,7 @@
     "pages/confirm/confirm",
     "pages/doctorDepartment/doctorDepartment",
     "pages/journal/journal",
+    "pages/see/see",
     "pages/primary/primary",
     "pages/journal_content/journal_content"
   ],

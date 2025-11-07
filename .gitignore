@@ -3,7 +3,7 @@ target
 node_modules
 uni_modules
 pages/reset_password
-pages/order_patient
+pages/see
 pages/order
 pages/information
 pages/edit_patient

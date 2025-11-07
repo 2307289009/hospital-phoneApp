@@ -73,6 +73,13 @@
 					}
 				},
 				{
+							"path": "pages/see/see",
+							"style": {
+								"navigationBarTitleText": "就诊档案",
+								"enablePullDownRefresh": false
+							}
+				},
+				{
 					"path": "pages/primary/primary",
 					"style": {
 						"navigationBarTitleText": "BJTU智慧医院挂号系统",

@@ -12,6 +12,7 @@ if (!Math) {
   "./pages/confirm/confirm.js";
   "./pages/doctorDepartment/doctorDepartment.js";
   "./pages/journal/journal.js";
+  "./pages/see/see.js";
   "./pages/primary/primary.js";
   "./pages/journal_content/journal_content.js";
 }
