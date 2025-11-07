@@ -45,7 +45,7 @@ const _sfc_main = {
           throw new Error("Failed to fetch user info");
         }
       } catch (error) {
-        console.error("获取用户信息失败:", error);
+        common_vendor.index.__f__("error", "at pages/primary/primary.vue:151", "获取用户信息失败:", error);
         isError.value = true;
       } finally {
         isLoading.value = false;
@@ -80,6 +80,11 @@ const _sfc_main = {
       common_vendor.index.navigateTo({
         url: "/pages/journal/journal"
         // 修正了路径，与上个页面一致
+      });
+    };
+    const toAuthIdentity = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/identity/identity"
       });
     };
     const toLogin = () => {
@@ -137,8 +142,8 @@ const _sfc_main = {
         }),
         k: common_vendor.o(toNews),
         l: common_vendor.p({
-          name: "list-dot",
-          color: "#F9AE3D",
+          name: "account",
+          color: "#409EFF",
           size: "22"
         }),
         m: common_vendor.p({
@@ -146,7 +151,7 @@ const _sfc_main = {
           color: "#909399",
           size: "16"
         }),
-        n: common_vendor.o(evaluate),
+        n: common_vendor.o(toAuthIdentity),
         o: common_vendor.p({
           name: "list-dot",
           color: "#F9AE3D",
@@ -157,7 +162,7 @@ const _sfc_main = {
           color: "#909399",
           size: "16"
         }),
-        q: common_vendor.o(record),
+        q: common_vendor.o(evaluate),
         r: common_vendor.p({
           name: "list-dot",
           color: "#F9AE3D",
@@ -168,13 +173,25 @@ const _sfc_main = {
           color: "#909399",
           size: "16"
         }),
-        t: common_vendor.o(see),
-        v: common_vendor.unref(isLoggedIn)
-      }, common_vendor.unref(isLoggedIn) ? {
-        w: common_vendor.o(toLogin)
+        t: common_vendor.o(record),
+        v: common_vendor.p({
+          name: "list-dot",
+          color: "#F9AE3D",
+          size: "22"
+        }),
+        w: common_vendor.p({
+          name: "arrow-right",
+          color: "#909399",
+          size: "16"
+        }),
+        x: common_vendor.o(see),
+        y: isLoggedIn.value
+      }, isLoggedIn.value ? {
+        z: common_vendor.o(toLogin)
       } : {});
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-fa34f965"], ["__file", "E:/System/phone/pages/primary/primary.vue"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-fa34f965"]]);
 wx.createPage(MiniProgramPage);
+//# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/primary/primary.js.map

@@ -28,7 +28,7 @@
 
 		<view class="section">
 			<view class="section-header">
-				<text class="section-title">在线挂号</text>
+				<text class="section-title">在线改签</text>
 			</view>
 			<view class="section-body">
 				<view v-if="scheduleList.length > 0" class="schedule-list">
@@ -49,7 +49,7 @@
 								@click="toConfirm(item)"
 								type="primary"
 								shape="circle"
-								text="立即挂号">
+								text="改签">
 							</uv-button>
 						</view>
 					</view>
@@ -66,14 +66,15 @@
 	import { ref } from 'vue'
 	import { onLoad } from '@dcloudio/uni-app'
 	import http from '../../common/http.js'
-	import { getDoctorApi } from '../../api/index.js'
-
+	import { getDoctorApi, rescheduleOrderApi } from '../../api/index.js'
+	
 	// --- 已删除 activeTab 和 changeTab 相关逻辑 ---
 
 	const deptName = ref('');
 	const visitAddress = ref('')
 	const jobTitle = ref('')
 	const price = ref(0)
+	const makeId = ref(0)
 
 	const parm = {
 		userId: '',
@@ -83,31 +84,48 @@
 	const doctor = ref({});
 
 	const getDoctorSchedule = async () => {
-		console.log(parm)
 		let res = await getDoctorApi(parm)
 		if (res && res.code == 200) {
 			scheduleList.value = res.data;
 		}
 	}
 
-	const toConfirm = (item) => {
-		item.deptName = deptName.value
-		item.jobTitle = jobTitle.value;
-		item.address = visitAddress.value;
-		item.price = price.value;
-		uni.navigateTo({
-			url: '/pages/confirm/confirm?item=' + encodeURIComponent(JSON.stringify(item))
-		})
+	// 改为改签的函数
+	const toConfirm = async (item) => {
+		const scheduleId = item.scheduleId;
+		const currentMakeId = makeId.value;
+		console.log(typeof scheduleId)
+		console.log(typeof currentMakeId)
+		try {
+			const rescheduleRes = await rescheduleOrderApi({
+				makeId: currentMakeId,
+				scheduleId
+			});
+			if(rescheduleRes.code == 200) {
+				uni.showToast({
+					title:"改签完成"
+				})
+			}else {
+				uni.showToast({
+					title: "改签失败"
+				})
+			}			
+		}catch(error) {
+			uni.showToast({
+				title: "未知错误"
+			})
+		}
 	}
 
 	onLoad((option) => {
 		const item = JSON.parse(decodeURIComponent(option.item))
-
-		parm.doctorId = item.userId
+		console.log(item)
+		parm.doctorId = item.doctorId
 		deptName.value = item.deptName
 		visitAddress.value = item.visitAddress
 		jobTitle.value = item.jobTitle
 		price.value = item.price
+		makeId.value = item.makeId
 
 		parm.userId = uni.getStorageSync("userId")
 		Object.assign(doctor.value, item)

@@ -45,8 +45,18 @@ const getWxUserByIdApi = (parm) => {
 const addSuggestApi = (parm) => {
   return common_http.http.post("/wxapi/allApi/addSuggest", parm);
 };
-const getVisitOrderListApi = (parm) => {
-  return common_http.http.get("/wxapi/allApi/getVisitOrderList", parm);
+const submitAuthApi = (parm) => {
+  return common_http.http.post("/wxapi/allApi/submitAuth", parm);
+};
+const uploadPhoto = (filePath) => {
+  const uploadParams = {
+    url: "/wxapi/allApi/uploadPhoto",
+    filePath
+  };
+  return common_http.http.upload(uploadParams);
+};
+const rescheduleOrderApi = (parm) => {
+  return common_http.http.post("/wxapi/allApi/rescheduleOrder", parm);
 };
 exports.addSuggestApi = addSuggestApi;
 exports.cancelOrderApi = cancelOrderApi;
@@ -59,8 +69,11 @@ exports.getIndexNewsApi = getIndexNewsApi;
 exports.getNewsListApi = getNewsListApi;
 exports.getOrderListApi = getOrderListApi;
 exports.getSelectVisitListApi = getSelectVisitListApi;
-exports.getVisitOrderListApi = getVisitOrderListApi;
 exports.getWxUserByIdApi = getWxUserByIdApi;
 exports.loginApi = loginApi;
 exports.makeOrderAddApi = makeOrderAddApi;
 exports.registerApi = registerApi;
+exports.rescheduleOrderApi = rescheduleOrderApi;
+exports.submitAuthApi = submitAuthApi;
+exports.uploadPhoto = uploadPhoto;
+//# sourceMappingURL=../../.sourcemap/mp-weixin/api/index.js.map

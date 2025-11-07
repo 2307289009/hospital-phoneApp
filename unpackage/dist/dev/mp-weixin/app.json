@@ -13,7 +13,8 @@
     "pages/see/see",
     "pages/primary/primary",
     "pages/journal_content/journal_content",
-    "pages/identity/identity"
+    "pages/identity/identity",
+    "pages/change/change"
   ],
   "window": {
     "navigationBarTextStyle": "black",

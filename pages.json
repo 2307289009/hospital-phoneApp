@@ -98,6 +98,13 @@
 				      "style": {
 				        "navigationBarTitleText": "身份认证"
 				      }
+				},
+				{
+					"path" : "pages/change/change",
+					"style" : 
+					{
+						"navigationBarTitleText" : ""
+					}
 				}
 	],
 	"globalStyle": {

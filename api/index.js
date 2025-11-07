@@ -99,3 +99,7 @@ export const uploadPhoto = (filePath) => {
 	};
 	return http.upload(uploadParams)
 }
+//改签
+export const rescheduleOrderApi = (parm) => {
+	return http.post("/wxapi/allApi/rescheduleOrder",parm);
+}

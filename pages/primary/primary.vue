@@ -81,7 +81,7 @@
 					<uv-icon name="arrow-right" color="#909399" size="16"></uv-icon>
 				</view>
 			</view>
-		</view>
+		
 		
 		<view class="logout-section" v-if="isLoggedIn">
 			<button class="logout-btn" @click="toLogin">退出登录</button>
