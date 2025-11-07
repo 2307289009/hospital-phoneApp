@@ -61,9 +61,19 @@ const _sfc_main = {
     common_vendor.onPullDownRefresh(() => {
       getWxUserById();
     });
+    const see = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/see/see"
+      });
+    };
     const evaluate = () => {
       common_vendor.index.navigateTo({
         url: "/pages/evaluate/evaluate"
+      });
+    };
+    const record = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/record/record"
       });
     };
     const toNews = () => {
@@ -137,9 +147,31 @@ const _sfc_main = {
           size: "16"
         }),
         n: common_vendor.o(evaluate),
-        o: common_vendor.unref(isLoggedIn)
+        o: common_vendor.p({
+          name: "list-dot",
+          color: "#F9AE3D",
+          size: "22"
+        }),
+        p: common_vendor.p({
+          name: "arrow-right",
+          color: "#909399",
+          size: "16"
+        }),
+        q: common_vendor.o(record),
+        r: common_vendor.p({
+          name: "list-dot",
+          color: "#F9AE3D",
+          size: "22"
+        }),
+        s: common_vendor.p({
+          name: "arrow-right",
+          color: "#909399",
+          size: "16"
+        }),
+        t: common_vendor.o(see),
+        v: common_vendor.unref(isLoggedIn)
       }, common_vendor.unref(isLoggedIn) ? {
-        p: common_vendor.o(toLogin)
+        w: common_vendor.o(toLogin)
       } : {});
     };
   }

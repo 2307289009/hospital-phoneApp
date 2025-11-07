@@ -45,6 +45,9 @@ const getWxUserByIdApi = (parm) => {
 const addSuggestApi = (parm) => {
   return common_http.http.post("/wxapi/allApi/addSuggest", parm);
 };
+const getVisitOrderListApi = (parm) => {
+  return common_http.http.get("/wxapi/allApi/getVisitOrderList", parm);
+};
 exports.addSuggestApi = addSuggestApi;
 exports.cancelOrderApi = cancelOrderApi;
 exports.getCategoryListApi = getCategoryListApi;
@@ -56,6 +59,7 @@ exports.getIndexNewsApi = getIndexNewsApi;
 exports.getNewsListApi = getNewsListApi;
 exports.getOrderListApi = getOrderListApi;
 exports.getSelectVisitListApi = getSelectVisitListApi;
+exports.getVisitOrderListApi = getVisitOrderListApi;
 exports.getWxUserByIdApi = getWxUserByIdApi;
 exports.loginApi = loginApi;
 exports.makeOrderAddApi = makeOrderAddApi;
