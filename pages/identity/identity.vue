@@ -81,11 +81,11 @@ const afterRead = async (event) => {
 	const uploadRes = await uploadPhoto(file.url);
 	console.log(uploadRes)
 	if (name === 'front') {
-		form.cardFront = uploadRes.data;
-		frontList.value = [{ url: uploadRes.data }];
+		form.cardFront = uploadRes.data.data;
+		frontList.value = [{ url: uploadRes.data.data }];
 	} else if (name === 'back') {
-		form.cardBack = uploadRes.data;
-		backList.value = [{ url: uploadRes.data }];
+		form.cardBack = uploadRes.data.data;
+		backList.value = [{ url: uploadRes.data.data }];
 	}
 };
 
@@ -107,6 +107,9 @@ const submitForm = async () => {
 	if (!form.userType) return uni.$u.toast('请选择用户类型');
 	if (!form.cardNo) return uni.$u.toast('请输入卡号');
 	if (!form.cardFront || !form.cardBack) return uni.$u.toast('请上传证件正反面照片');
+	
+	const userId = uni.getStorageSync("userId");
+	const nickName = getWxUserByIdApi({id});
 
 	loading.value = true;
 	try {
