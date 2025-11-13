@@ -15,6 +15,7 @@
     "pages/journal_content/journal_content",
     "pages/identity/identity",
     "pages/treatment/treatment",
+    "pages/treatmentModify/treatmentModify",
     "pages/treatmentAdd/treatmentAdd",
     "pages/change/change"
   ],

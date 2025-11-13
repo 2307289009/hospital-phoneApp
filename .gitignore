@@ -2,12 +2,6 @@ target
 .idea
 node_modules
 uni_modules
-pages/reset_password
-pages/order
-pages/information
-pages/edit_patient
-pages/add_patient
-pages/patient
 unpackage/
 manifest.json
 package-lock.json

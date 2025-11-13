@@ -1,19 +1,25 @@
 <template>
+	<!-- 1. 页面容器，使用新的背景色 -->
 	<view class="page-container">
 
+		<!-- 2. 顶部渐变色装饰头 -->
 		<view class="form-header">
-			<text class="header-title">添加就诊人</text>
-			<text class="header-subtitle">请填写真实的就诊信息</text>
+			<text class="header-title">修改就诊人</text>
+			<!-- 动态显示正在编辑的人名，更友好 -->
+			<text class="header-subtitle">正在修改 {{userInfo.visitname || ''}} 的信息</text>
 		</view>
 
+		<!-- 3. 表单卡片容器 -->
 		<view class="form-card">
-			<uv-form :model="userInfo" :rules="rules" ref="upRef" labelPosition="left" labelWidth="80">
+			<uv-form :model="userInfo" :rules="rules" ref="upRef" labelPosition="left" labelWidth="90">
 
+				<!-- 4. 采用 "框式" 布局和图标引导 -->
 				<view class="form-field-wrapper">
 					<uv-form-item prop="visitname" :borderBottom="false">
+						<!-- 使用 label 插槽来放图标和文字 -->
 						<template #label>
 							<view class="form-label">
-								<uv-icon name="account-fill" size="20" color="#007AFF"></uv-icon>
+								<uv-icon name="account-fill" size="20" :color="themeColor"></uv-icon>
 								<text>姓名</text>
 							</view>
 						</template>
@@ -27,28 +33,31 @@
 					<uv-form-item prop="sex" :borderBottom="false">
 						<template #label>
 							<view class="form-label">
-								<uv-icon name="tags-fill" size="20" color="#007AFF"></uv-icon>
+								<uv-icon name="tags-fill" size="20" :color="themeColor"></uv-icon>
 								<text>性别</text>
 							</view>
 						</template>
-						<uv-radio-group v-model="userInfo.sex" placement="row" class="radio-group">
+						<!-- 将 radio 放在右侧, 并使用主题色 -->
+						<uv-radio-group v-model="userInfo.sex" placement="row" :activeColor="themeColor">
 							<uv-radio :customStyle="{marginRight: '25px'}" name="0" label="男"></uv-radio>
 							<uv-radio name="1" label="女"></uv-radio>
 						</uv-radio-group>
 					</uv-form-item>
 				</view>
 
+				<!-- 点击事件改到父级 view 上，并添加右箭头图标 -->
 				<view class="form-field-wrapper" @click="open">
 					<uv-form-item prop="birthday" :borderBottom="false">
 						<template #label>
 							<view class="form-label">
-								<uv-icon name="tags-fill" size="20" color="#007AFF"></uv-icon>
+								<uv-icon name="account-fill" size="20" :color="themeColor"></uv-icon>
 								<text>出生日期</text>
 							</view>
 						</template>
-						<uv-input v-model="userInfo.birthday" border="none" placeholder=""
+						<uv-input v-model="userInfo.birthday" border="none" placeholder="请选择出生日期"
 							placeholderClass="input-placeholder" bgColor="transparent" readonly>
 						</uv-input>
+						<!-- 添加向右的箭头 -->
 					</uv-form-item>
 				</view>
 
@@ -56,7 +65,7 @@
 					<uv-form-item prop="phone" :borderBottom="false">
 						<template #label>
 							<view class="form-label">
-								<uv-icon name="phone-fill" size="20" color="#007AFF"></uv-icon>
+								<uv-icon name="phone-fill" size="20" :color="themeColor"></uv-icon>
 								<text>联系方式</text>
 							</view>
 						</template>
@@ -70,8 +79,8 @@
 					<uv-form-item prop="idCard" :borderBottom="false">
 						<template #label>
 							<view class="form-label">
-								<uv-icon name="file-text-fill" size="20" color="#007AFF"></uv-icon>
-								<text>身份证</text>
+								<uv-icon name="file-text-fill" size="20" :color="themeColor"></uv-icon>
+								<text>身份证号</text>
 							</view>
 						</template>
 						<uv-input v-model="userInfo.idCard" type="idcard" border="none" placeholder="请输入身份证号码"
@@ -80,23 +89,18 @@
 					</uv-form-item>
 				</view>
 
+				<!-- 5. 升级的 "高光" 提交按钮 -->
 				<view class="submit-button-wrapper">
-					<uv-button text="立即添加" @click="submit" size="large" customStyle="
-						margin-top: 30px;
-						border: none;
-						border-radius: 50px;
-						font-size: 16px;
-						font-weight: 500;
-						background: linear-gradient(to right, #007aff, #0056b3);
-						color: #ffffff;
-						box-shadow: 0 4px 12px rgba(0, 100, 255, 0.3);
-					"></uv-button>
+					<!-- 按钮文案改为 "保存修改" 更贴切 -->
+					<uv-button text="保存修改" @click="submit" size="large" :customStyle="submitBtnStyle">
+					</uv-button>
 				</view>
 
 			</uv-form>
 		</view>
 
-		<uv-datetime-picker ref="datetimePicker" v-model="times" mode="date" @confirm="confirm">
+		<!-- 时间选择器 (使用主题色) -->
+		<uv-datetime-picker ref="datetimePicker" v-model="times" mode="date" @confirm="confirm" :confirmColor="themeColor">
 		</uv-datetime-picker>
 	</view>
 </template>
@@ -105,14 +109,21 @@
 	import dayjs from 'dayjs'
 	import {
 		reactive,
-		ref
+		ref,
+		computed
 	} from 'vue';
 	import {
-		onReady
+		onReady,
+		onLoad
 	} from '@dcloudio/uni-app'
 	import {
-		visitAddApi
+		visitEditApi
 	} from '../../api/index.js'
+
+	// ======================================
+	// *** 脚本修改点：美化与校验 ***
+	// ======================================
+	
 	const upRef = ref()
 	const times = ref(Number(new Date()))
 	const datetimePicker = ref()
@@ -125,100 +136,73 @@
 		birthday: '',
 		idCard: ''
 	})
+	
+	// 1. 定义主题色
+	const themeColor = ref('#f39c12') // 温暖的橙色
+
+	// 2. 动态计算按钮样式
+	const submitBtnStyle = computed(() => ({
+		'margin-top': '30px',
+		'border': 'none',
+		'border-radius': '50px',
+		'font-size': '16px',
+		'font-weight': '500',
+		'background': themeColor.value, // 使用主题色
+		'color': '#ffffff',
+		// 使用主题色作为阴影
+		'box-shadow': `0 4px 12px ${hexToRgba(themeColor.value, 0.3)}` 
+	}))
+
+	// 辅助函数：将HEX转为RGBA，用于阴影
+	function hexToRgba(hex, opacity) {
+		let rgba = "rgba(" + parseInt("0x" + hex.slice(1, 3)) + "," +
+			parseInt("0x" + hex.slice(3, 5)) + "," +
+			parseInt("0x" + hex.slice(5, 7)) + "," + opacity + ")";
+		return rgba;
+	}
+
 	const open = () => {
 		datetimePicker.value.open()
 	}
+	
 	const confirm = (e) => {
 		let timeValue = dayjs(e.value).format('YYYY-MM-DD');
 		userInfo.birthday = timeValue
-		
-		// 选择日期后，手动触发该字段的校验
+		// 选择后，手动触发校验
 		upRef.value.validateField('birthday');
 	}
-	
-	// ======================================
-	// *** 脚本修改点：强化校验规则 ***
-	// ======================================
 
-	/**
-	 * 新增：自定义校验函数，用于校验出生日期
-	 * @param {Object} rule - 规则
-	 * @param {string} value - 值
-	 * @param {Function} callback - 回调
-	 */
+	// 3. 自定义校验函数 - 校验出生日期
 	const validateBirthday = (rule, value, callback) => {
 		if (!value) {
-			// 'required: true' 会处理空值，这里是双重保险
 			return callback(new Error('请选择出生日期'));
 		}
-		// 使用 dayjs 比较日期
 		if (dayjs(value).isAfter(dayjs(), 'day')) {
-			// 如果选择的日期在今天之后
 			return callback(new Error('出生日期不能晚于今天'));
 		}
 		return callback(); // 校验通过
 	};
 
-
-	//表单验证规则 (已强化)
+	// 4. 强化表单验证规则
 	const rules = reactive({
 		'visitname': [
-			{
-				required: true,
-				message: '请输入真实姓名',
-				trigger: ['blur', 'change']
-			},
-			{
-				// 2-20位字符，可以是中文、英文、空格
-				pattern: /^[\u4e00-\u9fa5a-zA-Z\s]{2,20}$/,
-				message: '请输入2-20位的有效姓名',
-				trigger: ['blur', 'change']
-			}
+			{ required: true, message: '请输入真实姓名', trigger: ['blur', 'change'] },
+			{ pattern: /^[\u4e00-\u9fa5a-zA-Z\s]{2,20}$/, message: '请输入2-20位的有效姓名', trigger: ['blur', 'change']}
 		],
 		'sex': [
-			{
-				required: true,
-				message: '请选择性别',
-				trigger: ['blur', 'change']
-			}
+			{ required: true, message: '请选择性别', trigger: ['blur', 'change'] }
 		],
 		'phone': [
-			{
-				required: true,
-				message: '请输入联系方式',
-				trigger: ['blur', 'change']
-			},
-			{
-				// 中国大陆11位手机号
-				pattern: /^1[3-9]\d{9}$/,
-				message: '请输入正确的11位手机号码',
-				trigger: ['blur', 'change']
-			}
+			{ required: true, message: '请输入联系方式', trigger: ['blur', 'change'] },
+			{ pattern: /^1[3-9]\d{9}$/, message: '请输入正确的11位手机号码', trigger: ['blur', 'change'] }
 		],
 		'birthday': [
-			{
-				required: true,
-				message: '请选择出生日期',
-				trigger: ['change'] // 仅在 'change' 时触发
-			},
-			{
-				// 新增：自定义校验函数
-				validator: validateBirthday,
-				trigger: 'change'
-			}
+			{ required: true, message: '请选择出生日期', trigger: ['change'] },
+			{ validator: validateBirthday, trigger: 'change' } // 使用自定义校验
 		],
 		'idCard': [
-			{
-				required: true,
-				message: '请输入身份证号码',
-				trigger: ['blur', 'change']
-			},
-			{
-				// 18位身份证号码 (最后一位可以是 X)
-				pattern: /(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
-				message: '请输入正确的18位身份证号码',
-				trigger: ['blur', 'change']
-			}
+			{ required: true, message: '请输入身份证号码', trigger: ['blur', 'change'] },
+			{ pattern: /(^\d{18}$)|(^\d{17}(\d|X|x)$)/, message: '请输入正确的18位身份证号码', trigger: ['blur', 'change'] }
 		],
 	})
 
@@ -229,7 +213,7 @@
 				//当前登录小程序的用户id
 				console.log(uni.getStorageSync("userId"))
 				userInfo.userId = uni.getStorageSync("userId")
-				let res = await visitAddApi(userInfo)
+				let res = await visitEditApi(userInfo)
 				if (res && res.code == 200) {
 					//关闭当前页面
 					uni.navigateBack({
@@ -241,7 +225,22 @@
 			console.log('表单校验失败', err)
 		})
 	}
-
+	
+	onLoad((option) => {
+		try{
+			const item = JSON.parse(decodeURIComponent(option.item))
+			console.log(item)
+			Object.assign(userInfo, item)
+			// 设置日期选择器的默认时间
+			if(item.birthday){
+				times.value = dayjs(item.birthday).valueOf()
+			}
+		}catch(e){
+			console.error("加载用户信息失败", e)
+			uni.showToast({ title: '加载信息失败', icon: 'error' })
+		}
+	})
+	
 	onReady(() => {
 		upRef.value.setRules(rules)
 	})
@@ -250,7 +249,7 @@
 <style lang="scss">
 	/* 1. 页面整体背景 */
 	page {
-		background-color: #f4f7fa;
+		background-color: #f8f8f8;
 	}
 
 	.page-container {
@@ -259,8 +258,9 @@
 
 	/* 2. 顶部渐变色装饰头 */
 	.form-header {
-		height: 160px;
-		background: linear-gradient(135deg, #007aff, #00c6ff);
+		height: 150px; // 降低一点高度
+		// 使用更柔和的橙色渐变
+		background: linear-gradient(135deg, #f39c12, #f1c40f); 
 		border-bottom-left-radius: 30px;
 		border-bottom-right-radius: 30px;
 		padding: 30px;
@@ -276,7 +276,7 @@
 
 		.header-subtitle {
 			font-size: 14px;
-			color: rgba(255, 255, 255, 0.8);
+			color: rgba(255, 255, 255, 0.9);
 			margin-top: 5px;
 		}
 	}
@@ -297,25 +297,30 @@
 		border-radius: 10px;
 		margin-bottom: 18px; // 增加项间距
 		padding: 0 12px; // 左右内边距
+		border: 1px solid transparent; // 默认透明边框
+		transition: border-color 0.2s;
+		
+		// 模拟 :focus-within 效果，H5中有效
+		&:focus-within {
+			border-color: #f39c12; // 聚焦时显示主题色边框
+		}
 
 		// 解决 uv-form-item 默认的一些样式问题
-		// uni-app H5 端可能需要
 		::v-deep .uv-form-item__body {
 			padding: 10px 0 !important;
 		}
-
-		// 小程序端可能需要
+		
 		::v-deep .u-form-item__body {
 			padding: 10px 0 !important;
 		}
 	}
-
+	
 	/* 特殊处理性别字段，使其内部对齐 */
 	.sex-field {
 		::v-deep .uv-form-item__body__right {
 			justify-content: flex-end;
 		}
-
+		
 		::v-deep .u-form-item__body__right {
 			justify-content: flex-end;
 		}
@@ -335,7 +340,7 @@
 		color: #aaaaaa;
 		font-size: 15px;
 	}
-
+	
 	/* 5. 提交按钮容器 */
 	.submit-button-wrapper {
 		padding: 0 10px; // 让按钮稍微窄一点，留出呼吸空间

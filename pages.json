@@ -106,6 +106,12 @@
 				      }
 				},
 				{
+				      "path": "pages/treatmentModify/treatmentModify",
+				      "style": {
+				        "navigationBarTitleText": "修改就诊人"
+				      }
+				},
+				{
 				      "path": "pages/treatmentAdd/treatmentAdd",
 				      "style": {
 				        "navigationBarTitleText": "添加就诊人"

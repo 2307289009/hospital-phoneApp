@@ -51,7 +51,7 @@
 	//编辑
 	const editBtn = (item) => {
 		uni.navigateTo({
-			url: '/pages/edit_patient/edit_patient?item=' + encodeURIComponent(JSON.stringify(item))
+			url: '/pages/treatmentModify/treatmentModify?item=' + encodeURIComponent(JSON.stringify(item))
 		})
 	}
 	//删除按钮

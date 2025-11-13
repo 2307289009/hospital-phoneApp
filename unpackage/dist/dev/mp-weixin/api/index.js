@@ -21,6 +21,9 @@ const getDoctorApi = (parm) => {
 const visitAddApi = (parm) => {
   return common_http.http.post("/wxapi/allApi/visitAdd", parm);
 };
+const visitEditApi = (parm) => {
+  return common_http.http.put("/wxapi/allApi/visitEdit", parm);
+};
 const visitDeleteApi = (parm) => {
   return common_http.http.post("/wxapi/allApi/visitDelete", parm);
 };
@@ -92,3 +95,4 @@ exports.submitAuthApi = submitAuthApi;
 exports.uploadPhoto = uploadPhoto;
 exports.visitAddApi = visitAddApi;
 exports.visitDeleteApi = visitDeleteApi;
+exports.visitEditApi = visitEditApi;
