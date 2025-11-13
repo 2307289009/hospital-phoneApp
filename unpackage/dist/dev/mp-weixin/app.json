@@ -14,6 +14,7 @@
     "pages/primary/primary",
     "pages/journal_content/journal_content",
     "pages/identity/identity",
+    "pages/treatment/treatment",
     "pages/change/change"
   ],
   "window": {

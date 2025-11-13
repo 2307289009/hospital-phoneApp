@@ -35,7 +35,7 @@
 			<view class="menu-item" @click="toNews">
 				<view class="item-left">
 					<uv-icon name="list-dot" color="#409EFF" size="22"></uv-icon>
-					<text class="item-title">我的新闻</text>
+					<text class="item-title">新闻</text>
 				</view>
 				<view class="item-right">
 					<uv-icon name="arrow-right" color="#909399" size="16"></uv-icon>
@@ -50,8 +50,6 @@
 					<uv-icon name="arrow-right" color="#909399" size="16"></uv-icon>
 				</view>
 			</view>
-		</view>
-
 			<view class="menu-item" @click="evaluate">
 				<view class="item-left">
 					<uv-icon name="list-dot" color="#F9AE3D" size="22"></uv-icon>
@@ -81,6 +79,19 @@
 					<uv-icon name="arrow-right" color="#909399" size="16"></uv-icon>
 				</view>
 			</view>
+			
+			<view class="menu-item" @click="treatment">
+				<view class="item-left">
+					<uv-icon name="list-dot" color="#F9AE3D" size="22"></uv-icon>
+					<text class="item-title">就诊人管理</text>
+				</view>
+				<view class="item-right">
+					<uv-icon name="arrow-right" color="#909399" size="16"></uv-icon>
+				</view>
+			</view>
+		</view>
+
+			
 		
 		
 		<view class="logout-section" v-if="isLoggedIn">
@@ -202,20 +213,18 @@
 			url: "/pages/identity/identity"
 		})
 	}
+	
+	const treatment = () => {
+		uni.navigateTo({
+			url: "/pages/treatment/treatment"
+		})
+	};
 
 	const toLogin = () => {
-		uni.showModal({
-			title: '提示',
-			content: '确定要退出登录吗？',
-			success: function(res) {
-				if (res.confirm) {
-					uni.removeStorageSync('userId');
-					// 退出后，重新加载页面数据，界面会更新为“请登录”状态
-					getWxUserById();
-				}
-			}
-		});
-	};
+			uni.navigateTo({
+				url: "/pages/login/login"
+			})
+		}
 </script>
 
 

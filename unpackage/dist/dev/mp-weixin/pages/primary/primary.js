@@ -87,16 +87,14 @@ const _sfc_main = {
         url: "/pages/identity/identity"
       });
     };
+    const treatment = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/treatment/treatment"
+      });
+    };
     const toLogin = () => {
-      common_vendor.index.showModal({
-        title: "提示",
-        content: "确定要退出登录吗？",
-        success: function(res) {
-          if (res.confirm) {
-            common_vendor.index.removeStorageSync("userId");
-            getWxUserById();
-          }
-        }
+      common_vendor.index.navigateTo({
+        url: "/pages/login/login"
       });
     };
     return (_ctx, _cache) => {
@@ -185,9 +183,20 @@ const _sfc_main = {
           size: "16"
         }),
         x: common_vendor.o(see),
-        y: common_vendor.unref(isLoggedIn)
+        y: common_vendor.p({
+          name: "list-dot",
+          color: "#F9AE3D",
+          size: "22"
+        }),
+        z: common_vendor.p({
+          name: "arrow-right",
+          color: "#909399",
+          size: "16"
+        }),
+        A: common_vendor.o(treatment),
+        B: common_vendor.unref(isLoggedIn)
       }, common_vendor.unref(isLoggedIn) ? {
-        z: common_vendor.o(toLogin)
+        C: common_vendor.o(toLogin)
       } : {});
     };
   }

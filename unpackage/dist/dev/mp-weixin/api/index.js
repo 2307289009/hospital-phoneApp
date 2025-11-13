@@ -18,6 +18,12 @@ const getIndexDoctorApi = () => {
 const getDoctorApi = (parm) => {
   return common_http.http.get("/wxapi/allApi/getDoctor", parm);
 };
+const visitDeleteApi = (parm) => {
+  return common_http.http.post("/wxapi/allApi/visitDelete", parm);
+};
+const getVisitListApi = (parm) => {
+  return common_http.http.get("/wxapi/allApi/getVisitList", parm);
+};
 const getSelectVisitListApi = (parm) => {
   return common_http.http.get("/wxapi/allApi/getSelectVisitList", parm);
 };
@@ -72,6 +78,7 @@ exports.getIndexNewsApi = getIndexNewsApi;
 exports.getNewsListApi = getNewsListApi;
 exports.getOrderListApi = getOrderListApi;
 exports.getSelectVisitListApi = getSelectVisitListApi;
+exports.getVisitListApi = getVisitListApi;
 exports.getVisitOrderListApi = getVisitOrderListApi;
 exports.getWxUserByIdApi = getWxUserByIdApi;
 exports.loginApi = loginApi;
@@ -80,3 +87,4 @@ exports.registerApi = registerApi;
 exports.rescheduleOrderApi = rescheduleOrderApi;
 exports.submitAuthApi = submitAuthApi;
 exports.uploadPhoto = uploadPhoto;
+exports.visitDeleteApi = visitDeleteApi;
