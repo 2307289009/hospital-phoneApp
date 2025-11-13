@@ -45,7 +45,7 @@
 	//新增
 	const addBtn = () => {
 		uni.navigateTo({
-			url: '/pages/add_patient/add_patient'
+			url: '/pages/treatmentAdd/treatmentAdd'
 		})
 	}
 	//编辑
