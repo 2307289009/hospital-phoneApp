@@ -103,3 +103,6 @@ export const uploadPhoto = (filePath) => {
 export const rescheduleOrderApi = (parm) => {
 	return http.post("/wxapi/allApi/rescheduleOrder",parm);
 }
+export const joinWaitlistApi = (parm)=>{
+	return http.post("/wxapi/allApi/waitlist/join",parm)
+}

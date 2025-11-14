@@ -56,7 +56,7 @@
 			</uv-action-sheet>
 
 			<view class="footer-actions">
-				<uv-button type="primary" text="确定挂号" @click="commit" size="large" shape="circle" :loading="isSubmitting"></uv-button>
+				<uv-button type="primary" :text="userInfo.mode === 'waitlist' ? '加入候补' : '确定挂号'" @click="commit" size="large" shape="circle" :loading="isSubmitting"></uv-button>
 			</view>
 
 			<uv-modal
@@ -105,7 +105,8 @@
 	} from '@dcloudio/uni-app'
 	import {
 		getSelectVisitListApi,
-		makeOrderAddApi
+		makeOrderAddApi,
+		joinWaitlistApi
 	} from '../../api/index.js'
 	const upRef = ref()
 	const sexSelect = ref()
@@ -127,7 +128,8 @@
 		visitUserId: '',
 		visitorName: '',
 		jobTitle: '',
-		price: ''
+		price: '',
+		mode: 'order'
 	})
 	const rules = reactive({
 		'timesArea': {
@@ -181,26 +183,38 @@
 	const submitToServer = async () => {
         isSubmitting.value = true;
         try {
-            const params = {
-                userId: userInfo.userId,
-                scheduleId: userInfo.scheduleId,  
-                visitUserId: userInfo.visitUserId,
-                doctorId: userInfo.doctorId,      
-                times: userInfo.times,            
-                timesArea: userInfo.timesArea,    
-                week: userInfo.week,              
-                address: userInfo.address         
-            };
-            
-            // makeOrderAddApi 会将 params 作为 application/json 发送
-            let res = await makeOrderAddApi(params);
-            
-            if (res && res.code == 200) {
-                uni.redirectTo({ url: "/pages/record/record" });
+            if (userInfo.mode === 'waitlist') {
+                const params = {
+                    scheduleId: userInfo.scheduleId,
+                    userId: userInfo.userId,
+                    visitUserId: userInfo.visitUserId,
+                    doctorId: userInfo.doctorId
+                };
+                let res = await joinWaitlistApi(params);
+                if (res && res.code == 200) {
+                    uni.showToast({ title: '已加入候补队列', icon: 'success' });
+                    uni.navigateBack();
+                } else {
+                    uni.showToast({ title: res.msg || '候补失败', icon: 'none' });
+                }
             } else {
-                uni.showToast({ title: res.msg || '挂号失败', icon: 'none' });
+                const params = {
+                    userId: userInfo.userId,
+                    scheduleId: userInfo.scheduleId,
+                    visitUserId: userInfo.visitUserId,
+                    doctorId: userInfo.doctorId,
+                    times: userInfo.times,
+                    timesArea: userInfo.timesArea,
+                    week: userInfo.week,
+                    address: userInfo.address
+                };
+                let res = await makeOrderAddApi(params);
+                if (res && res.code == 200) {
+                    uni.redirectTo({ url: "/pages/record/record" });
+                } else {
+                    uni.showToast({ title: res.msg || '挂号失败', icon: 'none' });
+                }
             }
-
         } catch (error) {
             console.error('提交异常', error);
         } finally {
