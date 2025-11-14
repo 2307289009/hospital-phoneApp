@@ -100,6 +100,24 @@
 				      }
 				},
 				{
+				      "path": "pages/treatment/treatment",
+				      "style": {
+				        "navigationBarTitleText": "就诊人管理"
+				      }
+				},
+				{
+				      "path": "pages/treatmentModify/treatmentModify",
+				      "style": {
+				        "navigationBarTitleText": "修改就诊人"
+				      }
+				},
+				{
+				      "path": "pages/treatmentAdd/treatmentAdd",
+				      "style": {
+				        "navigationBarTitleText": "添加就诊人"
+				      }
+				},
+				{
 					"path" : "pages/change/change",
 					"style" : 
 					{

@@ -38,7 +38,7 @@
 								<view class="date">{{ item.times }}</view> <view class="week">{{ item.week }}</view> </view>
 							<view class="meta-info">
 								
-								<text class="level-name">{{ item.levelName }}</text> 
+								<text class="level-name">{{ item.levelName }}</text> 
 								
 								<text>余号: <text class="highlight">{{ item.lastAmount }}</text></text> <text>挂号费: <text class="highlight">¥{{ item.price }}</text></text>
 								
@@ -48,10 +48,12 @@
 							<uv-button
 								size="small"
 								@click="toConfirm(item)"
-								type="primary"
+								:type="item.lastAmount > 0 ? 'primary' : 'warning'"
 								shape="circle"
-								text="立即挂号">
-							</uv-button> </view>
+								:text="item.lastAmount > 0 ? '立即挂号' : '候补'"
+							>
+							</uv-button>
+						</view>
 					</view>
 				</view>
 				<view v-else class="empty-state">
@@ -86,7 +88,16 @@
 		}
 	}
 
+	// --- 修改 toConfirm 方法 ---
 	const toConfirm = (item) => {
+		// 修改开始：如果余号为0或更少，则不执行任何操作
+		if (item.lastAmount <= 0) {
+			console.log('点击了候补按钮，不执行跳转');
+			return; 
+		}
+		// 修改结束
+		
+		// 只有余号 > 0 时，才会执行以下代码
 		item.deptName = deptName.value
 		item.jobTitle = jobTitle.value;
 		item.address = visitAddress.value;

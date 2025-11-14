@@ -16,6 +16,9 @@ if (!Math) {
   "./pages/primary/primary.js";
   "./pages/journal_content/journal_content.js";
   "./pages/identity/identity.js";
+  "./pages/treatment/treatment.js";
+  "./pages/treatmentModify/treatmentModify.js";
+  "./pages/treatmentAdd/treatmentAdd.js";
   "./pages/change/change.js";
 }
 const _sfc_main = {
