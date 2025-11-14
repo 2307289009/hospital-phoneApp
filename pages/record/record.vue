@@ -47,8 +47,12 @@
 					<text>订单时间：{{item.createTime}}</text>
 				</view>
 				<view class="btns" v-if="item.status == '1'">
+					<uv-button v-if="item.hasVisit == '0'" @click="changeBtn(item)" size="small" :plain="true"
+						text="挂号改签" shape="circle" :customStyle="{ color: '#0fff93', borderColor: '#0fff93' }">
+					</uv-button>
 					<uv-button v-if="item.hasVisit == '0'" @click="cancelBtn(item)" size="small" :plain="true"
-						text="取消挂号" shape="circle" :customStyle="{ color: '#FFA000', borderColor: '#FFA000' }"></uv-button>
+						text="取消挂号" shape="circle" :customStyle="{ color: '#FFA000', borderColor: '#FFA000' }">
+					</uv-button>
 					<uv-button v-if="item.hasVisit == '1'" size="small" :plain="true"
 						text="已就诊" shape="circle" :disabled="true" :customStyle="{ color: '#3F51B5', borderColor: '#3F51B5' }"></uv-button>
 				</view>
@@ -102,6 +106,12 @@
 				loadStatus.value = 'loadmore'
 			}
 		}
+	}
+	
+	const changeBtn = (item) => {
+		uni.navigateTo({
+			url: `/pages/change/change?item=${encodeURIComponent(JSON.stringify(item))}`
+		})
 	}
 
 	const loadmore = () => {

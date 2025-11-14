@@ -25,7 +25,10 @@ const _sfc_main = {
     const getWxUserById = async () => {
       const userId = common_vendor.index.getStorageSync("userId");
       if (!userId) {
-        Object.assign(userInfo, { image: "", nickName: "" });
+        Object.assign(userInfo, {
+          image: "",
+          nickName: ""
+        });
         isLoading.value = false;
         isError.value = false;
         return;
@@ -42,7 +45,7 @@ const _sfc_main = {
           throw new Error("Failed to fetch user info");
         }
       } catch (error) {
-        common_vendor.index.__f__("error", "at pages/primary/primary.vue:116", "获取用户信息失败:", error);
+        console.error("获取用户信息失败:", error);
         isError.value = true;
       } finally {
         isLoading.value = false;
@@ -58,6 +61,21 @@ const _sfc_main = {
     common_vendor.onPullDownRefresh(() => {
       getWxUserById();
     });
+    const see = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/see/see"
+      });
+    };
+    const evaluate = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/evaluate/evaluate"
+      });
+    };
+    const record = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/record/record"
+      });
+    };
     const toNews = () => {
       common_vendor.index.navigateTo({
         url: "/pages/journal/journal"
@@ -69,16 +87,14 @@ const _sfc_main = {
         url: "/pages/identity/identity"
       });
     };
+    const treatment = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/treatment/treatment"
+      });
+    };
     const toLogin = () => {
-      common_vendor.index.showModal({
-        title: "提示",
-        content: "确定要退出登录吗？",
-        success: function(res) {
-          if (res.confirm) {
-            common_vendor.index.removeStorageSync("userId");
-            getWxUserById();
-          }
-        }
+      common_vendor.index.navigateTo({
+        url: "/pages/login/login"
       });
     };
     return (_ctx, _cache) => {
@@ -113,7 +129,7 @@ const _sfc_main = {
       }), {
         b: isError.value,
         i: common_vendor.p({
-          name: "chat",
+          name: "list-dot",
           color: "#409EFF",
           size: "22"
         }),
@@ -134,13 +150,56 @@ const _sfc_main = {
           size: "16"
         }),
         n: common_vendor.o(toAuthIdentity),
-        o: isLoggedIn.value
-      }, isLoggedIn.value ? {
-        p: common_vendor.o(toLogin)
+        o: common_vendor.p({
+          name: "list-dot",
+          color: "#F9AE3D",
+          size: "22"
+        }),
+        p: common_vendor.p({
+          name: "arrow-right",
+          color: "#909399",
+          size: "16"
+        }),
+        q: common_vendor.o(evaluate),
+        r: common_vendor.p({
+          name: "list-dot",
+          color: "#F9AE3D",
+          size: "22"
+        }),
+        s: common_vendor.p({
+          name: "arrow-right",
+          color: "#909399",
+          size: "16"
+        }),
+        t: common_vendor.o(record),
+        v: common_vendor.p({
+          name: "list-dot",
+          color: "#F9AE3D",
+          size: "22"
+        }),
+        w: common_vendor.p({
+          name: "arrow-right",
+          color: "#909399",
+          size: "16"
+        }),
+        x: common_vendor.o(see),
+        y: common_vendor.p({
+          name: "list-dot",
+          color: "#F9AE3D",
+          size: "22"
+        }),
+        z: common_vendor.p({
+          name: "arrow-right",
+          color: "#909399",
+          size: "16"
+        }),
+        A: common_vendor.o(treatment),
+        B: common_vendor.unref(isLoggedIn)
+      }, common_vendor.unref(isLoggedIn) ? {
+        C: common_vendor.o(toLogin)
       } : {});
     };
   }
 };
-const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-fa34f965"]]);
+const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-fa34f965"], ["__file", "E:/System/phone/pages/primary/primary.vue"]]);
 wx.createPage(MiniProgramPage);
-//# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/primary/primary.js.map

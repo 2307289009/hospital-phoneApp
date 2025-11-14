@@ -2,15 +2,7 @@ target
 .idea
 node_modules
 uni_modules
-pages/suggestion
-pages/reset_password
-pages/order_patient
-pages/order
-pages/information
-pages/edit_patient
-pages/add_patient
-pages/patient
-unpackage
+unpackage/
 manifest.json
 package-lock.json
 manifest.json
