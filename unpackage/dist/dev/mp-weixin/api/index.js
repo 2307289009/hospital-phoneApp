@@ -73,6 +73,12 @@ const uploadPhoto = (filePath) => {
 const rescheduleOrderApi = (parm) => {
   return common_http.http.post("/wxapi/allApi/rescheduleOrder", parm);
 };
+const joinWaitlistApi = (parm) => {
+  return common_http.http.post("/wxapi/allApi/waitlist/join", parm);
+};
+const getMyWaitlistApi = (parm) => {
+  return common_http.http.get("/wxapi/allApi/waitlist/my", parm);
+};
 exports.addSuggestApi = addSuggestApi;
 exports.cancelOrderApi = cancelOrderApi;
 exports.getCategoryListApi = getCategoryListApi;
@@ -81,12 +87,14 @@ exports.getDoctorByDeptIdApi = getDoctorByDeptIdApi;
 exports.getIndexDeptApi = getIndexDeptApi;
 exports.getIndexDoctorApi = getIndexDoctorApi;
 exports.getIndexNewsApi = getIndexNewsApi;
+exports.getMyWaitlistApi = getMyWaitlistApi;
 exports.getNewsListApi = getNewsListApi;
 exports.getOrderListApi = getOrderListApi;
 exports.getSelectVisitListApi = getSelectVisitListApi;
 exports.getVisitListApi = getVisitListApi;
 exports.getVisitOrderListApi = getVisitOrderListApi;
 exports.getWxUserByIdApi = getWxUserByIdApi;
+exports.joinWaitlistApi = joinWaitlistApi;
 exports.loginApi = loginApi;
 exports.makeOrderAddApi = makeOrderAddApi;
 exports.registerApi = registerApi;

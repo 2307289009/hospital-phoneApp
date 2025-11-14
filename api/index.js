@@ -106,3 +106,6 @@ export const rescheduleOrderApi = (parm) => {
 export const joinWaitlistApi = (parm)=>{
 	return http.post("/wxapi/allApi/waitlist/join",parm)
 }
+export const getMyWaitlistApi = (parm)=>{
+	return http.get("/wxapi/allApi/waitlist/my",parm)
+}

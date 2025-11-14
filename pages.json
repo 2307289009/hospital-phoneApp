@@ -123,6 +123,14 @@
 					{
 						"navigationBarTitleText" : ""
 					}
+				},
+				{
+					"path" : "pages/candidate/candidate",
+					"style" : 
+					{
+						"navigationBarTitleText" : "候补档案",
+						"enablePullDownRefresh" : false
+					}
 				}
 	],
 	"globalStyle": {

@@ -20,6 +20,7 @@ if (!Math) {
   "./pages/treatmentModify/treatmentModify.js";
   "./pages/treatmentAdd/treatmentAdd.js";
   "./pages/change/change.js";
+  "./pages/candidate/candidate.js";
 }
 const _sfc_main = {
   onLaunch: function() {

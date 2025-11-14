@@ -97,6 +97,11 @@ const _sfc_main = {
         url: "/pages/login/login"
       });
     };
+    const candidate = () => {
+      common_vendor.index.navigateTo({
+        url: "/pages/candidate/candidate"
+      });
+    };
     return (_ctx, _cache) => {
       return common_vendor.e({
         a: isLoading.value
@@ -194,9 +199,20 @@ const _sfc_main = {
           size: "16"
         }),
         A: common_vendor.o(treatment),
-        B: common_vendor.unref(isLoggedIn)
+        B: common_vendor.p({
+          name: "list-dot",
+          color: "#F9AE3D",
+          size: "22"
+        }),
+        C: common_vendor.p({
+          name: "arrow-right",
+          color: "#909399",
+          size: "16"
+        }),
+        D: common_vendor.o(candidate),
+        E: common_vendor.unref(isLoggedIn)
       }, common_vendor.unref(isLoggedIn) ? {
-        C: common_vendor.o(toLogin)
+        F: common_vendor.o(toLogin)
       } : {});
     };
   }

@@ -17,7 +17,8 @@
     "pages/treatment/treatment",
     "pages/treatmentModify/treatmentModify",
     "pages/treatmentAdd/treatmentAdd",
-    "pages/change/change"
+    "pages/change/change",
+    "pages/candidate/candidate"
   ],
   "window": {
     "navigationBarTextStyle": "black",
