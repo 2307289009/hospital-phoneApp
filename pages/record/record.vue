@@ -165,6 +165,9 @@
 
 	onLoad(() => {
 		getList()
+		const end = Date.now();
+		const start = uni.getStorageSync("start2")
+		console.log(`挂号所需时间${end-start}ms`)
 	})
 </script>
 

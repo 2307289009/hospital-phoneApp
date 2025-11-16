@@ -37,9 +37,7 @@
 							<view class="date-info">
 								<view class="date">{{ item.times }}</view> <view class="week">{{ item.week }}</view> </view>
 							<view class="meta-info">
-								
-								<text class="level-name">{{ item.levelName }}</text> 
-								
+								<text class="level-name">{{ item.levelName }}</text><text>时段: <text class="highlight">{{ item.timeSlot == 1 ? "上午" : "下午" }}</text></text>
 								<text>余号: <text class="highlight">{{ item.lastAmount }}</text></text> <text>挂号费: <text class="highlight">¥{{ item.price }}</text></text>
 								
 							</view>
@@ -85,6 +83,7 @@
 		let res = await getDoctorApi(parm)
 		if (res && res.code == 200) {
 			scheduleList.value = res.data;
+			console.log(scheduleList.value)
 		}
 	}
 

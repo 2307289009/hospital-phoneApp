@@ -6178,7 +6178,7 @@ function populateParameters(fromRes, toRes) {
   const hostLanguage = (language || "").replace(/_/g, "-");
   const parameters = {
     appId: "",
-    appName: "queue-wx",
+    appName: "phone",
     appVersion: "1.0.0",
     appVersionCode: "100",
     appLanguage: getAppLanguage(hostLanguage),
@@ -6327,7 +6327,7 @@ const getAppBaseInfo = {
       hostSDKVersion: SDKVersion,
       hostTheme: theme,
       appId: "",
-      appName: "queue-wx",
+      appName: "phone",
       appVersion: "1.0.0",
       appVersionCode: "100",
       appLanguage: getAppLanguage(hostLanguage),
@@ -7075,9 +7075,9 @@ function isConsoleWritable() {
   return isWritable;
 }
 function initRuntimeSocketService() {
-  const hosts = "10.61.52.19,127.0.0.1";
+  const hosts = "192.168.137.1,192.168.200.1,192.168.31.190,127.0.0.1";
   const port = "8090";
-  const id = "mp-weixin_XgrJXz";
+  const id = "mp-weixin_E3jMby";
   const lazy = typeof swan !== "undefined";
   let restoreError = lazy ? () => {
   } : initOnError();

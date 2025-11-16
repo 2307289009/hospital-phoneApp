@@ -110,7 +110,12 @@
 		getIndexNews()
 		getIndexDept()
 		getIndexDoctor()
+		const start = Number(uni.getStorageSync("start"));
+		console.log(start)
+		const end = Date.now();
+		console.log(`登录到首页渲染完成耗时 ${(end - start).toFixed(3)} ms`);
 	})
+
 </script>
 
 <style lang="scss" scoped>

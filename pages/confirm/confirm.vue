@@ -31,8 +31,8 @@
 				<uv-form-item label="就诊时段" prop="timesArea" :borderBottom="true" labelWidth="90">
 					<uv-radio-group v-model="userInfo.timesArea" placement="row">
 						<uv-radio :customStyle="{marginLeft: '16px', marginRight: '25px'}" name="0"
-							label="上午"></uv-radio>
-						<uv-radio :customStyle="{marginRight: '16px'}" name="1" label="下午"></uv-radio>
+							label="上午" disabled></uv-radio>
+						<uv-radio :customStyle="{marginRight: '16px'}" name="1" label="下午" disabled></uv-radio>
 					</uv-radio-group>
 				</uv-form-item>
 
@@ -153,15 +153,17 @@
 	}
 	const commit = async () => {
         if (isSubmitting.value) return;
-
-		upRef.value.validate().then((res) => {
+		const start = Date.now()
+		uni.setStorageSync("start2",start)
+		submitToServer()
+		/*upRef.value.validate().then((res) => {
 			if (res) {
 				mockModalState.value = 'idle';
 				mockVerifyModal.value.open();
 			}
 		}).catch(err => {
 			uni.showToast({ title: '请检查表单', icon: 'none' });
-		})
+		})*/
 	}
 
 	const onMockVerifyClick = () => {
@@ -192,12 +194,16 @@
                 address: userInfo.address         
             };
             
+			console.log(params)
             // makeOrderAddApi 会将 params 作为 application/json 发送
             let res = await makeOrderAddApi(params);
             
             if (res && res.code == 200) {
                 uni.redirectTo({ url: "/pages/record/record" });
             } else {
+				const end = Date.now();
+				const start = uni.getStorageSync("start2")
+				console.log(`挂号所需时间${end-start}ms`)
                 uni.showToast({ title: res.msg || '挂号失败', icon: 'none' });
             }
 

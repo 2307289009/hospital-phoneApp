@@ -96,3 +96,4 @@ exports.uploadPhoto = uploadPhoto;
 exports.visitAddApi = visitAddApi;
 exports.visitDeleteApi = visitDeleteApi;
 exports.visitEditApi = visitEditApi;
+//# sourceMappingURL=../../.sourcemap/mp-weixin/api/index.js.map

@@ -76,6 +76,7 @@
 		})
 	}
 	const commit = async () => {
+		const start = Date.now();
 		addRef.value.validate().then(async (vali) => {
 			if (vali) {
 				let res = await loginApi(addModel)
@@ -83,6 +84,7 @@
 					console.log(res.data)
 					//存储用户的信息
 					uni.setStorageSync("userId", res.data.userId)
+					uni.setStorageSync("start",start);
 					uni.switchTab({
 						url: '../index/index'
 					})
