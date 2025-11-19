@@ -73,9 +73,17 @@ const uploadPhoto = (filePath) => {
 const rescheduleOrderApi = (parm) => {
   return common_http.http.post("/wxapi/allApi/rescheduleOrder", parm);
 };
+const getAiMessages = (parm) => {
+  return common_http.http.post("/wxapi/allApi/ai", parm);
+};
+const getCorpus = (parm) => {
+  return common_http.http.get("/wxapi/allApi/corpus");
+};
 exports.addSuggestApi = addSuggestApi;
 exports.cancelOrderApi = cancelOrderApi;
+exports.getAiMessages = getAiMessages;
 exports.getCategoryListApi = getCategoryListApi;
+exports.getCorpus = getCorpus;
 exports.getDoctorApi = getDoctorApi;
 exports.getDoctorByDeptIdApi = getDoctorByDeptIdApi;
 exports.getIndexDeptApi = getIndexDeptApi;

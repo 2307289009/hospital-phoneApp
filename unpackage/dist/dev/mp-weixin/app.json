@@ -17,7 +17,8 @@
     "pages/treatment/treatment",
     "pages/treatmentModify/treatmentModify",
     "pages/treatmentAdd/treatmentAdd",
-    "pages/change/change"
+    "pages/change/change",
+    "pages/ai/ai"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -42,6 +43,12 @@
         "iconPath": "static/222.png",
         "selectedIconPath": "static/222.png",
         "text": "挂号"
+      },
+      {
+        "pagePath": "pages/ai/ai",
+        "iconPath": "/static/333.png",
+        "selectedIconPath": "/static/333.png",
+        "text": "AI助手"
       },
       {
         "pagePath": "pages/primary/primary",

@@ -123,6 +123,13 @@
 					{
 						"navigationBarTitleText" : ""
 					}
+				},
+				{
+					"path" : "pages/ai/ai",
+					"style" : 
+					{
+						"navigationBarTitleText" : ""
+					}
 				}
 	],
 	"globalStyle": {
@@ -151,10 +158,16 @@
 			"selectedIconPath": "static/222.png",
 			"text": "挂号"
 		}, {
+			"pagePath": "pages/ai/ai",
+			"iconPath": "/static/333.png",
+			"selectedIconPath": "/static/333.png",
+			"text": "AI助手"
+		},
+		{
 			"pagePath": "pages/primary/primary",
 			"iconPath": "static/444.png",
 			"selectedIconPath": "static/444.png",
 			"text": "主页"
-		}]
+		}] 
 	}
 }

@@ -103,3 +103,11 @@ export const uploadPhoto = (filePath) => {
 export const rescheduleOrderApi = (parm) => {
 	return http.post("/wxapi/allApi/rescheduleOrder",parm);
 }
+//获取 AI 回答数据
+export const getAiMessages = (parm) => {
+	return http.post("/wxapi/allApi/ai",parm);
+}
+//语料库信息
+export const getCorpus = (parm) => {
+	return http.get("/wxapi/allApi/corpus");
+}
