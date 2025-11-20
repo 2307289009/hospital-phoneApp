@@ -73,14 +73,24 @@ const uploadPhoto = (filePath) => {
 const rescheduleOrderApi = (parm) => {
   return common_http.http.post("/wxapi/allApi/rescheduleOrder", parm);
 };
-const getAiMessages = (parm) => {
-  return common_http.http.post("/wxapi/allApi/ai", parm);
+const getAiMessages = (question) => {
+  return common_http.http.post("/api/LLM/ask", question, {
+    header: {
+      "Content-Type": "application/json"
+    }
+  });
 };
-const getCorpus = (parm) => {
-  return common_http.http.get("/wxapi/allApi/corpus");
+const getCorpus = () => {
+  return common_http.http.get("/api/LLM/getCommonQuestions", {});
+};
+const commonAsk = (questionId) => {
+  return common_http.http.get("/api/LLM/ask", {
+    questionId
+  });
 };
 exports.addSuggestApi = addSuggestApi;
 exports.cancelOrderApi = cancelOrderApi;
+exports.commonAsk = commonAsk;
 exports.getAiMessages = getAiMessages;
 exports.getCategoryListApi = getCategoryListApi;
 exports.getCorpus = getCorpus;

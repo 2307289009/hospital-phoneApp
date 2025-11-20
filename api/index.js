@@ -103,11 +103,21 @@ export const uploadPhoto = (filePath) => {
 export const rescheduleOrderApi = (parm) => {
 	return http.post("/wxapi/allApi/rescheduleOrder",parm);
 }
-//获取 AI 回答数据
-export const getAiMessages = (parm) => {
-	return http.post("/wxapi/allApi/ai",parm);
+//自主提问
+export const getAiMessages = (question) => {
+  return http.post("/api/LLM/ask", question, {
+    header: {
+      "Content-Type": "application/json"
+    }
+  });
 }
-//语料库信息
-export const getCorpus = (parm) => {
-	return http.get("/wxapi/allApi/corpus");
+//获取常见问题
+export const getCorpus = () => {
+	return http.get("/api/LLM/getCommonQuestions",{});
+}
+//回答常见问题
+export const commonAsk = (questionId) => {
+	return http.get("/api/LLM/ask",{
+		questionId
+	})
 }

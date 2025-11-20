@@ -19,10 +19,15 @@
           
         </view>
       </scroll-view>
+	  <view v-if="loading" class="typing-area">
+	    <view class="typing-dot"></view>
+	    <view class="typing-dot"></view>
+	    <view class="typing-dot"></view>
+	  </view>
 
       <view class="quick-panel">
-        <view class="quick-item" v-for="q in quickList" :key="q" @click="quickAsk(q)">
-          <text>{{ q }}</text>
+        <view class="quick-item" v-for="(item,index) in quickList" :key="item.id" @click="quickAsk(item.id,item.q)">
+          <text>{{ item.q }}</text>
         </view>
       </view>
 
@@ -41,9 +46,10 @@
 </template>
 <script setup>
 import { onMounted, ref } from 'vue'
-import { getAiMessages, getCorpus } from '../../api'
+import { getAiMessages, getCorpus, commonAsk } from '../../api'
 
 const inputText = ref('')
+const loading = ref(false)
 
 let quickList = ref([]);
 
@@ -52,8 +58,12 @@ const messages = ref([
 ])
 
 const getCorpusMessages = async () => {
-	const corpusList = await getCorpus();
-	quickList.value = corpusList;
+	const corpusList = (await getCorpus()).data;
+	
+	quickList.value = corpusList.map(item => ({
+	    id: item.questionId,
+	    q: item.question
+	}));
 }
 
 // 发送消息
@@ -71,25 +81,37 @@ const sendMessage = async () => {
 }
 
 const reply = async (text) => {
-	const replyText = await getAiMessages({text});
+	loading.value = true;
+	
+	const res = await getAiMessages(text);
+	const inner = JSON.parse(res.data);
+	const answer = (inner.choices[0].message.content).replace(/^\n+/, "");
+	
+	loading.value = false;
+	
 	messages.value.push({
 		role: 'ai',
-		text: replyText
+		text: answer
 	})
-	return;
 }
 
-const quickAsk = async (text) => {
-	if(!text) return;
+const quickAsk = async (id,q) => {
+	if(!q) return;
 	messages.value.push({
 		role: 'user',
-		text
+		text: q
 	})
+	loading.value = true;
 	
-	const replyText = await getAiMessages({text});
+	const res = await commonAsk(id);
+	const inner = JSON.parse(res.data);
+	const answer = (inner.choices[0].message.content).replace(/^\n+/, "");
+	
+	loading.value = false;
+	
 	messages.value.push({
 		role: 'ai',
-		text: replyText
+		text: answer
 	});
 	return;
 	
@@ -255,4 +277,35 @@ onMounted(() => {
 .send-btn[disabled] {
     background-color: #a4c4e8;
 }
+
+.typing-area {
+  display: flex;
+  gap: 10rpx;
+  padding: 20rpx;
+  align-self: flex-start;
+  margin-left: 20rpx;
+}
+
+.typing-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #4a90e2;
+  animation: blink 1.4s infinite both;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0% { opacity: .2; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.4); }
+  100% { opacity: .2; transform: scale(1); }
+}
+
 </style>
