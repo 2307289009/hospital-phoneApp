@@ -89,6 +89,16 @@
 					<uv-icon name="arrow-right" color="#909399" size="16"></uv-icon>
 				</view>
 			</view>
+			
+			<view class="menu-item" @click="candidate">
+				<view class="item-left">
+					<uv-icon name="list-dot" color="#F9AE3D" size="22"></uv-icon>
+					<text class="item-title">候补档案</text>
+				</view>
+				<view class="item-right">
+					<uv-icon name="arrow-right" color="#909399" size="16"></uv-icon>
+				</view>
+			</view>
 		</view>
 
 			
@@ -223,6 +233,12 @@
 	const toLogin = () => {
 			uni.navigateTo({
 				url: "/pages/login/login"
+			})
+		}
+		
+	const candidate = () => {
+			uni.navigateTo({
+				url: "/pages/candidate/candidate"
 			})
 		}
 </script>

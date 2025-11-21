@@ -128,7 +128,14 @@
 					"path" : "pages/ai/ai",
 					"style" : 
 					{
-						"navigationBarTitleText" : ""
+						"navigationBarTitleText" : "智能挂号问诊助手"
+					}
+				},
+				{
+					"path" : "pages/candidate/candidate",
+					"style" : 
+					{
+						"navigationBarTitleText" : "候补记录"
 					}
 				}
 	],

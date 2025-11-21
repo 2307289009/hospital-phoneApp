@@ -87,21 +87,13 @@
 		}
 	}
 
-	// --- 修改 toConfirm 方法 ---
 	const toConfirm = (item) => {
-		// 修改开始：如果余号为0或更少，则不执行任何操作
-		if (item.lastAmount <= 0) {
-			console.log('点击了候补按钮，不执行跳转');
-			return; 
-		}
-		// 修改结束
-		
-		// 只有余号 > 0 时，才会执行以下代码
 		item.deptName = deptName.value
 		item.jobTitle = jobTitle.value;
 		item.address = visitAddress.value;
+		item.mode = item.lastAmount > 0 ? 'order' : 'waitlist';
 		uni.navigateTo({
-			url: '/pages/confirm/confirm?item=' + encodeURIComponent(JSON.stringify(item)) //
+			url: '/pages/confirm/confirm?item=' + encodeURIComponent(JSON.stringify(item))
 		})
 	}
 

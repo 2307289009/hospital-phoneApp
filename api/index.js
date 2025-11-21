@@ -103,6 +103,7 @@ export const uploadPhoto = (filePath) => {
 export const rescheduleOrderApi = (parm) => {
 	return http.post("/wxapi/allApi/rescheduleOrder",parm);
 }
+
 //自主提问
 export const getAiMessages = (question) => {
   return http.post("/api/LLM/ask", question, {
@@ -120,4 +121,12 @@ export const commonAsk = (questionId) => {
 	return http.get("/api/LLM/ask",{
 		questionId
 	})
+}
+
+export const joinWaitlistApi = (parm)=>{
+	return http.post("/wxapi/allApi/waitlist/join",parm)
+}
+export const getMyWaitlistApi = (parm)=>{
+	return http.get("/wxapi/allApi/waitlist/my",parm)
+
 }
