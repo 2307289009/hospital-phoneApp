@@ -2,7 +2,7 @@ target
 .idea
 node_modules
 uni_modules
-unpackage/
+unpackage
 manifest.json
 package-lock.json
 manifest.json
