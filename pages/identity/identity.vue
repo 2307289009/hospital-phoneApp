@@ -77,15 +77,13 @@ const formRef = ref(null);
 // 上传文件回调
 const afterRead = async (event) => {
 	const { file, name } = event;
-	console.log(file.url)
 	const uploadRes = await uploadPhoto(file.url);
-	console.log(uploadRes)
 	if (name === 'front') {
-		form.cardFront = uploadRes.data.data;
-		frontList.value = [{ url: uploadRes.data.data }];
+		form.cardFront = uploadRes.data;
+		frontList.value = [{ url: uploadRes.data }];
 	} else if (name === 'back') {
-		form.cardBack = uploadRes.data.data;
-		backList.value = [{ url: uploadRes.data.data }];
+		form.cardBack = uploadRes.data;
+		backList.value = [{ url: uploadRes.data }];
 	}
 };
 
@@ -103,22 +101,17 @@ const deleteFile = (event) => {
 
 // 表单校验与提交
 const submitForm = async () => {
-	
-	if (!form.userType) return uni.$u.toast('请选择用户类型');
-	if (!form.cardNo) return uni.$u.toast('请输入卡号');
-	if (!form.cardFront || !form.cardBack) return uni.$u.toast('请上传证件正反面照片');
+	if (!form.userType) return uni.showToast({title: '请选择用户类型', icon: 'none'});
+	if (!form.cardNo) return uni.showToast({title: '请输入卡号', icon: 'none'});
+	if (!form.cardFront || !form.cardBack) return uni.showToast({title: '请上传身份验证照片', icon: 'none'});
 	
 	const userId = uni.getStorageSync("userId");
-	const nickName = getWxUserByIdApi({id});
-
+	const UserRes = await getWxUserByIdApi({userId});
+	
 	loading.value = true;
 	try {
-		
-		const userId = uni.getStorageSync("userId");
-		const UserRes = await getWxUserByIdApi({userId})
 		const userName = UserRes.data.nickName;
-		console.log(userId);
-		console.log(userName)
+		
 		const res = await submitAuthApi({
 			userType: form.userType,
 			cardNo: form.cardNo,
@@ -127,19 +120,19 @@ const submitForm = async () => {
 			userId: Number(userId),
 			username: userName
 		});
-		console.log(res);
+		
 		if (res && res.code === 200) {
 			uni.showToast({ title: '提交成功', icon: 'success' });
 			resetForm();
 		} else {
-			uni.$u.toast(res.message || '提交失败');
+			uni.showToast({ title: res.message || '提交失败', icon: 'none'});
 		}
 		uni.navigateTo({
 			url: "/pages/primary/primary" // 修正了路径，与上个页面一致
 		});
 	} catch (err) {
-		console.log(err.message);
-		uni.$u.toast('网络错误，请稍后再试');
+		
+		uni.showToast({title: '网络错误，请稍后再试', icon: 'none'});
 	} finally {
 		loading.value = false;
 	}
