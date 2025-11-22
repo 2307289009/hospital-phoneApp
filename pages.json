@@ -144,6 +144,13 @@
 					{
 						"navigationBarTitleText" : "档案信息"
 					}
+				},
+				{
+					"path" : "pages/modify/modify",
+					"style" : 
+					{
+						"navigationBarTitleText" : "修改信息"
+					}
 				}
 	],
 	"globalStyle": {

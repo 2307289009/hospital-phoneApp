@@ -140,6 +140,17 @@
           </view>
         </view>
 
+	  <view class="menu-item" hover-class="item-hover" @click="modify">
+	      <view class="item-left">
+	        <view class="icon-box yellow-bg">
+	          <uv-icon name="star-fill" color="#0fff6f" size="20"></uv-icon>
+	        </view>
+	        <text class="item-title">修改信息</text>
+	      </view>
+	      <uv-icon name="arrow-right" color="#C0C4CC" size="14"></uv-icon>
+	    </view>
+	  </view>
+
         <view class="menu-item" hover-class="item-hover" @click="evaluate">
           <view class="item-left">
             <view class="icon-box yellow-bg">
@@ -149,14 +160,17 @@
           </view>
           <uv-icon name="arrow-right" color="#C0C4CC" size="14"></uv-icon>
         </view>
+		
+		
       </view>
+	  
+
 
       <view class="logout-section" v-if="isLoggedIn">
         <button class="logout-btn" hover-class="logout-hover" @click="toLogin">退出登录</button>
       </view>
 
     </view>
-  </view>
 </template>
 
 <script setup>
@@ -255,6 +269,7 @@
   const toAuthIdentity = () => uni.navigateTo({ url: "/pages/identity/identity" });
   const treatment = () => uni.navigateTo({ url: "/pages/treatment/treatment" });
   const candidate = () => uni.navigateTo({ url: "/pages/candidate/candidate" });
+  const modify = () => uni.navigateTo({ url: "/pages/modify/modify" });
   
   // 如果是退出，通常建议使用 relaunch 或清除缓存
   const toLogin = () => {
