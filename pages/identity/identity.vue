@@ -127,8 +127,8 @@ const submitForm = async () => {
 		} else {
 			uni.showToast({ title: res.message || '提交失败', icon: 'none'});
 		}
-		uni.navigateTo({
-			url: "/pages/primary/primary" // 修正了路径，与上个页面一致
+		uni.switchTab({
+			url: "/pages/primary/primary"
 		});
 	} catch (err) {
 		

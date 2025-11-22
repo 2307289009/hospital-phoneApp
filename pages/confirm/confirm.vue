@@ -155,17 +155,14 @@
 	}
 	const commit = async () => {
 		if (isSubmitting.value) return;
-		const start = Date.now()
-		uni.setStorageSync("start2",start)
-		submitToServer()
-		/*upRef.value.validate().then((res) => {
+		upRef.value.validate().then((res) => {
 			if (res) {
 				mockModalState.value = 'idle';
 				mockVerifyModal.value.open();
 			}
 		}).catch(err => {
 			uni.showToast({ title: '请检查表单', icon: 'none' });
-		})*/
+		})
 	}
 
 	const onMockVerifyClick = () => {
