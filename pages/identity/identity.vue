@@ -1,14 +1,14 @@
 <template>
 	<view class="identity-container">
 		<u--form :model="form" ref="formRef" labelPosition="top">
-			<u-form-item label="用户类型" prop="userType" required>
-				<u-radio-group v-model="form.userType">
-					<u-radio name="student" label="学生"></u-radio>
-					<u-radio name="teacher" label="老师"></u-radio>
-				</u-radio-group>
-			</u-form-item>
+            <u-form-item label="用户类型" prop="userType" required>
+                <u-radio-group v-model="form.userType">
+                    <u-radio name="学生" label="学生"></u-radio>
+                    <u-radio name="教师" label="教师"></u-radio>
+                </u-radio-group>
+            </u-form-item>
 
-			<u-form-item :label="form.userType === 'student' ? '学号' : '教工号'" prop="cardNo" required>
+            <u-form-item :label="form.userType === '学生' ? '学号' : '教工号'" prop="cardNo" required>
 				<u-input
 					v-model="form.cardNo"
 					placeholder="请输入学号或教工号"
@@ -63,7 +63,7 @@ import { onShow } from '@dcloudio/uni-app';
 import { getWxUserByIdApi } from '../../api/index.js';
 
 const form = reactive({
-	userType: '', // 'student' or 'teacher'
+    userType: '',
 	cardNo: '',
 	cardFront: '',
 	cardBack: ''
