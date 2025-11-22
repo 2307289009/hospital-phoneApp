@@ -47,10 +47,17 @@
 				</uv-form-item>
 			</view>
 
-			<view class="cost-summary">
-				<text class="cost-label">挂号费用</text>
-				<text class="cost-value">￥{{ userInfo.price }}</text>
-			</view>
+            <view class="cost-summary">
+                <view class="cost-row">
+                  <text class="cost-label">原价</text>
+                  <text class="cost-value">￥{{ originPrice }}</text>
+                </view>
+                <view class="cost-row">
+                  <text class="cost-label">实际支付</text>
+                  <text class="cost-value">￥{{ actualPrice }}</text>
+                </view>
+                <view v-if="identityStatusHint" class="discount-hint">{{ identityStatusHint }}</view>
+            </view>
 
 			<uv-action-sheet ref="sexSelect" :actions="actions" title="请选择就诊人" @select="selectBtn">
 			</uv-action-sheet>
@@ -95,19 +102,21 @@
 </template>
 
 <script setup>
-	import {
-		reactive,
-		ref
-	} from 'vue';
+  import {
+    reactive,
+    ref,
+    computed
+  } from 'vue';
 	import {
 		onReady,
 		onLoad
 	} from '@dcloudio/uni-app'
-	import {
-		getSelectVisitListApi,
-		makeOrderAddApi,
-		joinWaitlistApi
-	} from '../../api/index.js'
+  import {
+    getSelectVisitListApi,
+    makeOrderAddApi,
+    joinWaitlistApi,
+    getWxUserByIdApi
+  } from '../../api/index.js'
 	const upRef = ref()
 	const sexSelect = ref()
 	const actions = ref([])
@@ -115,7 +124,7 @@
 	const mockVerifyModal = ref()
 	const mockModalState = ref('idle') // 'idle', 'loading', 'success'
 	
-	const userInfo = reactive({
+  const userInfo = reactive({
 		scheduleId: '',
 		userId: uni.getStorageSync("userId"),
 		deptName: '',
@@ -128,9 +137,10 @@
 		visitUserId: '',
 		visitorName: '',
 		jobTitle: '',
-		price: '',
-		mode: 'order'
-	})
+        price: '',
+        identityStatus: '',
+        mode: 'order'
+  })
 	const rules = reactive({
 		'timesArea': {
 			type: 'string',
@@ -148,11 +158,38 @@
 	const showSexSelect = () => {
 		sexSelect.value.open();
 	}
-	const selectBtn = (e) => {
+  const selectBtn = (e) => {
 		console.log(e)
 		userInfo.visitUserId = e.visitId
 		userInfo.visitorName = e.name
-	}
+  }
+  const getIdentity = async () => {
+    const uid = uni.getStorageSync("userId");
+    if (!uid) return;
+    try {
+      const res = await getWxUserByIdApi({ userId: uid });
+      if (res && res.code === 200 && res.data) {
+        userInfo.identityStatus = res.data.identityStatus || '';
+      }
+    } catch (e) {}
+  }
+  const actualPrice = computed(() => {
+    const p = Number(userInfo.price || 0);
+    const s = (userInfo.identityStatus || '').trim();
+    if (s === '学生') return (p * 0.05).toFixed(2);
+    if (s === '教师') return (p * 0.10).toFixed(2);
+    return p.toFixed(2);
+  })
+  const originPrice = computed(() => {
+    const p = Number(userInfo.price || 0);
+    return p.toFixed(2);
+  })
+  const identityStatusHint = computed(() => {
+    const s = (userInfo.identityStatus || '').trim();
+    if (s === '学生') return '已按学生95%报销';
+    if (s === '教师') return '已按教师90%报销';
+    return '';
+  })
 	const commit = async () => {
 		if (isSubmitting.value) return;
 		upRef.value.validate().then((res) => {
@@ -256,10 +293,11 @@
 		console.log(item)
 		Object.assign(userInfo, item)
 	})
-	onReady(() => {
-		upRef.value.setRules(rules)
-		getSelectVisitList()
-	})
+  onReady(() => {
+    upRef.value.setRules(rules)
+    getSelectVisitList()
+    getIdentity()
+  })
 </script>
 
 <style lang="scss">
@@ -332,23 +370,35 @@
 	}
 
 	// Cost summary section
-	.cost-summary {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 20px 10px;
-		font-size: 16px;
+.cost-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px 10px;
+    font-size: 16px;
 
-		.cost-label {
-			color: #606266;
-		}
+    .cost-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-		.cost-value {
-			color: #fa3534;
-			font-size: 20px;
-			font-weight: bold;
-		}
-	}
+    .cost-label {
+        color: #606266;
+    }
+
+    .cost-value {
+        color: #fa3534;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .discount-hint {
+        color: #909399;
+        font-size: 14px;
+        text-align: right;
+    }
+}
 
 	// Footer button container
 	.footer-actions {
