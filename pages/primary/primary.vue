@@ -1,405 +1,470 @@
 <template>
-	<view class="profile-container">
-		<view class="profile-header">
-			<template v-if="isLoading">
-				<view class="skeleton-avatar"></view>
-				<view class="skeleton-info">
-					<view class="skeleton-line skeleton-nickname"></view>
-					<view class="skeleton-line skeleton-motto"></view>
-				</view>
-			</template>
+  <view class="profile-container">
+    
+    <view class="profile-header">
+      <template v-if="isLoading">
+        <view class="header-content">
+          <view class="skeleton-avatar"></view>
+          <view class="skeleton-info">
+            <view class="skeleton-line skeleton-nickname"></view>
+            <view class="skeleton-line skeleton-motto"></view>
+          </view>
+        </view>
+      </template>
 
-			<template v-else-if="isError">
-				<view class="user-avatar">
-					<uv-image shape="circle" src="/static/user.jpg" width="150rpx" height="150rpx"></uv-image>
-				</view>
-				<view class="user-info" @click="retryLoad">
-					<text class="nickname error-text">加载失败，点击重试</text>
-				</view>
-			</template>
+      <template v-else-if="isError">
+        <view class="header-content" @click="retryLoad">
+          <view class="user-avatar-box">
+            <uv-image shape="circle" src="/static/user.jpg" width="140rpx" height="140rpx"></uv-image>
+          </view>
+          <view class="user-info">
+            <text class="nickname error-text">加载失败，点击重试</text>
+          </view>
+        </view>
+      </template>
 
-			<template v-else>
-				<view class="user-avatar">
-					<uv-image v-if="userInfo.image" shape="circle" :src="http.baseUrl + userInfo.image" width="150rpx"
-						height="150rpx"></uv-image>
-					<uv-image v-else shape="circle" src="/static/user.jpg" width="150rpx" height="150rpx"></uv-image>
-				</view>
-				<view class="user-info">
-					<text class="nickname">{{ userInfo.nickName || '请登录' }}</text>
-					<text class="motto">今天也要元气满满！</text>
-				</view>
-			</template>
-		</view>
+      <template v-else>
+        <view class="header-content">
+          <view class="user-avatar-box">
+            <uv-image 
+              v-if="userInfo.image" 
+              shape="circle" 
+              :src="http.baseUrl + userInfo.image" 
+              width="140rpx"
+              height="140rpx"
+            ></uv-image>
+            <uv-image 
+              v-else 
+              shape="circle" 
+              src="/static/user.jpg" 
+              width="140rpx" 
+              height="140rpx"
+            ></uv-image>
+          </view>
+          
+          <view class="user-info">
+            <view class="name-row">
+              <text class="nickname">{{ userInfo.nickName || '请点击登录' }}</text>
+              <view class="tag-wrap" v-if="isLoggedIn && !isLoading && !isError">
+                <uv-tag :text="identityLabel" :type="identityTagType" size="mini" shape="circle" plain></uv-tag>
+              </view>
+            </view>
+            <text class="motto" v-if="isLoggedIn">今天也要元气满满！</text>
+            <text class="motto" v-else @click="toLogin">登录后享受更多服务</text>
+          </view>
+        </view>
+      </template>
+      
+      <view class="header-curve"></view>
+    </view>
 
-		<view class="menu-card">
-			<view class="menu-item" @click="toNews">
-				<view class="item-left">
-					<uv-icon name="list-dot" color="#409EFF" size="22"></uv-icon>
-					<text class="item-title">新闻</text>
-				</view>
-				<view class="item-right">
-					<uv-icon name="arrow-right" color="#909399" size="16"></uv-icon>
-				</view>
-			</view>
-			<view class="menu-item" @click="toAuthIdentity">
-				<view class="item-left">
-					<uv-icon name="account" color="#409EFF" size="22"></uv-icon>
-					<text class="item-title">身份认证</text>
-				</view>
-				<view class="item-right">
-					<uv-icon name="arrow-right" color="#909399" size="16"></uv-icon>
-				</view>
-			</view>
-			<view class="menu-item" @click="evaluate">
-				<view class="item-left">
-					<uv-icon name="list-dot" color="#F9AE3D" size="22"></uv-icon>
-					<text class="item-title">评价</text>
-				</view>
-				<view class="item-right">
-					<uv-icon name="arrow-right" color="#909399" size="16"></uv-icon>
-				</view>
-			</view>
-			
-			<view class="menu-item" @click="record">
-				<view class="item-left">
-					<uv-icon name="list-dot" color="#F9AE3D" size="22"></uv-icon>
-					<text class="item-title">挂号档案</text>
-				</view>
-				<view class="item-right">
-					<uv-icon name="arrow-right" color="#909399" size="16"></uv-icon>
-				</view>
-			</view>
-			
-			<view class="menu-item" @click="see">
-				<view class="item-left">
-					<uv-icon name="list-dot" color="#F9AE3D" size="22"></uv-icon>
-					<text class="item-title">就诊档案</text>
-				</view>
-				<view class="item-right">
-					<uv-icon name="arrow-right" color="#909399" size="16"></uv-icon>
-				</view>
-			</view>
-			
-			<view class="menu-item" @click="treatment">
-				<view class="item-left">
-					<uv-icon name="list-dot" color="#F9AE3D" size="22"></uv-icon>
-					<text class="item-title">就诊人管理</text>
-				</view>
-				<view class="item-right">
-					<uv-icon name="arrow-right" color="#909399" size="16"></uv-icon>
-				</view>
-			</view>
-			
-			<view class="menu-item" @click="candidate">
-				<view class="item-left">
-					<uv-icon name="list-dot" color="#F9AE3D" size="22"></uv-icon>
-					<text class="item-title">候补档案</text>
-				</view>
-				<view class="item-right">
-					<uv-icon name="arrow-right" color="#909399" size="16"></uv-icon>
-				</view>
-			</view>
-		</view>
+    <view class="content-wrapper">
+      
+      <view class="menu-card">
+        <view class="card-header">医疗服务</view>
+        
+        <view class="menu-item" hover-class="item-hover" @click="record">
+          <view class="item-left">
+            <view class="icon-box blue-bg">
+              <uv-icon name="file-text" color="#3C9CFF" size="20"></uv-icon>
+            </view>
+            <text class="item-title">挂号档案</text>
+          </view>
+          <uv-icon name="arrow-right" color="#C0C4CC" size="14"></uv-icon>
+        </view>
 
-			
-		
-		
-		<view class="logout-section" v-if="isLoggedIn">
-			<button class="logout-btn" @click="toLogin">退出登录</button>
-		</view>
+        <view class="menu-item" hover-class="item-hover" @click="see">
+          <view class="item-left">
+            <view class="icon-box green-bg">
+              <uv-icon name="order" color="#19BE6B" size="20"></uv-icon>
+            </view>
+            <text class="item-title">就诊档案</text>
+          </view>
+          <uv-icon name="arrow-right" color="#C0C4CC" size="14"></uv-icon>
+        </view>
 
-	</view>
+        <view class="menu-item" hover-class="item-hover" @click="treatment">
+          <view class="item-left">
+             <view class="icon-box cyan-bg">
+              <uv-icon name="file-text" color="#4e09b5" size="20"></uv-icon>
+            </view>
+            <text class="item-title">就诊人管理</text>
+          </view>
+          <uv-icon name="arrow-right" color="#C0C4CC" size="14"></uv-icon>
+        </view>
+
+        <view class="menu-item" hover-class="item-hover" @click="candidate">
+          <view class="item-left">
+            <view class="icon-box purple-bg">
+              <uv-icon name="file-text" color="#63e30e" size="20"></uv-icon>
+            </view>
+            <text class="item-title">候补档案</text>
+          </view>
+          <uv-icon name="arrow-right" color="#C0C4CC" size="14"></uv-icon>
+        </view>
+      </view>
+
+      <view class="menu-card">
+        <view class="card-header">常用功能</view>
+        
+        <view class="menu-item" hover-class="item-hover" @click="toNews">
+          <view class="item-left">
+            <view class="icon-box orange-bg">
+              <uv-icon name="volume" color="#FF9900" size="20"></uv-icon>
+            </view>
+            <text class="item-title">新闻资讯</text>
+          </view>
+          <uv-icon name="arrow-right" color="#C0C4CC" size="14"></uv-icon>
+        </view>
+
+        <view class="menu-item" hover-class="item-hover" @click="toAuthIdentity">
+          <view class="item-left">
+             <view class="icon-box blue-bg">
+              <uv-icon name="account-fill" color="#3C9CFF" size="20"></uv-icon>
+            </view>
+            <text class="item-title">身份认证</text>
+          </view>
+          <view class="item-right">
+            <text class="status-text" v-if="isLoggedIn">{{ identityLabel }}</text>
+            <uv-icon name="arrow-right" color="#C0C4CC" size="14"></uv-icon>
+          </view>
+        </view>
+
+        <view class="menu-item" hover-class="item-hover" @click="evaluate">
+          <view class="item-left">
+            <view class="icon-box yellow-bg">
+              <uv-icon name="star-fill" color="#FFB800" size="20"></uv-icon>
+            </view>
+            <text class="item-title">服务评价</text>
+          </view>
+          <uv-icon name="arrow-right" color="#C0C4CC" size="14"></uv-icon>
+        </view>
+      </view>
+
+      <view class="logout-section" v-if="isLoggedIn">
+        <button class="logout-btn" hover-class="logout-hover" @click="toLogin">退出登录</button>
+      </view>
+
+    </view>
+  </view>
 </template>
 
 <script setup>
-	import {
-		reactive,
-		ref,
-		computed // 引入 computed
-	} from 'vue';
-	import http from '../../common/http.js'
-	import {
-		onShow,
-		onPullDownRefresh // 引入下拉刷新
-	} from '@dcloudio/uni-app'
-	import {
-		getWxUserByIdApi
-	} from '../../api/index.js'
+  import {
+    reactive,
+    ref,
+    computed
+  } from 'vue';
+  import http from '../../common/http.js'
+  import {
+    onShow,
+    onPullDownRefresh
+  } from '@dcloudio/uni-app'
+  import {
+    getWxUserByIdApi
+  } from '../../api/index.js'
 
-	// --- 新增状态变量 ---
-	const isLoading = ref(true); // 控制首次加载的骨架屏
-	const isError = ref(false); // 控制是否显示错误页面
+  // --- 状态变量 ---
+  const isLoading = ref(true);
+  const isError = ref(false);
 
-	// 用户信息
-	const userInfo = reactive({
-		image: '',
-		nickName: ''
-	});
+  const userInfo = reactive({
+    image: '',
+    nickName: '',
+    identityStatus: ''
+  });
 
-	// 计算属性，判断用户是否登录
-	const isLoggedIn = computed(() => !!uni.getStorageSync("userId"));
+  // 计算属性
+  const isLoggedIn = computed(() => !!uni.getStorageSync("userId"));
 
-	// 查询个人信息
-	const getWxUserById = async () => {
-		const userId = uni.getStorageSync("userId");
-		if (!userId) {
-			// 如果未登录，则清除用户信息并停止加载
-			Object.assign(userInfo, {
-				image: '',
-				nickName: ''
-			});
-			isLoading.value = false;
-			isError.value = false;
-			return;
-		}
+  const identityLabel = computed(() => {
+    const s = (userInfo.identityStatus || '').trim();
+    return s ? s : '未认证';
+  });
+  
+  const identityTagType = computed(() => {
+    const s = (userInfo.identityStatus || '').trim();
+    if (s === '教师') return 'success';
+    if (s === '学生') return 'primary';
+    return 'warning';
+  });
 
-		isLoading.value = true;
-		isError.value = false;
+  // API 调用
+  const getWxUserById = async () => {
+    const userId = uni.getStorageSync("userId");
+    if (!userId) {
+      Object.assign(userInfo, {
+        image: '',
+        nickName: '',
+        identityStatus: ''
+      });
+      isLoading.value = false;
+      isError.value = false;
+      return;
+    }
 
-		try {
-			let res = await getWxUserByIdApi({
-				userId: userId
-			});
-			// 模拟慢网速
-			// await new Promise(resolve => setTimeout(resolve, 2000));
+    isLoading.value = true;
+    isError.value = false;
 
-			if (res && res.code == 200) {
-				Object.assign(userInfo, res.data);
-			} else {
-				throw new Error('Failed to fetch user info');
-			}
-		} catch (error) {
-			console.error("获取用户信息失败:", error);
-			isError.value = true; // 关键：设置错误状态
-		} finally {
-			isLoading.value = false; // 结束加载状态
-			uni.stopPullDownRefresh(); // 停止下拉刷新动画
-		}
-	}
+    try {
+      let res = await getWxUserByIdApi({
+        userId: userId
+      });
+      if (res && res.code == 200) {
+        Object.assign(userInfo, res.data);
+      } else {
+        throw new Error('Failed to fetch user info');
+      }
+    } catch (error) {
+      console.error("获取用户信息失败:", error);
+      isError.value = true;
+    } finally {
+      isLoading.value = false;
+      uni.stopPullDownRefresh();
+    }
+  }
 
-	// --- 新增：重试加载函数 ---
-	const retryLoad = () => {
-		// 直接调用 getWxUserById 即可，它会处理加载和错误状态
-		getWxUserById();
-	};
+  const retryLoad = () => {
+    getWxUserById();
+  };
 
-	// --- 生命周期函数 ---
-	onShow(() => {
-		getWxUserById();
-	});
+  onShow(() => {
+    getWxUserById();
+  });
 
-	// --- 新增：下拉刷新 ---
-	onPullDownRefresh(() => {
-		getWxUserById();
-	});
+  onPullDownRefresh(() => {
+    getWxUserById();
+  });
 
-	const see = ()=>{
-			uni.navigateTo({
-				url: "/pages/see/see"
-			})
-		}
-
-	const evaluate = () => {
-		uni.navigateTo({
-			url: "/pages/evaluate/evaluate"
-		})
-	}
-	
-	const record = () => {
-		uni.navigateTo({
-			url: "/pages/record/record"
-		})
-	}
-
-	// --- 页面跳转逻辑 (保持不变) ---
-	const toNews = () => {
-		uni.navigateTo({
-			url: "/pages/journal/journal" // 修正了路径，与上个页面一致
-		});
-	};
-	
-	const toAuthIdentity = () => {
-		uni.navigateTo({
-			url: "/pages/identity/identity"
-		})
-	}
-	
-	const treatment = () => {
-		uni.navigateTo({
-			url: "/pages/treatment/treatment"
-		})
-	};
-
-	const toLogin = () => {
-			uni.navigateTo({
-				url: "/pages/login/login"
-			})
-		}
-		
-	const candidate = () => {
-			uni.navigateTo({
-				url: "/pages/candidate/candidate"
-			})
-		}
+  // --- 路由跳转 ---
+  const see = () => uni.navigateTo({ url: "/pages/see/see" });
+  const evaluate = () => uni.navigateTo({ url: "/pages/evaluate/evaluate" });
+  const record = () => uni.navigateTo({ url: "/pages/record/record" });
+  const toNews = () => uni.navigateTo({ url: "/pages/journal/journal" });
+  const toAuthIdentity = () => uni.navigateTo({ url: "/pages/identity/identity" });
+  const treatment = () => uni.navigateTo({ url: "/pages/treatment/treatment" });
+  const candidate = () => uni.navigateTo({ url: "/pages/candidate/candidate" });
+  
+  // 如果是退出，通常建议使用 relaunch 或清除缓存
+  const toLogin = () => {
+    // uni.clearStorageSync(); // 根据需求决定是否清理
+    uni.navigateTo({ url: "/pages/login/login" });
+  };
 </script>
 
-
 <style lang="scss" scoped>
-	/* 设置页面背景色 */
-	page {
-		background-color: #F5F6FA;
-	}
+  /* 页面整体背景 */
+  page {
+    background-color: #F5F7FA;
+  }
 
-	.profile-container {
-		padding-bottom: 40rpx;
-	}
+  .profile-container {
+    min-height: 100vh;
+  }
 
-	/* 头部区域 */
-	.profile-header {
-		display: flex;
-		align-items: center;
-		padding: 60rpx 40rpx;
-		background: linear-gradient(135deg, #5EB9FF 0%, #409EFF 100%);
-		color: white;
-		height: 200rpx;
-		/* 新增过渡效果，让状态切换更平滑 */
-		transition: background-color 0.3s;
-	}
+  /* --- 头部设计 --- */
+  .profile-header {
+    position: relative;
+    background: linear-gradient(135deg, #3A8DFF 0%, #2065E6 100%);
+    padding: 40rpx 40rpx 120rpx 40rpx; /* 底部留白给内容上浮 */
+    color: #fff;
+    overflow: hidden;
+  }
+  
+  /* 装饰性圆弧 */
+  .header-curve {
+    position: absolute;
+    bottom: -50rpx;
+    left: -10%;
+    width: 120%;
+    height: 100rpx;
+    background-color: #F5F7FA;
+    border-radius: 50% 50% 0 0;
+    z-index: 1;
+  }
 
-	.user-avatar {
-		width: 150rpx;
-		height: 150rpx;
-		border-radius: 50%;
-		border: 4rpx solid #fff;
-		box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
-		margin-right: 30rpx;
-		flex-shrink: 0; // 防止被压缩
-	}
+  .header-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    margin-top: 40rpx;
+  }
 
-	.user-info {
-		display: flex;
-		flex-direction: column;
+  .user-avatar-box {
+    border: 4rpx solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    margin-right: 30rpx;
+    box-shadow: 0 8rpx 16rpx rgba(0, 0, 0, 0.15);
+  }
 
-		.nickname {
-			font-size: 40rpx;
-			font-weight: bold;
-			margin-bottom: 10rpx;
-		}
+  .user-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 
-		.motto {
-			font-size: 26rpx;
-			opacity: 0.8;
-		}
+    .name-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12rpx;
+      
+      .nickname {
+        font-size: 40rpx;
+        font-weight: 600;
+        margin-right: 20rpx;
+        text-shadow: 0 2rpx 4rpx rgba(0,0,0,0.1);
+      }
+      
+      .tag-wrap {
+        /* 让 uv-tag 稍微垂直居中 */
+        display: flex; 
+      }
+    }
 
-		.error-text {
-			font-size: 32rpx;
-			font-weight: normal;
-			cursor: pointer;
-		}
-	}
+    .motto {
+      font-size: 26rpx;
+      opacity: 0.9;
+      font-weight: 300;
+    }
 
-	/* --- 新增骨架屏样式 --- */
-	@keyframes skeleton-blink {
-		0% {
-			background-color: rgba(255, 255, 255, 0.2);
-		}
+    .error-text {
+      font-size: 32rpx;
+      opacity: 1;
+    }
+  }
 
-		50% {
-			background-color: rgba(255, 255, 255, 0.4);
-		}
+  /* --- 内容区域上浮 --- */
+  .content-wrapper {
+    position: relative;
+    z-index: 10;
+    padding: 0 30rpx;
+    margin-top: -60rpx; /* 卡片上浮效果 */
+  }
 
-		100% {
-			background-color: rgba(255, 255, 255, 0.2);
-		}
-	}
+  /* --- 卡片通用样式 --- */
+  .menu-card {
+    background-color: #ffffff;
+    border-radius: 24rpx;
+    padding: 10rpx 0;
+    margin-bottom: 30rpx;
+    box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+  }
+  
+  .card-header {
+    padding: 24rpx 30rpx 10rpx;
+    font-size: 28rpx;
+    color: #909399;
+    font-weight: 500;
+  }
 
-	.skeleton-avatar {
-		width: 150rpx;
-		height: 150rpx;
-		border-radius: 50%;
-		margin-right: 30rpx;
-		background-color: rgba(255, 255, 255, 0.2);
-		animation: skeleton-blink 1.5s infinite ease-in-out;
-	}
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28rpx 30rpx;
+    background-color: #fff;
+    transition: background-color 0.2s;
+    
+    &:active {
+      background-color: #f9f9f9;
+    }
+  }
+  
+  .item-hover {
+    background-color: #f9f9f9 !important;
+  }
 
-	.skeleton-info {
-		flex: 1;
-	}
+  .item-left {
+    display: flex;
+    align-items: center;
 
-	.skeleton-line {
-		height: 36rpx;
-		border-radius: 8rpx;
-		background-color: rgba(255, 255, 255, 0.2);
-		animation: skeleton-blink 1.5s infinite ease-in-out;
-	}
+    .item-title {
+      font-size: 30rpx;
+      color: #333;
+      margin-left: 24rpx;
+      font-weight: 400;
+    }
+  }
+  
+  .item-right {
+    display: flex;
+    align-items: center;
+    .status-text {
+      font-size: 26rpx;
+      color: #909399;
+      margin-right: 10rpx;
+    }
+  }
 
-	.skeleton-nickname {
-		width: 50%;
-		margin-bottom: 20rpx;
-	}
+  /* --- 图标背景装饰 --- */
+  .icon-box {
+    width: 70rpx;
+    height: 70rpx;
+    border-radius: 20rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* 预设背景色类 */
+    &.blue-bg { background-color: rgba(60, 156, 255, 0.1); }
+    &.green-bg { background-color: rgba(25, 190, 107, 0.1); }
+    &.orange-bg { background-color: rgba(255, 153, 0, 0.1); }
+    &.yellow-bg { background-color: rgba(255, 184, 0, 0.1); }
+    &.purple-bg { background-color: rgba(144, 147, 153, 0.1); }
+    &.cyan-bg { background-color: rgba(24, 181, 102, 0.1); }
+  }
 
-	.skeleton-motto {
-		width: 70%;
-		height: 28rpx;
-	}
+  /* --- 退出登录按钮 --- */
+  .logout-section {
+    margin: 40rpx 0 60rpx;
+  }
 
-	/* 菜单卡片 (样式保持不变)
-	  模板的调整会自动让这里的样式生效，将两个item包裹在同一个卡片中
-	*/
-	.menu-card {
-		background-color: #ffffff;
-		border-radius: 20rpx;
-		margin: -60rpx 30rpx 0;
-		position: relative;
-		z-index: 10;
-		box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.08);
-		padding: 10rpx 30rpx;
-	}
+  .logout-btn {
+    background-color: #ffffff;
+    color: #FF4D4F;
+    font-size: 32rpx;
+    height: 96rpx;
+    line-height: 96rpx;
+    border-radius: 48rpx;
+    box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.05);
+    border: none;
+    font-weight: 500;
+    
+    &::after { border: none; }
+  }
+  
+  .logout-hover {
+    background-color: #FFF0F0;
+  }
 
-	.menu-item {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 30rpx 0;
-		/* border-bottom 会自动应用到第一个item上 */
-		border-bottom: 1px solid #f0f0f0;
+  /* --- 骨架屏动画 --- */
+  @keyframes skeleton-blink {
+    0% { opacity: 0.6; background-color: rgba(255, 255, 255, 0.3); }
+    50% { opacity: 1; background-color: rgba(255, 255, 255, 0.5); }
+    100% { opacity: 0.6; background-color: rgba(255, 255, 255, 0.3); }
+  }
 
-		/* :last-child 会自动应用到第二个item上，移除边框 */
-		&:last-child {
-			border-bottom: none;
-		}
-	}
+  .skeleton-avatar {
+    width: 140rpx;
+    height: 140rpx;
+    border-radius: 50%;
+    margin-right: 30rpx;
+    animation: skeleton-blink 1.5s infinite;
+  }
 
-	.item-left {
-		display: flex;
-		align-items: center;
+  .skeleton-info {
+    flex: 1;
+  }
 
-		.item-title {
-			font-size: 30rpx;
-			color: #303133;
-			margin-left: 20rpx;
-		}
-	}
+  .skeleton-line {
+    height: 32rpx;
+    border-radius: 8rpx;
+    animation: skeleton-blink 1.5s infinite;
+    margin-bottom: 16rpx;
+  }
 
-	/* 退出登录区域 (样式保持不变)
-	  模板的调整会自动让这个区域与上方的 *单个* menu-card 保持 20rpx 间距
-	*/
-	.logout-section {
-		padding: 40rpx 30rpx;
-		margin-top: 20rpx; 
-	}
+  .skeleton-nickname { width: 40%; height: 40rpx; }
+  .skeleton-motto { width: 70%; }
 
-	.logout-btn {
-		background-color: #ffffff;
-		color: #fa3534;
-		border-radius: 20rpx;
-		font-size: 32rpx;
-		font-weight: 500;
-		box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.05);
-		border: none;
-
-		&::after {
-			border: none;
-		}
-	}
 </style>
