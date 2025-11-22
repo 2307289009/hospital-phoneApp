@@ -137,6 +137,13 @@
 					{
 						"navigationBarTitleText" : "候补记录"
 					}
+				},
+				{
+					"path" : "pages/archive/archive",
+					"style" : 
+					{
+						"navigationBarTitleText" : "档案信息"
+					}
 				}
 	],
 	"globalStyle": {

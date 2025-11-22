@@ -107,6 +107,16 @@
       <view class="menu-card">
         <view class="card-header">常用功能</view>
         
+		<view class="menu-item" hover-class="item-hover" @click="archive">
+		  <view class="item-left">
+		    <view class="icon-box orange-bg">
+		      <uv-icon name="volume" color="#0fffbb" size="20"></uv-icon>
+		    </view>
+		    <text class="item-title">档案信息</text>
+		  </view>
+		  <uv-icon name="arrow-right" color="#C0C4CC" size="14"></uv-icon>
+		</view>
+		
         <view class="menu-item" hover-class="item-hover" @click="toNews">
           <view class="item-left">
             <view class="icon-box orange-bg">
@@ -237,6 +247,7 @@
   });
 
   // --- 路由跳转 ---
+  const archive = () => uni.navigateTo({ url: "/pages/archive/archive" });
   const see = () => uni.navigateTo({ url: "/pages/see/see" });
   const evaluate = () => uni.navigateTo({ url: "/pages/evaluate/evaluate" });
   const record = () => uni.navigateTo({ url: "/pages/record/record" });
