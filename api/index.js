@@ -49,7 +49,13 @@ export const makeOrderAddApi = (parm)=>{
 }
 //挂号列表
 export const getOrderListApi = (parm)=>{
-	return http.get("/wxapi/allApi/getOrderList",parm)
+    return http.get("/wxapi/allApi/getOrderList",parm)
+}
+export const checkInApi = (parm)=>{
+    return http.post("/wxapi/allApi/checkIn",parm)
+}
+export const reapplyApi = (parm)=>{
+    return http.post("/wxapi/allApi/reapply",parm)
 }
 //取消挂号
 export const cancelOrderApi = (parm)=>{
