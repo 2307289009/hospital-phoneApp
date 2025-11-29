@@ -31,6 +31,7 @@
 <script setup>
 	import {
 		computed,
+		onMounted,
 		ref
 	} from 'vue'
 	import http from '../../common/http.js'
@@ -38,7 +39,9 @@
 		onReady
 	} from '@dcloudio/uni-app';
 	import {
-		getCategoryListApi
+		getCategoryListApi,
+		getConfigTime,
+		getConfigDayNum
 	} from '../../api/index.js'
 	
 	const list = ref([])
@@ -76,6 +79,48 @@
 			getCategoryList()
 			uni.hideLoading();
 		}, 500)
+	})
+	
+	// 展示挂号规则弹窗
+	async function showRegisterRules() {
+		const dayRes = await getConfigDayNum();
+		const days = dayRes?.data ?? null;
+		try{
+			const timeRes = await getConfigTime();
+		}catch(err) {
+			const hour = err.code;
+			const minute = err.data;
+		
+			// 3. 组装规则文本
+			const rulesText = `
+				1. 您可以从今天起预约未来 ${days} 天内的所有号源。\n
+				2. 每天 ${hour} 点 ${minute} 分 开始放号。\n
+				3. 若未到放号时间，将出现“无法预约”的等提示。\n
+			`;
+		
+			// 4. 显示弹窗
+			uni.showModal({
+			    title: "挂号规则说明",
+			    content: rulesText,
+			    showCancel: true,
+				cancelText: "不再显示",
+			    confirmText: "了解",
+				success: (res) => {
+					if (res.cancel) {
+					    uni.setStorageSync('hideScheduleRules', true);
+					}
+					if (res.confirm) {}
+				},
+			});
+		}
+	}
+
+	onMounted(() => {
+		const hideScheduleRules = uni.getStorageSync("hideScheduleRules");
+		console.log(hideScheduleRules)
+		if(hideScheduleRules == false) {
+			showRegisterRules()
+		}
 	})
 </script>
 
