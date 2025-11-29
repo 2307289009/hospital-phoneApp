@@ -65,38 +65,6 @@
 			<view class="footer-actions">
 				<uv-button type="primary" :text="userInfo.mode === 'waitlist' ? '加入候补' : '确定挂号'" @click="commit" size="large" shape="circle" :loading="isSubmitting"></uv-button>
 			</view>
-
-			<!-- <uv-modal
-				ref="mockVerifyModal"
-				title="请完成安全验证"
-				:show-confirm-button="false"
-				:show-cancel-button="false"
-				:close-on-click-overlay="false"
-			>
-				<view class="mock-verify-content">
-					
-					<view v-if="mockModalState === 'success'" class="mock-state-view">
-						<uv-icon name="checkbox-mark" color="#00c777" size="40"></uv-icon>
-						<text class="success-text">验证成功</text>
-					</view>
-
-					<view v-else-if="mockModalState === 'loading'" class="mock-state-view">
-						<uv-loading-icon mode="circle" text="正在验证..." size="30"></uv-loading-icon>
-					</view>
-					
-					<view v-else-if="mockModalState === 'idle'" class="mock-state-view">
-						<uv-button
-							type="primary"
-							icon="shield"
-							text="点击验证"
-							@click="onMockVerifyClick"
-							size="large"
-							shape="circle"
-						></uv-button>
-					</view>
-					
-				</view>
-			</uv-modal> -->
 			
 		</uv-form>
 		<Verify
@@ -131,8 +99,7 @@
 	const actions = ref([])
 	const isSubmitting = ref(false)
 	const verifyRef = ref(null)
-	// const mockVerifyModal = ref()
-	// const mockModalState = ref('idle') // 'idle', 'loading', 'success'
+	
 	
   const userInfo = reactive({
 		scheduleId: '',
@@ -200,71 +167,30 @@
     if (s === '教师') return '已按教师90%报销';
     return '';
   })
-	// const commit = async () => {
-	// 	if (isSubmitting.value) return;
-	// 	upRef.value.validate().then((res) => {
-	// 		if (res) {
-	// 			mockModalState.value = 'idle';
-	// 			mockVerifyModal.value.open();
-	// 		}
-	// 	}).catch(err => {
-	// 		uni.showToast({ title: '请检查表单', icon: 'none' });
-	// 	})
-	// }
+	
 	const commit = async () => {
 			if (isSubmitting.value) return;
 			
 			upRef.value.validate().then((res) => {
 				if (res) {
-								// 校验表单通过后，唤起验证码组件
-								// 【安全检查】增加判断，避免未加载完成或绑定失败时报错
-								if (verifyRef.value) {
-									// 1. 尝试直接调用 (标准 Vue3)
-									if (typeof verifyRef.value.show === 'function') {
-										verifyRef.value.show();
-										return;
-									}
-									// 2. 尝试访问 $vm (UniApp Vue3 兼容 Options API 组件)
-									if (verifyRef.value.$vm && typeof verifyRef.value.$vm.show === 'function') {
-										verifyRef.value.$vm.show();
-										return;
-									}
-									// 3. 仍未找到，可能是组件内部使用了 <script setup> 但没有 defineExpose({ show })
-									console.error('Verify组件实例获取失败。如果Verify.vue使用<script setup>，请确保添加 defineExpose({ show });', verifyRef.value);
-									uni.showToast({ title: '验证组件未正确加载', icon: 'none' });
-								} else {
-									console.error('Verify ref 为空');
-									uni.showToast({ title: '验证组件加载异常，请重试', icon: 'none' });
-								}
-							}
+					// 唤起 AJ-Captcha 验证码
+					if (verifyRef.value) {
+						verifyRef.value.show();
+					}
+				}
 			}).catch(err => {
 				console.log(err);
 				uni.showToast({ title: '请检查表单', icon: 'none' });
 			})
 		}
 
-	// const onMockVerifyClick = () => {
-	// 	mockModalState.value = 'loading';
-		
-	// 	setTimeout(() => {
-	// 		mockModalState.value = 'success';
-		
-	// 		setTimeout(() => {
-	// 			mockVerifyModal.value.close();
-	// 			submitToServer();
-	// 		}, 500);
-			
-	// 	}, 1500);
-	// }
-	// 验证成功的回调函数
+	
 		const onVerifySuccess = (params) => {
 			console.log('AJ-Captcha 验证成功', params);
 			// 验证成功后，关闭验证弹窗并提交挂号
 			if (verifyRef.value) {
-				// 关闭弹窗
 				verifyRef.value.clickShow = false;
 			}
-			// 提交挂号
 			submitToServer();
 		}
 
