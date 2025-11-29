@@ -127,6 +127,7 @@
           <uv-icon name="arrow-right" color="#C0C4CC" size="14"></uv-icon>
         </view>
 
+
         <view class="menu-item" hover-class="item-hover" @click="toAuthIdentity">
           <view class="item-left">
              <view class="icon-box blue-bg">
