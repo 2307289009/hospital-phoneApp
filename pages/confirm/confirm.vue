@@ -66,7 +66,7 @@
 				<uv-button type="primary" :text="userInfo.mode === 'waitlist' ? '加入候补' : '确定挂号'" @click="commit" size="large" shape="circle" :loading="isSubmitting"></uv-button>
 			</view>
 
-			<uv-modal
+			<!-- <uv-modal
 				ref="mockVerifyModal"
 				title="请完成安全验证"
 				:show-confirm-button="false"
@@ -94,10 +94,18 @@
 							shape="circle"
 						></uv-button>
 					</view>
-
+					
 				</view>
-			</uv-modal>
+			</uv-modal> -->
+			
 		</uv-form>
+		<Verify
+			ref="verifyRef"
+			:mode="'pop'"
+			:captchaType="'blockPuzzle'"
+			:imgSize="{ width: '330px', height: '155px' }"
+			@success="onVerifySuccess"
+		></Verify>
 	</view>
 </template>
 
@@ -117,12 +125,14 @@
     joinWaitlistApi,
     getWxUserByIdApi
   } from '../../api/index.js'
+  import Verify from '@/pages/verify/verify.vue';
 	const upRef = ref()
 	const sexSelect = ref()
 	const actions = ref([])
 	const isSubmitting = ref(false)
-	const mockVerifyModal = ref()
-	const mockModalState = ref('idle') // 'idle', 'loading', 'success'
+	const verifyRef = ref(null)
+	// const mockVerifyModal = ref()
+	// const mockModalState = ref('idle') // 'idle', 'loading', 'success'
 	
   const userInfo = reactive({
 		scheduleId: '',
@@ -190,31 +200,73 @@
     if (s === '教师') return '已按教师90%报销';
     return '';
   })
+	// const commit = async () => {
+	// 	if (isSubmitting.value) return;
+	// 	upRef.value.validate().then((res) => {
+	// 		if (res) {
+	// 			mockModalState.value = 'idle';
+	// 			mockVerifyModal.value.open();
+	// 		}
+	// 	}).catch(err => {
+	// 		uni.showToast({ title: '请检查表单', icon: 'none' });
+	// 	})
+	// }
 	const commit = async () => {
-		if (isSubmitting.value) return;
-		upRef.value.validate().then((res) => {
-			if (res) {
-				mockModalState.value = 'idle';
-				mockVerifyModal.value.open();
-			}
-		}).catch(err => {
-			uni.showToast({ title: '请检查表单', icon: 'none' });
-		})
-	}
-
-	const onMockVerifyClick = () => {
-		mockModalState.value = 'loading';
-		
-		setTimeout(() => {
-			mockModalState.value = 'success';
-		
-			setTimeout(() => {
-				mockVerifyModal.value.close();
-				submitToServer();
-			}, 500);
+			if (isSubmitting.value) return;
 			
-		}, 1500);
-	}
+			upRef.value.validate().then((res) => {
+				if (res) {
+								// 校验表单通过后，唤起验证码组件
+								// 【安全检查】增加判断，避免未加载完成或绑定失败时报错
+								if (verifyRef.value) {
+									// 1. 尝试直接调用 (标准 Vue3)
+									if (typeof verifyRef.value.show === 'function') {
+										verifyRef.value.show();
+										return;
+									}
+									// 2. 尝试访问 $vm (UniApp Vue3 兼容 Options API 组件)
+									if (verifyRef.value.$vm && typeof verifyRef.value.$vm.show === 'function') {
+										verifyRef.value.$vm.show();
+										return;
+									}
+									// 3. 仍未找到，可能是组件内部使用了 <script setup> 但没有 defineExpose({ show })
+									console.error('Verify组件实例获取失败。如果Verify.vue使用<script setup>，请确保添加 defineExpose({ show });', verifyRef.value);
+									uni.showToast({ title: '验证组件未正确加载', icon: 'none' });
+								} else {
+									console.error('Verify ref 为空');
+									uni.showToast({ title: '验证组件加载异常，请重试', icon: 'none' });
+								}
+							}
+			}).catch(err => {
+				console.log(err);
+				uni.showToast({ title: '请检查表单', icon: 'none' });
+			})
+		}
+
+	// const onMockVerifyClick = () => {
+	// 	mockModalState.value = 'loading';
+		
+	// 	setTimeout(() => {
+	// 		mockModalState.value = 'success';
+		
+	// 		setTimeout(() => {
+	// 			mockVerifyModal.value.close();
+	// 			submitToServer();
+	// 		}, 500);
+			
+	// 	}, 1500);
+	// }
+	// 验证成功的回调函数
+		const onVerifySuccess = (params) => {
+			console.log('AJ-Captcha 验证成功', params);
+			// 验证成功后，关闭验证弹窗并提交挂号
+			if (verifyRef.value) {
+				// 关闭弹窗
+				verifyRef.value.clickShow = false;
+			}
+			// 提交挂号
+			submitToServer();
+		}
 
 	const submitToServer = async () => {
 		isSubmitting.value = true;
