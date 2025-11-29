@@ -161,6 +161,14 @@
           <uv-icon name="arrow-right" color="#C0C4CC" size="14"></uv-icon>
         </view>
 		
+		<view class="menu-item" hover-class="item-hover" @click="showRule">
+		  <view class="item-left">
+		    <view class="icon-box yellow-bg">
+		      <uv-icon name="file-text" color="#FFB800" size="20"></uv-icon>
+		    </view>
+		    <text class="item-title">放号规则</text>
+		  </view>
+		</view>
 		
       </view>
 	  
@@ -185,7 +193,9 @@
     onPullDownRefresh
   } from '@dcloudio/uni-app'
   import {
-    getWxUserByIdApi
+    getWxUserByIdApi,
+	getConfigTime,
+	getConfigDayNum
   } from '../../api/index.js'
 
   // --- 状态变量 ---
@@ -212,6 +222,40 @@
     if (s === '学生') return 'primary';
     return 'warning';
   });
+  
+	async function showRule() {
+		const dayRes = await getConfigDayNum();
+		const days = dayRes?.data ?? null;
+		try{
+			const timeRes = await getConfigTime();
+		}catch(err) {
+			const hour = err.code;
+			const minute = err.data;
+		
+			// 3. 组装规则文本
+			const rulesText = `
+				1. 您可以从今天起预约未来 ${days} 天内的所有号源。
+				2. 每天 ${hour} 点 ${minute} 分 开始放号。
+				3. 若未到放号时间，将出现“无法预约”的等提示。
+			`;
+		
+			// 4. 显示弹窗
+			uni.showModal({
+			    title: "挂号规则说明",
+			    content: rulesText,
+			    showCancel: true,
+				cancelText: "不再显示",
+			    confirmText: "了解",
+				success: (res) => {
+					if (res.cancel) {
+					    uni.setStorageSync('hideScheduleRules', true);
+					}
+					if (res.confirm) {}
+				},
+			});
+		}
+	}
+
 
   // API 调用
   const getWxUserById = async () => {
