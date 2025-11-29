@@ -126,7 +126,16 @@ export const commonAsk = (questionId) => {
 export const joinWaitlistApi = (parm)=>{
 	return http.post("/wxapi/allApi/waitlist/join",parm)
 }
+
 export const getMyWaitlistApi = (parm)=>{
 	return http.get("/wxapi/allApi/waitlist/my",parm)
 
+}
+//获取可提前预约天数
+export const getConfigDayNum = (parm) => {
+	return http.get("/wxapi/allApi/config/scheduleQueryDays",parm);
+}
+//获取每天预约开始时间
+export const getConfigTime = (parm) => {
+	return http.get("/wxapi/allApi/config/scheduleQueryTime",parm);
 }
