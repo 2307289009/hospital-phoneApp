@@ -243,16 +243,12 @@
 	}
 
 	const toNav = () => {
-    // 方式一：如果是 H5 (浏览器) 运行，直接跳
     // #ifdef H5
     window.location.href = 'http://localhost:1234';
     // #endif
 
-    // 方式二：如果是小程序，必须跳转到一个 web-view 页面
     // #ifdef MP-WEIXIN
     uni.navigateTo({
-        // 注意：你需要创建一个 pages/webview/webview 页面才能真正生效
-        // 这里的 encodeURIComponent 是为了防止链接中的特殊字符影响参数解析
         url: `/pages/webview/webview?url=${encodeURIComponent('http://localhost:1234')}`
     })
     // #endif
