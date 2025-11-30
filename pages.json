@@ -151,6 +151,13 @@
 					{
 						"navigationBarTitleText" : "修改信息"
 					}
+				},
+				{
+					"path" : "pages/map/index",
+					"style" : 
+					{
+						"navigationBarTitleText" : ""
+					}
 				}
 	],
 	"globalStyle": {
@@ -189,6 +196,11 @@
 			"iconPath": "static/444.png",
 			"selectedIconPath": "static/444.png",
 			"text": "主页"
+		},{
+			"pagePath": "pages/map/index",
+			"iconPath": "static/444.png",
+			"selectedIconPath": "static/444.png",
+			"text": "地图"
 		}] 
 	}
 }
