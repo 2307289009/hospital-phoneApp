@@ -156,7 +156,7 @@
 					"path" : "pages/webview/webview",
 					"style" : 
 					{
-						"navigationBarTitleText" : "导航页面容器"
+						"navigationBarTitleText" : "导航"
 					}
 				}
 	],

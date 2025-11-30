@@ -243,16 +243,25 @@
 	}
 
 	const toNav = () => {
-    // #ifdef H5
-    window.location.href = 'http://localhost:1234';
-    // #endif
+		if (!latestOrder.value || !latestOrder.value.deptName) {
+			uni.showToast({ title: '暂无导航目标', icon: 'none' });
+			return;
+		}
 
-    // #ifdef MP-WEIXIN
-    uni.navigateTo({
-        url: `/pages/webview/webview?url=${encodeURIComponent('http://localhost:1234')}`
-    })
-    // #endif
-}
+		const destination = latestOrder.value.deptName;
+
+		const targetUrl = `http://localhost:1234/?dest=${encodeURIComponent(destination)}`;
+
+		// #ifdef H5
+		window.location.href = targetUrl;
+		// #endif
+
+		// #ifdef MP-WEIXIN
+		uni.navigateTo({
+			url: `/pages/webview/webview?url=${encodeURIComponent(targetUrl)}`
+		})
+		// #endif
+	}
 	
 	onLoad(() => {
 		getIndexNews()
