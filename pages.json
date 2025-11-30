@@ -151,6 +151,13 @@
 					{
 						"navigationBarTitleText" : "修改信息"
 					}
+				},
+				{
+					"path" : "pages/webview/webview",
+					"style" : 
+					{
+						"navigationBarTitleText" : "导航页面容器"
+					}
 				}
 	],
 	"globalStyle": {
