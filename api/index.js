@@ -145,3 +145,8 @@ export const getConfigDayNum = (parm) => {
 export const getConfigTime = (parm) => {
 	return http.get("/wxapi/allApi/config/scheduleQueryTime",parm);
 }
+//获取前面还有多少人
+export const getQueueStatusApi = (parm) => {
+	console.log(parm);
+	return http.get("/wxapi/allApi/queueStatus",parm);
+}

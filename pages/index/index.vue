@@ -21,6 +21,11 @@
 					<text class="title-text">当前挂号提醒</text>
 				</view>
 				
+				<view class="queue-status">
+					<uv-text v-if="latestOrder.signInStatus == '1'" :text="`前方还有${aheadCount}人`"></uv-text>
+					<uv-text v-else text=""></uv-text>
+				</view>
+				
 				<view class="header-right">
 					<uv-button 
 						text="导航" 
@@ -103,7 +108,8 @@
 		getIndexDoctorApi,
 		getOrderListApi,
 		checkInApi,
-		reapplyApi
+		reapplyApi,
+		getQueueStatusApi
 	} from '../../api/index.js'
 	
 	const indicatorDots = ref(true)
@@ -117,6 +123,8 @@
 	const latestOrder = ref(null)
 	const nowTs = ref(Date.now())
 	let timer = null
+	
+	const aheadCount = ref(0);
 	
 	const getIndexNews = async () => {
 		let res = await getIndexNewsApi()
@@ -160,6 +168,13 @@
 				latestOrder.value = null;
 			}
 		}
+		
+		const makeId = latestOrder.value.makeId;
+		try{
+			const res = await getQueueStatusApi({makeId});
+			aheadCount.value = res.data.aheadCount;
+		}catch(err) {console.log(err)}
+		
 	}
 	
 	const toRecord = () => {
@@ -342,6 +357,11 @@
 			align-items: center;
 			.title-text { font-size: 15px; font-weight: bold; color: #333; margin-left: 6px; }
 		}
+	}
+	.queue-status {
+		font-size: 15px; 
+		color: #333; 
+		margin-left: 6px;
 	}
 	.header-right {
 		display: flex;
