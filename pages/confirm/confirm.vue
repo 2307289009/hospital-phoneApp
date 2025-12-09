@@ -162,13 +162,22 @@
 	}
 	
 	const selectBtn = (e) => {
-		console.log(e)
 		const birthStr = e.birthday;
 		const age = calcAge(birthStr);
 		if(age >= 18 && userInfo.deptName === "儿科") {
 			uni.showModal({
 			  title: '提示',
 			  content: '患者已成年，无法在儿科就诊，请选择其他科室进行挂号', 
+			  showCancel: false
+			})
+			return;
+		}
+		
+		const sex = e.sex;
+		if(sex == '0' && userInfo.deptName === "妇产科") {
+			uni.showModal({
+			  title: '提示',
+			  content: '男性患者不应在妇产科就诊，请确认您要挂的科室', 
 			  showCancel: false
 			})
 			return;
