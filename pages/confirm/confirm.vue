@@ -135,21 +135,57 @@
 	const showSexSelect = () => {
 		sexSelect.value.open();
 	}
-  const selectBtn = (e) => {
+	
+	const calcAge = (birthStr) => {
+		const parts = birthStr.split("-");
+		if (parts.length !== 3) {
+			return NaN;
+		}
+
+		const [y, m, d] = parts.map(Number);
+		const birth = new Date(y, m - 1, d);
+
+		if (isNaN(birth.getTime())) {
+			return NaN;
+		} 
+		const now = new Date();
+		let age = now.getFullYear() - birth.getFullYear();
+
+		const hasBirthdayPassed = now.getMonth() > birth.getMonth() ||
+			(now.getMonth() === birth.getMonth() && now.getDate() >= birth.getDate());
+
+		if (!hasBirthdayPassed) {
+			age --
+		}
+
+		return age;
+	}
+	
+	const selectBtn = (e) => {
 		console.log(e)
+		const birthStr = e.birthday;
+		const age = calcAge(birthStr);
+		if(age >= 18 && userInfo.deptName === "儿科") {
+			uni.showModal({
+			  title: '提示',
+			  content: '患者已成年，无法在儿科就诊，请选择其他科室进行挂号', 
+			  showCancel: false
+			})
+			return;
+		}
 		userInfo.visitUserId = e.visitId
 		userInfo.visitorName = e.name
-  }
-  const getIdentity = async () => {
-    const uid = uni.getStorageSync("userId");
-    if (!uid) return;
-    try {
-      const res = await getWxUserByIdApi({ userId: uid });
-      if (res && res.code === 200 && res.data) {
-        userInfo.identityStatus = res.data.identityStatus || '';
-      }
-    } catch (e) {}
-  }
+	}
+	const getIdentity = async () => {
+		const uid = uni.getStorageSync("userId");
+		if (!uid) return;
+		try {
+			const res = await getWxUserByIdApi({ userId: uid });
+				if (res && res.code === 200 && res.data) {
+				userInfo.identityStatus = res.data.identityStatus || '';
+			}
+		} catch (e) {}
+	}
   const actualPrice = computed(() => {
     const p = Number(userInfo.price || 0);
     const s = (userInfo.identityStatus || '').trim();
@@ -263,12 +299,13 @@
 			"userId": uni.getStorageSync("userId")
 		})
 		if (res && res.code == 200) {
+			console.log("visiter datas: ", res.data);
 			actions.value = res.data
 		}
 	}
 	onLoad((option) => {
 		const item = JSON.parse(decodeURIComponent(option.item))
-		console.log(item)
+		console.log("item:",item)
 		Object.assign(userInfo, item)
 	})
   onReady(() => {
