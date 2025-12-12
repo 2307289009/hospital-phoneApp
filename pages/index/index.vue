@@ -64,7 +64,7 @@
 				</view>
 				
 				<view class="action-btn" @click.stop>
-					<uv-button v-if="latestOrder.hasCall == '1' && !isMissed(latestOrder) && latestOrder.signInStatus != '1'" 
+					<uv-button v-if="latestOrder.hasCall == '0' && !isMissed(latestOrder) && latestOrder.signInStatus != '1'" 
 						@click="checkIn(latestOrder)" size="small" :plain="true" text="签到" 
 						shape="circle" :customStyle="{ color: '#67C23A', borderColor: '#67C23A', height: '28px', padding: '0 15px' }">
 					</uv-button>
