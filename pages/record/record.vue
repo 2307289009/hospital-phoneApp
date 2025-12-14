@@ -60,7 +60,7 @@
                     <uv-button v-if="item.hasVisit == '0'" @click="cancelBtn(item)" size="small" :plain="true"
                         text="取消挂号" shape="circle" :customStyle="{ color: '#FFA000', borderColor: '#FFA000' }">
                     </uv-button>
-                    <uv-button v-if="item.hasCall == '1' && !isMissed(item) && item.signInStatus != '1'" @click="checkIn(item)" size="small" :plain="true"
+                    <uv-button v-if="item.hasCall == '0' && !isMissed(item) && item.signInStatus != '1'" @click="checkIn(item)" size="small" :plain="true"
                         text="签到" shape="circle" :customStyle="{ color: '#67C23A', borderColor: '#67C23A' }">
                     </uv-button>
                     <uv-button v-if="item.hasVisit == '1'" size="small" :plain="true"

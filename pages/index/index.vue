@@ -266,6 +266,7 @@
 		const destination = latestOrder.value.deptName;
 
 		const targetUrl = `http://localhost:1234/?dest=${encodeURIComponent(destination)}`;
+		//const targetUrl = `https://misaka16483.abrdns.com/ar/?dest=${encodeURIComponent(destination)}`;
 
 		// #ifdef H5
 		window.location.href = targetUrl;

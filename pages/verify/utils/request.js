@@ -1,6 +1,7 @@
 
 // let baseUrl = "https://captcha.anji-plus.com/captcha-api"
 let baseUrl = "http://localhost:8089"
+//let baseUrl = "https://misaka16483.abrdns.com/"
 
 export const myRequest = (option={})=>{
 	return new Promise((reslove,reject)=>{
