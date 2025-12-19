@@ -112,7 +112,7 @@
 			}			
 		}catch(error) {
 			uni.showToast({
-				title: "未知错误"
+				title: error.message
 			})
 		}
 	}
