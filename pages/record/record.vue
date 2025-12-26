@@ -250,7 +250,15 @@ import {
 	}
 
 	const cancelConfirm = async () => {
-		let res = await cancelOrderApi(parms)
+		let res;
+		try {
+			res = await cancelOrderApi(parms)
+		}catch(err) {
+			console.log(err)
+			cancelModal.value.close();
+			return;
+		}
+		
 		if (res && res.code == 200) {
 			indexList.value = []
 			currentPage.value = 1;
