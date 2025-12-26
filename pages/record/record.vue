@@ -260,8 +260,8 @@ import {
 				message: res.msg,
 				bgColor: '#3F51B5',
 			})
-			cancelModal.value.close()
 		}
+		cancelModal.value.close()
 	}
 
     onLoad(() => {
