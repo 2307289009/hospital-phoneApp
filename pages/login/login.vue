@@ -79,16 +79,26 @@
 		const start = Date.now();
 		addRef.value.validate().then(async (vali) => {
 			if (vali) {
-				let res = await loginApi(addModel)
-				if (res && res.code == 200) {
-					console.log(res.data)
-					//存储用户的信息
-					uni.setStorageSync("userId", res.data.userId)
-					uni.setStorageSync("start",start);
-					uni.switchTab({
-						url: '../index/index'
-					})
-				}
+				// let res = await loginApi(addModel)
+				// if (res && res.code == 200) {
+				// 	console.log(res.data)
+				// 	//存储用户的信息
+				// 	uni.setStorageSync("userId", res.data.userId)
+				// 	uni.setStorageSync("start",start);
+				// 	uni.switchTab({
+				// 		url: '../index/index'
+				// 	})
+				// }
+				const User = {
+					userId: '1',
+					userName: '1',
+					token: 'token-abcdefg'
+				};
+				uni.setStorageSync("userId", User.userId)
+				uni.setStorageSync("start",start);
+				uni.switchTab({
+					url: '../index/index'
+				})
 			}
 		})
 
