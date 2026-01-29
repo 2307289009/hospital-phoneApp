@@ -18,6 +18,7 @@
 			height: 100%;
 		}
 	
+		/*去掉挂号页面科室右侧滚动条 */
 		::-webkit-scrollbar {
 			display: none;
 		}
